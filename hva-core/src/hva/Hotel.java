@@ -1,10 +1,9 @@
 package hva;
 
+import hva.exceptions.ImportFileException;
 import java.io.Serial;
 import java.io.Serializable;
 
-//FIXME import other Java classes
-//FIXME import project classes
 
 public class Hotel implements Serializable {
 
@@ -22,12 +21,12 @@ public class Hotel implements Serializable {
      * @throws ImportFileException
      */
     void importFile(String filename) throws ImportFileException {
-	try {
+	/*try {
             // FIXME open import file and create the associated objects
 	    // ....
-        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+        } catch (IOException | UnrecognizedEntryException / FIXME maybe other exceptions / e) {
             throw new ImportFileException(filename, e);
-        }
+        }*/
     }
 
 }
