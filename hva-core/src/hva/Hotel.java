@@ -4,7 +4,6 @@ import hva.exceptions.ImportFileException;
 import java.io.Serial;
 import java.io.Serializable;
 
-
 public class Hotel implements Serializable {
 
     @Serial

@@ -1,7 +1,7 @@
 package hva;
 
-import java.io.*;
 import hva.exceptions.*;
+import java.io.*;
 //FIXME import other Java classes
 //FIXME import other project classes
 
@@ -56,5 +56,7 @@ public class HotelManager {
     public void importFile(String filename) throws ImportFileException {
         _hotel.importFile(filename);
     }
-
+    public Hotel getHotel(){
+        return _hotel;
+    }
 }
