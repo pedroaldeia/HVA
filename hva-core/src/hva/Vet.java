@@ -8,4 +8,5 @@ public class Vet extends Employee{
     // implement addResponsibility and accept
     public Vet(String id, String name) {
         super(id, name);
+    } 
 }
