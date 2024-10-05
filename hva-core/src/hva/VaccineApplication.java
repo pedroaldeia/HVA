@@ -1,10 +1,10 @@
 package hva;
 
-public class VaccineAplication {
+public class VaccineApplication {
     private Vet _vet;
     private Animal _animal;
 
-    public VaccineAplication(Vet vet, Animal animal){
+    public VaccineApplication(Vet vet, Animal animal){
         _vet = vet;
         _animal = animal;
     }

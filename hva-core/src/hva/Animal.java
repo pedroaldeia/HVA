@@ -8,7 +8,7 @@ public class Animal {
     private String _name;
     private Species _species;
     private Habitat _habitat;
-    private List<Integer> injuryRecord = new ArrayList<>();
+    private List<Integer> _injuryRecord = new ArrayList<>();
 
     public Animal(String id, String name, Species species){
         _id = id;
@@ -16,4 +16,17 @@ public class Animal {
         _species = species;
     }
 
+    @Override
+    public String toString(){
+        return "ANIMAL" + _id + _name + _species.getId() + _injuryRecord + _habitat.getId();
+    }
+
+
+    public String getId(){
+        return _id;
+    }
+
+    public String getName(){
+        return _name;
+    }
 }
