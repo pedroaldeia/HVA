@@ -13,4 +13,13 @@ public class Species {
         _id = id;
         _name = name;
     }
+
+
+    public String getId() {
+        return _id;
+    }
+
+    public String getName() {
+        return _name;
+    }
 }

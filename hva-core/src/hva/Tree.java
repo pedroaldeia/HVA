@@ -1,12 +1,13 @@
 package hva;
 
 public abstract class Tree {
-    private String _id;
-    private String _name;
-    private int _age;
-    private double _cleaningDifficulty;
-    private Season _season;
-    private int _seasonCounter;
+    protected String _id;
+    protected String _name;
+    protected  int _age;
+    protected double _cleaningDifficulty;
+    protected Season _season;
+    protected int _seasonCounter;
+
 
     public Tree(String id, String name, int age, double cleaningDifficulty){
         _id = id;
@@ -15,4 +16,11 @@ public abstract class Tree {
         _cleaningDifficulty = cleaningDifficulty;
     }
 
+    public String getId(){
+        return _id;
+    }
+
+    public String getName() {
+        return _name;
+    }
 }

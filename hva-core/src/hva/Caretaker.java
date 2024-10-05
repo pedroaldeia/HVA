@@ -3,22 +3,22 @@ package hva;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vet extends Employee{
-    private List<Species> _responsibilityList = new ArrayList<>();
+public class Caretaker extends Employee{
+    private List<Habitat> _responsibilityList = new ArrayList<>();
 
     // implement addResponsibility and accept
 
-    public Vet(String id, String name) {
+    public Caretaker(String id, String name) {
         super(id, name);
     }
 
     @Override
     public String toString(){
         if (_responsibilityList.isEmpty()){
-            return "VET|" + _id + "|" + _name; 
+            return "TRT|" + _id + "|" + _name; 
         }
         else{
-            return "VET|" + _id + "|" + _name + "|" + _responsibilityList; //FIXME implement how to print the list
+            return "TRT|" + _id + "|" + _name + "|" + _responsibilityList; //FIXME implement how to print the list
         }
     }
 
