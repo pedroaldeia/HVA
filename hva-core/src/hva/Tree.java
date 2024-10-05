@@ -4,12 +4,12 @@ public abstract class Tree {
     protected String _id;
     protected String _name;
     protected  int _age;
-    protected double _cleaningDifficulty;
+    protected int _cleaningDifficulty;
     protected Season _season;
     protected int _seasonCounter;
 
 
-    public Tree(String id, String name, int age, double cleaningDifficulty){
+    public Tree(String id, String name, int age, int cleaningDifficulty){
         _id = id;
         _name = name;
         _age = age;
