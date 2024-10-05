@@ -6,13 +6,17 @@ import java.io.Serializable;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Hotel implements Serializable {
 
-    private Map _habitat = new HashMap<String, Habitat>();
-    private Map _employees = new HashMap<String, Employee>();
+    //indexados pelo id
+    private Map<String, Habitat> _habitats = new HashMap<String, Habitat>();
+    private Map<String, Employee> _employees = new HashMap<String, Employee>();
+    private Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
 
+    public Hotel(){};
 
     @Serial
     private static final long serialVersionUID = 202407081733L;
@@ -37,23 +41,49 @@ public class Hotel implements Serializable {
     }
 
     //Menu de Gestão de Animais
-    public String registerAnimal(){}
-    public String displayAnimals(){}
+    //public int registerAnimal(){}
+    //public String displayAnimals(){}
 
 
     //Menu de Gestão de Funcionários
-    public String registerEmployee(){}
-    public String displayEmployee(){}
+    /*public int registerEmployee(String... fields){
+        if (_employees.containsKey(id)) {
+            //throw DuplicateHabitatKeyException
+            return -1;
+        }
+        Employee newEmployee = new Employee();
+        _employees.put(id, newEmployee);e);
+        return 0;
+    }*/
+    //public String displayEmployees(){}
 
 
     //Menu de Gestão de Habitats 
-    public String registerHabitats(){}
-    public String displayHabitats(){}
+    public int registerHabitat(String id, String name, int area){
+        if (_habitats.containsKey(id)) {
+            //throw DuplicateHabitatKeyException
+            return -1;
+        }
+        Habitat newHabitat = new Habitat(id, name, area);
+        _habitats.put(id, newHabitat);
+        return 0;
+
+    }
+    //public String displayHabitats(){}
 
 
     //Menu de Gestão de Vacinas
-    public String registerVaccines(){}
-    public String displayVaccine(){}
+    public int registerVaccine(String id, String name, List<String> speciesId){
+        if (_vaccines.containsKey(id)) {
+            //throw DuplicateVaccineKeyException
+            return -1;
+        }
+        Vaccine newVaccine = new Vaccine(id, name, speciesId);
+        _vaccines.put(id, newVaccine);
+        return 0;
+    }
+
+    //public String displayVaccines(){}
     
 
 }

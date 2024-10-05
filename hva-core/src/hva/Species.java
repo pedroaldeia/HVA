@@ -2,6 +2,7 @@ package hva;
 
 import java.util.ArrayList;
 import java.util.List;
+import hva.Animal;
 
 public class Species {
     private  String _id;

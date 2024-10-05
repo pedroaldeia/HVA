@@ -10,8 +10,10 @@ public class Vaccine {
     private List<Species> _species = new ArrayList();
     private List<VaccineApplication> _record = new ArrayList<>();
 
-    public Vaccine(String name) {
+    public Vaccine(String id, String name, List species) {
         _name = name;
+        _id = id;
+        _species = species;
     }
 
     public String getId(){
