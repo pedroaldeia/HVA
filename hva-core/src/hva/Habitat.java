@@ -13,9 +13,9 @@ public class Habitat {
     private int _population;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
-    private List<Animal> animals = new ArrayList<Animal>();
-    private Map<String, Tree> trees = new HashMap<String, Tree>();
-    private Map<String, Integer> compatibilities = new HashMap<String, Integer>();
+    private ArrayList<Animal> _animals = new ArrayList<Animal>();
+    private Map<String, Tree> _trees = new HashMap<String, Tree>();
+    private Map<String, Integer> _compatibilities = new HashMap<String, Integer>();
 
     public Habitat(String id, String name, int area){
         _id = id;
@@ -31,8 +31,13 @@ public class Habitat {
         return _name;
     }
 
+    public ArrayList<Animal> getAnimalList(){
+        return _animals;
+    }
+
     @Override
     public String toString(){
-        return "HABITAT|" + this.getId() + this.getName() + _area + _treeNum; //implement print all trees in habitat
+        return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + _treeNum; 
+        //FIXME implement print all trees in habitat
     }
 }

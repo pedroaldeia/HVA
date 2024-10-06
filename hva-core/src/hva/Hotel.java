@@ -42,7 +42,17 @@ public class Hotel implements Serializable {
 
     //Menu de Gestão de Animais
     //public int registerAnimal(){}
-    //public String displayAnimals(){}
+    
+    //Returns a String with all employees in hotel
+    public String showAllAnimals(){
+        String animalString = "";
+        for (Habitat habitat : _habitats.values()){
+            for (Animal animal : habitat.getAnimalList()){
+                animalString = animalString + animal.toString() + "\n";
+            }
+        }
+        return animalString;
+    }
 
 
     //Menu de Gestão de Funcionários
@@ -55,7 +65,16 @@ public class Hotel implements Serializable {
         _employees.put(id, newEmployee);e);
         return 0;
     }*/
-    //public String displayEmployees(){}
+    
+
+    //Returns a String with all employees in hotel
+    public String showAllEmployees(){
+        String employeeString = "";
+        for (Employee employee : _employees.values()){
+            employeeString = employeeString + employee.toString() + "\n";
+        }
+        return employeeString;
+    }
 
 
     //Menu de Gestão de Habitats 
@@ -69,8 +88,15 @@ public class Hotel implements Serializable {
         return 0;
 
     }
-    //public String displayHabitats(){}
 
+    //Returns a String with all habitats in hotel and corresponding trees
+    public String showAllHabitats(){
+        String habitatString = "";
+        for (Habitat habitat : _habitats.values()){
+            habitatString = habitatString + habitat.toString() + "\n";
+        }
+        return habitatString;
+    }
 
     //Menu de Gestão de Vacinas
     public int registerVaccine(String id, String name, List<String> speciesId){
@@ -83,7 +109,14 @@ public class Hotel implements Serializable {
         return 0;
     }
 
-    //public String displayVaccines(){}
+    //Returns a String with all vaccines
+    public String displayVaccines(){
+        String vaccineString = "";
+        for (Vaccine vaccine : _vaccines.values()){
+            vaccineString = vaccineString + vaccine.toString() + "\n";
+        }
+        return vaccineString;
+    }
     
 
 }

@@ -18,7 +18,11 @@ public class Animal {
 
     @Override
     public String toString(){
-        return "ANIMAL" + _id + _name + _species.getId() + _injuryRecord + _habitat.getId();
+        if(_injuryRecord.isEmpty()){
+            return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + "VOID" + "|" + _habitat.getId();
+        }
+        return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + _injuryRecord + "|" + _habitat.getId(); 
+        //FIXME implement show injury Record
     }
 
 

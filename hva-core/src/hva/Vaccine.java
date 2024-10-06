@@ -27,8 +27,9 @@ public class Vaccine {
 
     @Override
     public String toString(){
-        return "VACINA|" + this.getId() + this.getName() + _nApplications + _species; //FIXME implement show species array
+        return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + "|" + _species; 
+        //FIXME implement show species array
     }
     
-    //FIXME Implement addapplication
+    //FIXME Implement addApplication
 }

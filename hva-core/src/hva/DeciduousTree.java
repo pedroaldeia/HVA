@@ -27,7 +27,7 @@ public class DeciduousTree extends Tree{
 
     @Override
     public String toString() {
-        return "ÁRVORE|" + this.getId() + this.getName() + this.getAge() + this.getDifficulty() + this.getType()
-            + this.getCycle();
+        return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + "|"
+            + this.getDifficulty() + "|" + this.getType() + "|" + this.getCycle();
     }
 }

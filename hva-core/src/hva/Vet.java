@@ -18,7 +18,8 @@ public class Vet extends Employee{
             return "VET|" + _id + "|" + _name; 
         }
         else{
-            return "VET|" + _id + "|" + _name + "|" + _responsibilityList; //FIXME implement how to print the list
+            return "VET|" + _id + "|" + _name + "|" + _responsibilityList; 
+            //FIXME implement how to print the list
         }
     }
 
