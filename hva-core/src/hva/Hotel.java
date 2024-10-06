@@ -15,6 +15,7 @@ public class Hotel implements Serializable {
     private Map<String, Habitat> _habitats = new HashMap<String, Habitat>();
     private Map<String, Employee> _employees = new HashMap<String, Employee>();
     private Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
+    private Map<String, Species> _species = new HashMap<String, Species>();
 
     public Hotel(){};
 
@@ -40,14 +41,52 @@ public class Hotel implements Serializable {
         }*/
     }
 
+    public int registerSpecies(String id, String name){
+        if (_species.containsKey(id)) {
+            //DuplicateSpeciesKeyException
+            return -1;
+        }
+        Species newSpecies = new Species(id, name);
+        _species.put(id, newSpecies);
+        return 0;
+    }
+
     //Menu de Gestão de Animais
-    //public int registerAnimal(){}
+    public int registerAnimal(String id, String name, String speciesId, String habitatId){
+        Habitat h = _habitats.get(habitatId);
+        if (h.getAnimalMap().containsKey(id)) {
+            //DuplicateAnimalKeyException
+            return -1;
+        }
+        Species species = _species.get(speciesId);
+        if (species == null) {
+                //ask for new species name in the app
+                return 1;
+        }
+        Habitat habitat = _habitats.get(habitatId);
+        Animal newAnimal = new Animal(id, name, species, habitat);
+        habitat.getAnimalMap().put(id, newAnimal);
+        return 0;
+    }
+
+    public int setAnimalHabitat(String animalId, String habitatId){
+        for (Habitat habitat : _habitats.values()){
+            for (Animal animal : habitat.getAnimalMap().values()){
+                if (animal.getId().equals(animalId)){
+                    habitat.getAnimalMap().remove(animalId);
+                    _habitats.get(habitatId).getAnimalMap().put(animalId, animal);
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
     
     //Returns a String with all employees in hotel
     public String showAllAnimals(){
         String animalString = "";
         for (Habitat habitat : _habitats.values()){
-            for (Animal animal : habitat.getAnimalList()){
+            for (Animal animal : habitat.getAnimalMap().values()){
                 animalString = animalString + animal.toString() + "\n";
             }
         }
@@ -56,15 +95,21 @@ public class Hotel implements Serializable {
 
 
     //Menu de Gestão de Funcionários
-    /*public int registerEmployee(String... fields){
+    public int registerEmployee(String id, String name, String type){
         if (_employees.containsKey(id)) {
             //throw DuplicateHabitatKeyException
             return -1;
         }
-        Employee newEmployee = new Employee();
-        _employees.put(id, newEmployee);e);
+        Employee newEmployee;
+        if (type.equals("TRT")){
+            newEmployee = new Caretaker(id, name);
+        }
+        else{ 
+            newEmployee = new Vet(id, name);
+        }
+        _employees.put(id, newEmployee);
         return 0;
-    }*/
+    }
     
 
     //Returns a String with all employees in hotel
@@ -86,7 +131,6 @@ public class Hotel implements Serializable {
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
         return 0;
-
     }
 
     //Returns a String with all habitats in hotel and corresponding trees

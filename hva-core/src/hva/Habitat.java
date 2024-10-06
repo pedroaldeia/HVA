@@ -13,7 +13,7 @@ public class Habitat {
     private int _population;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
-    private ArrayList<Animal> _animals = new ArrayList<Animal>();
+    private Map<String, Animal> _animals = new HashMap<String, Animal>();
     private Map<String, Tree> _trees = new HashMap<String, Tree>();
     private Map<String, Integer> _compatibilities = new HashMap<String, Integer>();
 
@@ -31,7 +31,7 @@ public class Habitat {
         return _name;
     }
 
-    public ArrayList<Animal> getAnimalList(){
+    public Map<String, Animal> getAnimalMap(){
         return _animals;
     }
 

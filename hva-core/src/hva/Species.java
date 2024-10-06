@@ -10,7 +10,7 @@ public class Species {
     private int _vetsNum = 0;
     private List<Animal> _animals = new ArrayList<Animal>();
 
-    public Species(String id, String name, int vetsNum){
+    public Species(String id, String name){
         _id = id;
         _name = name;
     }
