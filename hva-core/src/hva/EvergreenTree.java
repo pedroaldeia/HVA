@@ -8,7 +8,6 @@ public class EvergreenTree extends Tree{
         super(id, name, age, cleaningDifficulty);
     }
 
-
     public String getDifficulty() {
         return "" + _cleaningDifficulty;
     }
