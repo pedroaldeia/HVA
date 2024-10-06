@@ -6,11 +6,11 @@ import java.util.List;
 public class Vaccine {
     private String _name;
     private String _id;
-    private int _nApplications;
-    private List<Species> _species = new ArrayList();
+    private int _nApplications = 0;
+    private List<Species> _species = new ArrayList<>();
     private List<VaccineApplication> _record = new ArrayList<>();
 
-    public Vaccine(String id, String name, List species) {
+    public Vaccine(String id, String name, List<Species> species) {
         _name = name;
         _id = id;
         _species = species;

@@ -143,12 +143,12 @@ public class Hotel implements Serializable {
     }
 
     //Menu de Gestão de Vacinas
-    public int registerVaccine(String id, String name, List<String> speciesId){
+    public int registerVaccine(String id, String name, List<Species> speciesList){
         if (_vaccines.containsKey(id)) {
             //throw DuplicateVaccineKeyException
             return -1;
         }
-        Vaccine newVaccine = new Vaccine(id, name, speciesId);
+        Vaccine newVaccine = new Vaccine(id, name, speciesList);
         _vaccines.put(id, newVaccine);
         return 0;
     }
