@@ -10,10 +10,11 @@ public class Animal {
     private Habitat _habitat;
     private List<Integer> _injuryRecord = new ArrayList<>();
 
-    public Animal(String id, String name, Species species){
+    public Animal(String id, String name, Species species, Habitat habitat){
         _id = id;
         _name = name;
         _species = species;
+        _habitat = habitat;
     }
 
     @Override
