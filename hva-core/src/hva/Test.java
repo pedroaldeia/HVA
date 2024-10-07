@@ -1,10 +1,12 @@
 package hva;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Test implements Serializable{
     public static void main(String[] args) {
-        /*
+        //*
         Hotel hotel = new Hotel();
         int a = hotel.registerHabitat("H1", "Casa do Pedro", 100);
         int b = hotel.registerHabitat("H2", "Casa do Tiago", 12);
