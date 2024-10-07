@@ -32,14 +32,14 @@ public class Vaccine {
 
     private String speciesString(){
         String sString = "";
-        for(Species s : _species){
-            sString = sString + s.getId() + ",";
+        for(String id : _species){
+            sString = sString + id + ",";
         }
         if(!sString.equals("")){
             sString = sString.substring(0, sString.length() - 2);
         }
         return sString;
-    }
+    } 
     
     //FIXME Implement addApplication
 }
