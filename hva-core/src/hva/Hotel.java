@@ -154,7 +154,7 @@ public class Hotel implements Serializable {
     }
 
     //Returns a String with all vaccines
-    public String displayVaccines(){
+    public String showAllVaccines(){
         String vaccineString = "";
         for (Vaccine vaccine : _vaccines.values()){
             vaccineString = vaccineString + vaccine.toString() + "\n";

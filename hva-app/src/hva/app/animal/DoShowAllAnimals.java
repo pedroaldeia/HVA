@@ -13,6 +13,8 @@ class DoShowAllAnimals extends Command<Hotel> {
     @Override
     protected final void execute() {
         //FIXME implement command
+        String allAnimals = (String)_receiver.showAllAnimals();
+        System.out.println(allAnimals); //verificar se isto funciona...
     }
 
 }
