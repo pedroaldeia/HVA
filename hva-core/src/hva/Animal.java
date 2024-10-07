@@ -1,9 +1,10 @@
 package hva;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal implements Comparable<Animal>{
+public class Animal implements Serializable{
     private String _id;
     private String _name;
     private Species _species;
@@ -15,12 +16,6 @@ public class Animal implements Comparable<Animal>{
         _name = name;
         _species = species;
         _habitat = habitat;
-    }
-
-    @Override
-    public int compareTo(Animal other) {
-        // Compare animals based on their name lexicographically
-        return -_name.compareTo(other._name);
     }
 
     @Override

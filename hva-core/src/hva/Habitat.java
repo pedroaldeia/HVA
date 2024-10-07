@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Comparator;
+import java.io.Serializable;
 
 
-public class Habitat {
+public class Habitat implements Serializable{
     private String _id;
     private String _name;
     private int _area;

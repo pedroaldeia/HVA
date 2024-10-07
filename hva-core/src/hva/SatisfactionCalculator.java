@@ -1,5 +1,7 @@
 package hva;
 
-public interface SatisfactionCalculator {
+import java.io.Serializable;
+
+public interface SatisfactionCalculator{
     // implement visitor and its functions
 }

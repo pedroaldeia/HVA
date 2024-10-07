@@ -1,6 +1,8 @@
 package hva;
 
-public class EvergreenTree extends Tree{
+import java.io.Serializable;
+
+public class EvergreenTree extends Tree implements Serializable{
     private String _type = "PERENE";
     private String _biologicCycle;
 

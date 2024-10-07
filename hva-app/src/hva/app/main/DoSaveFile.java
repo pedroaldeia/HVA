@@ -13,7 +13,14 @@ class DoSaveFile extends Command<HotelManager> {
     }
 
     @Override
-    protected final void execute() {
-    	//FIXME implement command using a local form
+    protected final void execute(){
+        /*
+        try {
+            _receiver.save();
+          } //FIXME pôr bem as exceções
+            catch (IOException e) {
+                e.printStackTrace();
+          }
+        */
     }
 }

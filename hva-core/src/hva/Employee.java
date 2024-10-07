@@ -1,6 +1,8 @@
 package hva;
 
-public abstract class Employee {
+import java.io.Serializable;
+
+public abstract class Employee implements Serializable{
     protected String _id; //switched to protected to be able to access through classes Vet and Caretaker
     protected String _name;
     //private SatisfactionCalculator _satisfactionCalc;

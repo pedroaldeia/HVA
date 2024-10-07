@@ -2,8 +2,9 @@ package hva;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class Vaccine {
+public class Vaccine implements Serializable{
     private String _name;
     private String _id;
     private int _nApplications = 0;
