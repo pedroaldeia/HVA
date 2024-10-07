@@ -18,9 +18,10 @@ public class Test {
         hotel.registerSpecies("S1", "Gato");
         int x = hotel.registerSpecies("01", "Dog");
         //System.out.println("x: " + x);
+        hotel.registerAnimal("A3", "piupiu", "S1", "H1");
         int d = hotel.registerAnimal("A1", "puf", "S0", "H1");
+        int y = hotel.registerAnimal("A2", "pompom", "S1", "H2");
         int c = hotel.registerAnimal("A0", "kit", "S1", "H2");
-        int y = hotel.registerAnimal("A1", "kit", "66", "143");
         //System.out.println("y: " + y);
         System.out.println("Visualizar Animais");
         System.out.println(hotel.showAllAnimals());

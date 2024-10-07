@@ -2,8 +2,10 @@ package hva;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Comparator;
 
 
 public class Habitat {
@@ -13,7 +15,7 @@ public class Habitat {
     private int _population;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
-    private Map<String, Animal> _animals = new HashMap<String, Animal>();
+    private Map<String, Animal> _animals;// = new TreeMap<String, Animal>(String::compareTo);
     private Map<String, Tree> _trees = new HashMap<String, Tree>();
     private Map<String, Integer> _compatibilities = new HashMap<String, Integer>();
 
@@ -21,6 +23,7 @@ public class Habitat {
         _id = id;
         _name = name;
         _area = area;
+        _animals = new TreeMap<String, Animal>(Comparator.naturalOrder());
     }
 
     public String getId(){

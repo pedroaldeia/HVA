@@ -3,7 +3,7 @@ package hva;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements Comparable<Animal>{
     private String _id;
     private String _name;
     private Species _species;
@@ -18,7 +18,14 @@ public class Animal {
     }
 
     @Override
+    public int compareTo(Animal other) {
+        // Compare animals based on their name lexicographically
+        return -_name.compareTo(other._name);
+    }
+
+    @Override
     public String toString(){
+        if (_habitat == null){System.out.println("WTF");}
         if(_injuryRecord.isEmpty()){
             return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + "VOID" + "|" + _habitat.getId();
         }
