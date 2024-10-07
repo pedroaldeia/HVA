@@ -32,8 +32,8 @@ public class Vaccine {
 
     private String speciesString(){
         String sString = "";
-        for(Species s : _species){
-            sString = sString + s.getId() + ",";
+        for(String s : _species){
+            sString = sString + s + ",";
         }
         if(!sString.equals("")){
             sString = sString.substring(0, sString.length() - 2);
