@@ -83,6 +83,27 @@ public class HotelManager {
     }
 
     // All Hotel functions //
+    public int registerSpecies(String id, String name){
+        return _hotel.registerSpecies(id, name);
+    }
+
+    public int registerAnimal(String id, String name, String speciesId, String habitatId){
+        return _hotel.registerAnimal(id, name, speciesId, habitatId);
+    }
+
+    public int setAnimalHabitat(String animalId, String habitatId){
+        return _hotel.setAnimalHabitat(animalId, habitatId);
+    }
+
+    public int registerEmployee(String id, String name, String type){
+        return _hotel.registerEmployee(id, name, type);
+    }
+
+    /*public int registerVaccine(String id, String name, String type){
+        return _hotel.registerVaccine(id, name, type);
+    }*/
+
+
 
     public String showAllAnimals(){
         return _hotel.showAllAnimals();

@@ -66,10 +66,6 @@ public class Hotel implements Serializable {
                 return 1;
         }
         Habitat habitat = _habitats.get(habitatId);
-        if (habitat == null) {
-            System.out.println("Não encontrou hotel no registo");
-            return 1;
-        }
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
         //habitat.getAnimalMap().put(id, newAnimal);
