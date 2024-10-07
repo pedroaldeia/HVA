@@ -13,6 +13,8 @@ public class HotelManager {
     /** This is the current hotel. */
     private Hotel _hotel = new Hotel();
 
+    private String _filename = "";
+    private int fileChanged = 0;
     // FIXME maybe add more fields if needed
 
     /**
@@ -24,6 +26,14 @@ public class HotelManager {
      */
     public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
         // FIXME implement serialization method
+        if(_filename == null || _filename.equals("")){
+            throw new MissingFileAssociationException();
+        }
+        //FIXME como verificar FileNotFoundException??
+        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
+            oos.writeObject(_hotel);
+            fileChanged = 0;
+        }
     }
 
     /**
@@ -34,7 +44,8 @@ public class HotelManager {
      * @throws IOException if there is some error while serializing the state of the network to disk.
      */
     public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-        // FIXME implement serialization method
+        _filename = filename;
+        save();
     }
 
     /**
@@ -43,8 +54,19 @@ public class HotelManager {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException {
-        // FIXME implement serialization method
+    public void load(String filename) throws UnavailableFileException, IOException, ClassNotFoundException {
+
+
+        try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
+            _hotel = (Hotel) ois.readObject();
+            fileChanged = 0;
+        }//esta parte é so para ele parar de se irritar, continuo sem saber mandar UnavailableFileException
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        catch(ClassNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     /**

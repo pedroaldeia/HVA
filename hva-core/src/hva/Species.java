@@ -3,8 +3,9 @@ package hva;
 import java.util.ArrayList;
 import java.util.List;
 import hva.Animal;
+import java.io.Serializable;
 
-public class Species {
+public class Species implements Serializable{
     private  String _id;
     private String _name;
     private int _vetsNum = 0;

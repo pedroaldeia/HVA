@@ -1,9 +1,10 @@
 package hva;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements Serializable{
     private String _id;
     private String _name;
     private Species _species;

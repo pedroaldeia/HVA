@@ -17,6 +17,7 @@ class DoOpenFile extends Command<HotelManager> {
     protected final void execute() throws CommandException {/* 
         try {
             //FIXME implement command
+            _receiver.load(Form.requestString(Message.openFile()));
         } catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e);
         }*/

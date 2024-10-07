@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.io.Serializable;
 
 
-public class Habitat {
+public class Habitat implements Serializable{
     private String _id;
     private String _name;
     private int _area;

@@ -1,6 +1,8 @@
 package hva;
 
-public abstract class Tree {
+import java.io.Serializable;
+
+public abstract class Tree implements Serializable{
     protected String _id;
     protected String _name;
     protected  int _age;

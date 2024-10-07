@@ -1,9 +1,8 @@
 package hva;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-public class Test {
+public class Test implements Serializable{
     public static void main(String[] args) {
         /*
         Hotel hotel = new Hotel();
