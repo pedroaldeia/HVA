@@ -40,7 +40,7 @@ public class Vaccine implements Serializable{
             sString = sString.substring(0, sString.length() - 2);
         }
         return sString;
-    }
+    } 
     
     //FIXME Implement addApplication
 }
