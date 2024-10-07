@@ -20,6 +20,6 @@ class DoOpenFile extends Command<HotelManager> {
             _receiver.load(Form.requestString(Message.openFile()));
         } catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e);
-        }*/
+        }*/ 
     }
 }
