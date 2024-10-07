@@ -8,6 +8,7 @@ public abstract class Employee {
     public Employee(String id, String name) {
         _id = id;
         _name = name;
+
     }
 
 

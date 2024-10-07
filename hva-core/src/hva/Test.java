@@ -1,26 +1,48 @@
 package hva;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
         
         Hotel hotel = new Hotel();
-        int a = hotel.registerHabitat("123", "hot", 100);
-        int b = hotel.registerHabitat("143", "vac", 12);
+        int a = hotel.registerHabitat("H1", "Casa do Pedro", 100);
+        int b = hotel.registerHabitat("H2", "Casa do Tiago", 12);
         //System.out.println(a);
         //System.out.println(b);
-        System.out.print(hotel.showAllHabitats());
+        System.out.println("Visualizar Habitats");
+        System.out.println(hotel.showAllHabitats());
 
-        hotel.registerSpecies("55", "Cat"); 
-        hotel.registerSpecies("66", "Dog");
-        int x = hotel.registerSpecies("66", "Dog");
-        System.out.println("x: " + x);
-        int c = hotel.registerAnimal("1234", "kit", "55", "123");
-        int d = hotel.registerAnimal("1235", "puf", "55", "123");
-        int y = hotel.registerAnimal("1234", "kit", "66", "143");
-        System.out.println("y: " + y);
+        hotel.registerSpecies("S0", "Cão de Água"); 
+        hotel.registerSpecies("S1", "Gato");
+        int x = hotel.registerSpecies("01", "Dog");
+        //System.out.println("x: " + x);
+        int d = hotel.registerAnimal("A1", "puf", "S0", "H1");
+        int c = hotel.registerAnimal("A0", "kit", "S1", "H2");
+        int y = hotel.registerAnimal("A1", "kit", "66", "143");
+        //System.out.println("y: " + y);
+        System.out.println("Visualizar Animais");
         System.out.println(hotel.showAllAnimals());
+
+        hotel.registerEmployee("E1", "Pedro", "TRT");
+        hotel.registerEmployee("E0", "Tiago", "VET");
+        System.out.println("Visualizar Funcionários");
+        System.out.println(hotel.showAllEmployees());
+
+        List<String> speciesIDsA = new ArrayList<String>();
+        speciesIDsA.add("S1");
+        List<String> speciesIDsB = new ArrayList<String>();
+        speciesIDsB.add("S2");
+        List<String> speciesIDsC = new ArrayList<String>();
+        speciesIDsC.add("S1");
+        speciesIDsC.add("S2");
+
+        hotel.registerVaccine("V0", "Vaccine A", speciesIDsA);
+        hotel.registerVaccine("V1", "Vaccine B", speciesIDsB);
+        hotel.registerVaccine("V2", "Vaccine C", speciesIDsC);
+        System.out.println("Visualizar Vacinas");
+        System.out.println(hotel.showAllVaccines());
         
 
         /*

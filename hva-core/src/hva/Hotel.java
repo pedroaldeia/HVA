@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 
 
 public class Hotel implements Serializable {
@@ -16,6 +17,7 @@ public class Hotel implements Serializable {
     private Map<String, Employee> _employees = new HashMap<String, Employee>();
     private Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
     private Map<String, Species> _species = new HashMap<String, Species>();
+    private ArrayList<String> _animalIds = new ArrayList<String>();
 
     public Hotel(){};
 
@@ -53,8 +55,7 @@ public class Hotel implements Serializable {
 
     //Menu de Gestão de Animais
     public int registerAnimal(String id, String name, String speciesId, String habitatId){
-        Habitat h = _habitats.get(habitatId);
-        if (h.getAnimalMap().containsKey(id)) {
+        if (_animalIds.contains(id)){
             //DuplicateAnimalKeyException
             return -1;
         }
@@ -65,6 +66,7 @@ public class Hotel implements Serializable {
         }
         Habitat habitat = _habitats.get(habitatId);
         Animal newAnimal = new Animal(id, name, species, habitat);
+        _animalIds.add(id);
         habitat.getAnimalMap().put(id, newAnimal);
         return 0;
     }
@@ -104,8 +106,12 @@ public class Hotel implements Serializable {
         if (type.equals("TRT")){
             newEmployee = new Caretaker(id, name);
         }
-        else{ 
+        else if(type.equals("VET")){ 
             newEmployee = new Vet(id, name);
+        }
+        else {
+            //pedir novo tipo de employee
+            return -2;
         }
         _employees.put(id, newEmployee);
         return 0;
@@ -143,18 +149,18 @@ public class Hotel implements Serializable {
     }
 
     //Menu de Gestão de Vacinas
-    public int registerVaccine(String id, String name, List<Species> speciesList){
+    public int registerVaccine(String id, String name, List<String> speciesIds){
         if (_vaccines.containsKey(id)) {
             //throw DuplicateVaccineKeyException
             return -1;
         }
-        Vaccine newVaccine = new Vaccine(id, name, speciesList);
+        Vaccine newVaccine = new Vaccine(id, name, speciesIds);
         _vaccines.put(id, newVaccine);
         return 0;
     }
 
     //Returns a String with all vaccines
-    public String displayVaccines(){
+    public String showAllVaccines(){
         String vaccineString = "";
         for (Vaccine vaccine : _vaccines.values()){
             vaccineString = vaccineString + vaccine.toString() + "\n";
