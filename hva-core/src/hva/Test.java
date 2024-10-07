@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Test implements Serializable{
     public static void main(String[] args) {
-        //*
+        /*
         Hotel hotel = new Hotel();
         int a = hotel.registerHabitat("H1", "Casa do Pedro", 100);
         int b = hotel.registerHabitat("H2", "Casa do Tiago", 12);
@@ -62,7 +62,7 @@ public class Test implements Serializable{
 
         System.out.println(vacc);
         */
-
+ 
     }
     
 }
