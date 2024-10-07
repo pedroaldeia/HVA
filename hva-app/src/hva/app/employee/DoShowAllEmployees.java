@@ -13,7 +13,8 @@ class DoShowAllEmployees extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
+        String allEmployees = (String)_receiver.showAllEmployees();
+        _display.popup(allEmployees);
     }
 
 }

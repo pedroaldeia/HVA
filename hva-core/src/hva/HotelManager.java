@@ -59,4 +59,22 @@ public class HotelManager {
     public Hotel getHotel(){
         return _hotel;
     }
+
+    // All Hotel functions //
+
+    public String showAllAnimals(){
+        return _hotel.showAllAnimals();
+    }
+
+    public String showAllEmployees(){
+        return _hotel.showAllEmployees();
+    }
+
+    public String showAllHabitats(){
+        return _hotel.showAllHabitats();
+    }
+
+    public String showAllVaccines(){
+        return _hotel.showAllVaccines();
+    }
 }
