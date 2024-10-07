@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        
+        /*
         Hotel hotel = new Hotel();
         int a = hotel.registerHabitat("H1", "Casa do Pedro", 100);
         int b = hotel.registerHabitat("H2", "Casa do Tiago", 12);
@@ -43,7 +43,7 @@ public class Test {
         hotel.registerVaccine("V2", "Vaccine C", speciesIDsC);
         System.out.println("Visualizar Vacinas");
         System.out.println(hotel.showAllVaccines());
-        
+        */
 
         /*
         Employee vet = new Vet("idVet", "nameVet");
@@ -51,10 +51,14 @@ public class Test {
         System.out.println(vet);
         System.out.println(taker);
         */
-        /* 
-        Species species = new Species("idSpecies", "nameSpecies", 0);
+        /*
+        Species species1 = new Species("idSpecies1", "nameSpecies1");
+        Species species2 = new Species("idSpecies2", "nameSpecies2");
+        Species species3 = new Species("idSpecies3", "nameSpecies3");
         ArrayList<Species> listSpecies = new ArrayList<>();
-        listSpecies.add(species);
+        listSpecies.add(species1);
+        listSpecies.add(species2);
+        listSpecies.add(species3);
         Vaccine vacc = new Vaccine("idVacc", "nameVacc", listSpecies);
 
         System.out.println(vacc);
