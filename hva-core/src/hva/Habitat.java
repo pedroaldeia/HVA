@@ -42,4 +42,9 @@ public class Habitat implements Serializable{
         return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + _treeNum; 
         //FIXME implement print all trees in habitat
     }
+
+    public int putTree(Tree tree){
+        _trees.put(tree.getId(), tree);
+        return 0;
+    }
 }

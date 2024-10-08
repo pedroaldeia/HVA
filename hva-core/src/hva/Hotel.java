@@ -2,29 +2,27 @@ package hva;
 
 import hva.exceptions.ImportFileException;
 import hva.exceptions.UnrecognizedEntryException;
-
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.TreeMap;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class Hotel implements Serializable {
 
     //indexados pelo id
-    private Map<String, Habitat> _habitats = new TreeMap<String, Habitat>();
-    private Map<String, Employee> _employees = new TreeMap<String, Employee>();
-    private Map<String, Vaccine> _vaccines = new TreeMap<String, Vaccine>();
-    private Map<String, Species> _species = new HashMap<String, Species>();
-    private Map<String, Animal> _animals = new TreeMap<String, Animal>();
+    private Map<String, Habitat> _habitats = new TreeMap<>();
+    private Map<String, Employee> _employees = new TreeMap<>();
+    private Map<String, Vaccine> _vaccines = new TreeMap<>();
+    private Map<String, Species> _species = new HashMap<>();
+    private Map<String, Animal> _animals = new TreeMap<>();
+    private Map<String, Tree> _trees = new HashMap<>();
 
     public Hotel(){};
 
@@ -41,7 +39,7 @@ public class Hotel implements Serializable {
      * @param filename name of the text input file
      * @throws ImportFileException
      */
-    void importFile(String filename) throws ImportFileException {
+    void importFile(String filename) throws ImportFileException { //FIXME implement cases where habitat has no treeId's, and employee has no extras
 	try {
             // Read the first line from the file
             List<String> file = Files.readAllLines(Paths.get(filename));
@@ -56,6 +54,7 @@ public class Hotel implements Serializable {
                     case "TRATADOR" -> registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");
                     case "VETERINÁRIO" -> registerEmployee(wordsList.get(1), wordsList.get(2), "VET");
                     case "VACINA" -> registerVaccine(wordsList.get(1), wordsList.get(2), splitId(wordsList.get(3)));
+                    case "ÁRVORE" -> registerTree(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), Integer.parseInt(wordsList.get(4)), wordsList.get(5));
                     default -> throw new UnrecognizedEntryException(wordsList.get(0));
 
                 }
@@ -65,6 +64,7 @@ public class Hotel implements Serializable {
         }
     }
 
+    //Splits a String of id's separated by a "," character into a List of Strings
     private List<String> splitId(String allIds){
         return(Arrays.asList(allIds.split(",")));
     }
@@ -168,6 +168,26 @@ public class Hotel implements Serializable {
         return 0;
     }
 
+    public int registerHabitat(String id, String name, int area, String idTrees) {
+        List<String> idList = splitId(idTrees);
+        for(String i : idList){
+            if(!_trees.containsKey(i)){
+                //FIXME throw no such tree exception
+                return -1;
+            }
+        }
+        if(_habitats.containsKey(id)){
+            //FIXME throw DuplicateHabitatIdException
+            return -1;
+        }
+        Habitat newHabitat = new Habitat(id, name, area);
+        _habitats.put(id, newHabitat);
+        for(String i : idList){
+            newHabitat.putTree(_trees.get(i));
+        }
+        return 0;
+    }
+
     //Returns a String with all habitats in hotel and corresponding trees
     public String showAllHabitats(){
         String habitatString = "";
@@ -195,6 +215,26 @@ public class Hotel implements Serializable {
             vaccineString = vaccineString + vaccine.toString() + "\n";
         }
         return vaccineString;
+    }
+
+    public int registerTree(String id, String name, int age, int difficulty, String type) {
+        if(_trees.containsKey(id)){
+            //throw DuplicateTreeKeyException
+            return -1;
+        }
+        if(type.equals("CADUCA")){
+            Tree newTree = new DeciduousTree(id, name, age, difficulty);
+            _trees.put(id, newTree);
+            return 0;
+        }
+        if(type.equals("PERENE")){
+            Tree newTree = new EvergreenTree(id, name, age, difficulty);
+            _trees.put(id, newTree);
+            return 0;
+        }
+        //FIXME throw some exception for infalid identifier
+        return -1;
+
     }
     
 
