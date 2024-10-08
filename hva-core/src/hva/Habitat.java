@@ -2,6 +2,7 @@ package hva;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public class Habitat implements Serializable{
     private int _population;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
-    private Map<String, Animal> _animals = new HashMap<String, Animal>();
+    private Map<String, Animal> _animals = new TreeMap<String, Animal>();
     private Map<String, Tree> _trees = new HashMap<String, Tree>();
     private Map<String, Integer> _compatibilities = new HashMap<String, Integer>();
 

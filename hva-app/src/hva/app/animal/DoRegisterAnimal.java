@@ -8,16 +8,24 @@ import pt.tecnico.uilib.menus.CommandException;
 //FIXME import other classes if needed
 
 class DoRegisterAnimal extends Command<Hotel> {
-    private Hotel _hotel;
+
     DoRegisterAnimal(Hotel receiver) {
         super(Label.REGISTER_ANIMAL, receiver);
-        this._hotel = receiver;
         //FIXME add command fields if needed
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //_hotel.registerAnimal(null, null, null, null);
+        String id = Form.requestString(Prompt.animalKey());
+        String name = Form.requestString(Prompt.animalName());
+        String speciesId = Form.requestString(Prompt.speciesKey());
+        String habitatId = Form.requestString(Prompt.habitatKey());
+
+
+        if (_receiver.registerAnimal(id, name, speciesId, habitatId) == 1){
+            String speciesName = Form.requestString(Prompt.speciesName());
+            _receiver.registerSpecies(speciesId, speciesName);
+        }
         //FIXME implement command
         
 

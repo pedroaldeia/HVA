@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,11 +20,11 @@ import java.util.Arrays;
 public class Hotel implements Serializable {
 
     //indexados pelo id
-    private Map<String, Habitat> _habitats = new HashMap<String, Habitat>();
-    private Map<String, Employee> _employees = new HashMap<String, Employee>();
-    private Map<String, Vaccine> _vaccines = new HashMap<String, Vaccine>();
+    private Map<String, Habitat> _habitats = new TreeMap<String, Habitat>();
+    private Map<String, Employee> _employees = new TreeMap<String, Employee>();
+    private Map<String, Vaccine> _vaccines = new TreeMap<String, Vaccine>();
     private Map<String, Species> _species = new HashMap<String, Species>();
-    private ArrayList<String> _animalIds = new ArrayList<String>();
+    private Map<String, Animal> _animals = new TreeMap<String, Animal>();
 
     public Hotel(){};
 
@@ -80,7 +81,7 @@ public class Hotel implements Serializable {
 
     //Menu de Gestão de Animais
     public int registerAnimal(String id, String name, String speciesId, String habitatId){
-        if (_animalIds.contains(id)){
+        if (_animals.containsKey(id)){
             //DuplicateAnimalKeyException
             return -1;
         }
@@ -91,8 +92,8 @@ public class Hotel implements Serializable {
         }
         Habitat habitat = _habitats.get(habitatId);
         Animal newAnimal = new Animal(id, name, species, habitat);
-        _animalIds.add(id);
-        habitat.getAnimalMap().put(id, newAnimal);
+        _animals.put(id, newAnimal);
+        //habitat.getAnimalMap().put(id, newAnimal);
         return 0;
     }
 
@@ -112,11 +113,14 @@ public class Hotel implements Serializable {
     //Returns a String with all employees in hotel
     public String showAllAnimals(){
         String animalString = "";
-        for (Habitat habitat : _habitats.values()){
+        for (Animal animal : _animals.values()){
+            animalString = animalString + animal.toString() + "\n";
+        }
+        /*for (Habitat habitat : _habitats.values()){
             for (Animal animal : habitat.getAnimalMap().values()){
                 animalString = animalString + animal.toString() + "\n";
             }
-        }
+        }*/
         return animalString;
     }
 
