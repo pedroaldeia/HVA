@@ -91,11 +91,9 @@ public class Hotel implements Serializable {
         for (Animal animal : _animals.values()){
             animalString = animalString + animal.toString() + "\n";
         }
-        /*for (Habitat habitat : _habitats.values()){
-            for (Animal animal : habitat.getAnimalMap().values()){
-                animalString = animalString + animal.toString() + "\n";
-            }
-        }*/
+        if(!animalString.equals("")){
+            animalString = animalString.substring(0, animalString.length() - 1);
+        }
         return animalString;
     }
 
@@ -128,6 +126,9 @@ public class Hotel implements Serializable {
         for (Employee employee : _employees.values()){
             employeeString = employeeString + employee.toString() + "\n";
         }
+        if(!employeeString.equals("")){
+            employeeString = employeeString.substring(0, employeeString.length() - 1);
+        }
         return employeeString;
     }
 
@@ -149,11 +150,14 @@ public class Hotel implements Serializable {
         for (Habitat habitat : _habitats.values()){
             habitatString = habitatString + habitat.toString() + "\n";
         }
+        if(!habitatString.equals("")){
+            habitatString = habitatString.substring(0, habitatString.length() - 1);
+        }
         return habitatString;
     }
 
     //Menu de Gestão de Vacinas
-    public int registerVaccine(String id, String name, List<String> speciesIds){
+    public int registerVaccine(String id, String name, String speciesIds){
         if (_vaccines.containsKey(id)) {
             //throw DuplicateVaccineKeyException
             return -1;
@@ -168,6 +172,9 @@ public class Hotel implements Serializable {
         String vaccineString = "";
         for (Vaccine vaccine : _vaccines.values()){
             vaccineString = vaccineString + vaccine.toString() + "\n";
+        }
+        if(!vaccineString.equals("")){
+            vaccineString = vaccineString.substring(0, vaccineString.length() - 1);
         }
         return vaccineString;
     }

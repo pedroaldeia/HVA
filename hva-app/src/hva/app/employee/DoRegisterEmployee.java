@@ -1,6 +1,7 @@
 package hva.app.employee;
 
 import hva.Hotel;
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME import other classes if needed
@@ -14,7 +15,17 @@ class DoRegisterEmployee extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
+        String id = Form.requestString(Prompt.employeeKey());
+        String name = Form.requestString(Prompt.employeeName());
+        String type = Form.requestString(Prompt.employeeType());
+
+        //FIXME add validation and error handling for inputs
+        /*while (_receiver.registerEmployee(id, name, type) == -2){
+            type = Form.requestString(Prompt.employeeType());
+        };*/
+        _receiver.registerEmployee(id, name, type);
+        
+
     }
 
 }

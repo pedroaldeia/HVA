@@ -21,11 +21,12 @@ class DoRegisterAnimal extends Command<Hotel> {
         String speciesId = Form.requestString(Prompt.speciesKey());
         String habitatId = Form.requestString(Prompt.habitatKey());
 
-
+        //FIXME  levantar excepção
         if (_receiver.registerAnimal(id, name, speciesId, habitatId) == 1){
             String speciesName = Form.requestString(Prompt.speciesName());
             _receiver.registerSpecies(speciesId, speciesName);
         }
+        _receiver.registerAnimal(id, name, speciesId, habitatId);
         //FIXME implement command
         
 

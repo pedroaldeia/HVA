@@ -8,13 +8,13 @@ public class Vaccine implements Serializable{
     private String _name;
     private String _id;
     private int _nApplications = 0;
-    private List<String> _species = new ArrayList<String>();
+    private String _speciesIds = "";
     private List<VaccineApplication> _record = new ArrayList<>();
 
-    public Vaccine(String id, String name, List<String> speciesIds) {
+    public Vaccine(String id, String name, String speciesIds) {
         _name = name;
         _id = id;
-        _species = speciesIds;
+        _speciesIds = speciesIds.replaceAll("\\s", "");
     }
 
     public String getId(){
@@ -28,19 +28,9 @@ public class Vaccine implements Serializable{
 
     @Override
     public String toString(){
-        return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + "|" + speciesString(); 
+        return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + "|" + _speciesIds; 
     }
 
-    private String speciesString(){
-        String sString = "";
-        for(String s : _species){
-            sString = sString + s + ",";
-        }
-        if(!sString.equals("")){
-            sString = sString.substring(0, sString.length() - 2);
-        }
-        return sString;
-    } 
     
     //FIXME Implement addApplication
 }
