@@ -33,8 +33,8 @@ public class HotelManager {
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
             oos.writeObject(_hotel);
             fileChanged = 0;
-        }catch(FileNotFoundException e) {e.printStackTrace();}
-        catch(IOException e) {e.printStackTrace();} 
+        }catch(FileNotFoundException e) {throw new FileNotFoundException();}
+        catch(IOException e) {throw new IOException();} 
     }
 
     /**
@@ -61,10 +61,10 @@ public class HotelManager {
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
             fileChanged = 0;
-        }//esta parte é so para ele parar de se irritar
-        //catch(UnavailableFileException e) {e.printStackTrace();}
-        catch(IOException e) {e.printStackTrace();}
-        catch(ClassNotFoundException e){e.printStackTrace();}
+        }
+        catch(FileNotFoundException e) {throw new UnavailableFileException(filename);}
+        catch(IOException e) {throw new IOException();}
+        catch(ClassNotFoundException e){throw new ClassNotFoundException();}
     }
 
     /**
@@ -79,43 +79,4 @@ public class HotelManager {
     public Hotel getHotel(){
         return _hotel;
     }
-
-    // All Hotel functions //
-    /*public int registerSpecies(String id, String name){
-        return _hotel.registerSpecies(id, name);
-    }
-
-    public int registerAnimal(String id, String name, String speciesId, String habitatId){
-        return _hotel.registerAnimal(id, name, speciesId, habitatId);
-    }
-
-    public int setAnimalHabitat(String animalId, String habitatId){
-        return _hotel.setAnimalHabitat(animalId, habitatId);
-    }
-
-    public int registerEmployee(String id, String name, String type){
-        return _hotel.registerEmployee(id, name, type);
-    }
-
-    /*public int registerVaccine(String id, String name, String type){
-        return _hotel.registerVaccine(id, name, type);
-    }
-
-
-
-    public String showAllAnimals(){
-        return _hotel.showAllAnimals();
-    }
-
-    public String showAllEmployees(){
-        return _hotel.showAllEmployees();
-    }
-
-    public String showAllHabitats(){
-        return _hotel.showAllHabitats();
-    }
-
-    public String showAllVaccines(){
-        return _hotel.showAllVaccines();
-    }*/
 }
