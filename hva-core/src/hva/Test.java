@@ -20,6 +20,7 @@ public class Test implements Serializable{
         int x = hotel.registerSpecies("01", "Dog");
         //System.out.println("x: " + x);
         hotel.registerAnimal("A3", "piupiu", "S1", "H1");
+        hotel.registerAnimal("A4", "Rocky", "S0", "H1");
         int d = hotel.registerAnimal("A1", "puf", "S0", "H1");
         int y = hotel.registerAnimal("A2", "pompom", "S1", "H2");
         int c = hotel.registerAnimal("A0", "kit", "S1", "H2");
@@ -32,17 +33,9 @@ public class Test implements Serializable{
         System.out.println("Visualizar Funcionários");
         System.out.println(hotel.showAllEmployees());
 
-        List<String> speciesIDsA = new ArrayList<String>();
-        speciesIDsA.add("S1");
-        List<String> speciesIDsB = new ArrayList<String>();
-        speciesIDsB.add("S2");
-        List<String> speciesIDsC = new ArrayList<String>();
-        speciesIDsC.add("S1");
-        speciesIDsC.add("S2");
-
-        hotel.registerVaccine("V0", "Vaccine A", speciesIDsA);
-        hotel.registerVaccine("V1", "Vaccine B", speciesIDsB);
-        hotel.registerVaccine("V2", "Vaccine C", speciesIDsC);
+        hotel.registerVaccine("V1", "Vaccine B", "S0");
+        hotel.registerVaccine("V0", "Vaccine A", "S1");
+        hotel.registerVaccine("V2", "Vaccine C", "S0,    S1");
         System.out.println("Visualizar Vacinas");
         System.out.println(hotel.showAllVaccines());
         /*/

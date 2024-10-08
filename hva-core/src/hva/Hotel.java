@@ -53,7 +53,7 @@ public class Hotel implements Serializable {
                     case "HABITAT" -> registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)));
                     case "TRATADOR" -> registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");
                     case "VETERINÁRIO" -> registerEmployee(wordsList.get(1), wordsList.get(2), "VET");
-                    case "VACINA" -> registerVaccine(wordsList.get(1), wordsList.get(2), splitId(wordsList.get(3)));
+                    case "VACINA" -> registerVaccine(wordsList.get(1), wordsList.get(2), wordsList.get(3));
                     case "ÁRVORE" -> registerTree(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), Integer.parseInt(wordsList.get(4)), wordsList.get(5));
                     default -> throw new UnrecognizedEntryException(wordsList.get(0));
 
@@ -116,11 +116,9 @@ public class Hotel implements Serializable {
         for (Animal animal : _animals.values()){
             animalString = animalString + animal.toString() + "\n";
         }
-        /*for (Habitat habitat : _habitats.values()){
-            for (Animal animal : habitat.getAnimalMap().values()){
-                animalString = animalString + animal.toString() + "\n";
-            }
-        }*/
+        if(!animalString.equals("")){
+            animalString = animalString.substring(0, animalString.length() - 1);
+        }
         return animalString;
     }
 
@@ -152,6 +150,9 @@ public class Hotel implements Serializable {
         String employeeString = "";
         for (Employee employee : _employees.values()){
             employeeString = employeeString + employee.toString() + "\n";
+        }
+        if(!employeeString.equals("")){
+            employeeString = employeeString.substring(0, employeeString.length() - 1);
         }
         return employeeString;
     }
@@ -194,14 +195,24 @@ public class Hotel implements Serializable {
         for (Habitat habitat : _habitats.values()){
             habitatString = habitatString + habitat.toString() + "\n";
         }
+        if(!habitatString.equals("")){
+            habitatString = habitatString.substring(0, habitatString.length() - 1);
+        }
         return habitatString;
     }
 
     //Menu de Gestão de Vacinas
-    public int registerVaccine(String id, String name, List<String> speciesIds){
+    public int registerVaccine(String id, String name, String speciesIds){
         if (_vaccines.containsKey(id)) {
             //throw DuplicateVaccineKeyException
             return -1;
+        }
+        String[] idsArray = speciesIds.split(",");
+        for (String speciesId : idsArray){
+            if (_species.containsKey(speciesId) == false) {
+                //UnknownSpeciesKeyException
+                return -2;
+            }
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesIds);
         _vaccines.put(id, newVaccine);
@@ -213,6 +224,9 @@ public class Hotel implements Serializable {
         String vaccineString = "";
         for (Vaccine vaccine : _vaccines.values()){
             vaccineString = vaccineString + vaccine.toString() + "\n";
+        }
+        if(!vaccineString.equals("")){
+            vaccineString = vaccineString.substring(0, vaccineString.length() - 1);
         }
         return vaccineString;
     }

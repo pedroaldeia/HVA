@@ -81,7 +81,7 @@ public class HotelManager {
     }
 
     // All Hotel functions //
-    public int registerSpecies(String id, String name){
+    /*public int registerSpecies(String id, String name){
         return _hotel.registerSpecies(id, name);
     }
 
@@ -99,7 +99,7 @@ public class HotelManager {
 
     /*public int registerVaccine(String id, String name, String type){
         return _hotel.registerVaccine(id, name, type);
-    }*/
+    }
 
 
 
@@ -117,5 +117,5 @@ public class HotelManager {
 
     public String showAllVaccines(){
         return _hotel.showAllVaccines();
-    }
+    }*/
 }
