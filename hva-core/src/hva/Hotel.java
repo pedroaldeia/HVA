@@ -2,6 +2,8 @@ package hva;
 
 import hva.exceptions.ImportFileException;
 import hva.exceptions.UnrecognizedEntryException;
+import hva.app.exceptions.DuplicateAnimalKeyException;
+import hva.app.exceptions.UnknownHabitatKeyException;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
@@ -60,8 +62,10 @@ public class Hotel implements Serializable {
                 }
             }
         } catch (IOException | UnrecognizedEntryException e) {
-            throw new ImportFileException(filename, e);
-        }
+            throw new ImportFileException(filename, e);}
+        catch (DuplicateAnimalKeyException e){}
+        catch (UnknownHabitatKeyException e){}
+
     }
 
     //Splits a String of id's separated by a "," character into a List of Strings
@@ -80,10 +84,13 @@ public class Hotel implements Serializable {
     }
 
     //Menu de Gestão de Animais
-    public int registerAnimal(String id, String name, String speciesId, String habitatId){
+    public int registerAnimal(String id, String name, 
+            String speciesId, String habitatId) 
+            throws DuplicateAnimalKeyException,
+            UnknownHabitatKeyException{
+
         if (_animals.containsKey(id)){
-            //DuplicateAnimalKeyException
-            return -1;
+            throw new DuplicateAnimalKeyException(id);
         }
         Species species = _species.get(speciesId);
         if (species == null) {
@@ -91,6 +98,9 @@ public class Hotel implements Serializable {
                 return 1;
         }
         Habitat habitat = _habitats.get(habitatId);
+        if (habitat == null) {
+            throw new UnknownHabitatKeyException(habitatId);
+        }
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
         //habitat.getAnimalMap().put(id, newAnimal);
