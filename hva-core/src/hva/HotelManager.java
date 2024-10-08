@@ -29,11 +29,12 @@ public class HotelManager {
         if(_filename == null || _filename.equals("")){
             throw new MissingFileAssociationException();
         }
-        //FIXME como verificar FileNotFoundException??
+    
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
             oos.writeObject(_hotel);
             fileChanged = 0;
-        }
+        }catch(FileNotFoundException e) {e.printStackTrace();}
+        catch(IOException e) {e.printStackTrace();} 
     }
 
     /**
@@ -60,13 +61,10 @@ public class HotelManager {
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
             fileChanged = 0;
-        }//esta parte é so para ele parar de se irritar, continuo sem saber mandar UnavailableFileException
-        catch(IOException e) {
-            e.printStackTrace();
-        }
-        catch(ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        }//esta parte é so para ele parar de se irritar
+        //catch(UnavailableFileException e) {e.printStackTrace();}
+        catch(IOException e) {e.printStackTrace();}
+        catch(ClassNotFoundException e){e.printStackTrace();}
     }
 
     /**

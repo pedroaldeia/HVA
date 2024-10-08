@@ -1,13 +1,19 @@
 package hva;
 
 import hva.exceptions.ImportFileException;
+import hva.exceptions.UnrecognizedEntryException;
+
+import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
-
+import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Hotel implements Serializable {
@@ -35,12 +41,31 @@ public class Hotel implements Serializable {
      * @throws ImportFileException
      */
     void importFile(String filename) throws ImportFileException {
-	/*try {
-            // FIXME open import file and create the associated objects
-	    // ....
-        } catch (IOException | UnrecognizedEntryException / FIXME maybe other exceptions / e) {
+	try {
+            // Read the first line from the file
+            List<String> file = Files.readAllLines(Paths.get(filename));
+
+            // Split the line
+            for(String line : file){
+                List<String> wordsList = Arrays.asList(line.split("\\|"));
+                switch(wordsList.get(0)){
+                    case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), wordsList.get(3), wordsList.get(4));
+                    case "ESPÉCIE" -> registerSpecies(wordsList.get(1), wordsList.get(2));
+                    case "HABITAT" -> registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)));
+                    case "TRATADOR" -> registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");
+                    case "VETERINÁRIO" -> registerEmployee(wordsList.get(1), wordsList.get(2), "VET");
+                    case "VACINA" -> registerVaccine(wordsList.get(1), wordsList.get(2), splitId(wordsList.get(3)));
+                    default -> throw new UnrecognizedEntryException(wordsList.get(0));
+
+                }
+            }
+        } catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);
-        }*/
+        }
+    }
+
+    private List<String> splitId(String allIds){
+        return(Arrays.asList(allIds.split(",")));
     }
 
     public int registerSpecies(String id, String name){
