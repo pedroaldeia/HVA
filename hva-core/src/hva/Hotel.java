@@ -1,9 +1,7 @@
 package hva;
 
-import hva.exceptions.ImportFileException;
-import hva.exceptions.UnrecognizedEntryException;
-import hva.app.exceptions.*;
 import java.io.IOException;
+import hva.exceptions.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -84,11 +82,11 @@ public class Hotel implements Serializable {
     //Menu de Gestão de Animais
     public int registerAnimal(String id, String name, 
             String speciesId, String habitatId) 
-            throws DuplicateAnimalKeyException,
-            UnknownHabitatKeyException{
+            throws CoreDuplicateAnimalKeyException,
+            CoreUnknownHabitatKeyException{
 
         if (_animals.containsKey(id)){
-            throw new DuplicateAnimalKeyException(id);
+            throw new CoreDuplicateAnimalKeyException(id);
         }
         Species species = _species.get(speciesId);
         if (species == null) {
@@ -97,7 +95,7 @@ public class Hotel implements Serializable {
         }
         Habitat habitat = _habitats.get(habitatId);
         if (habitat == null) {
-            throw new UnknownHabitatKeyException(habitatId);
+            throw new CoreUnknownHabitatKeyException(habitatId);
         }
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
@@ -133,9 +131,9 @@ public class Hotel implements Serializable {
 
     //Menu de Gestão de Funcionários
     public int registerEmployee(String id, String name, String type)
-            throws DuplicateEmployeeKeyException{
+            throws CoreDuplicateEmployeeKeyException{
         if (_employees.containsKey(id)) {
-            throw new DuplicateEmployeeKeyException(id);
+            throw new CoreDuplicateEmployeeKeyException(id);
         }
         Employee newEmployee;
         if (type.equals("TRT")){
@@ -168,9 +166,9 @@ public class Hotel implements Serializable {
 
     //Menu de Gestão de Habitats 
     public int registerHabitat(String id, String name, int area)
-            throws DuplicateHabitatKeyException{
+            throws CoreDuplicateHabitatKeyException{
         if (_habitats.containsKey(id)) {
-            throw new DuplicateHabitatKeyException(id);
+            throw new CoreDuplicateHabitatKeyException(id);
         }
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
@@ -212,15 +210,15 @@ public class Hotel implements Serializable {
 
     //Menu de Gestão de Vacinas
     public int registerVaccine(String id, String name, String speciesIds)
-            throws DuplicateVaccineKeyException,
-            UnknownSpeciesKeyException{
+            throws CoreDuplicateVaccineKeyException,
+            CoreUnknownSpeciesKeyException{
         if (_vaccines.containsKey(id)) {
-            throw new DuplicateVaccineKeyException(id);
+            throw new CoreDuplicateVaccineKeyException(id);
         }
         String[] idsArray = speciesIds.split(",");
         for (String speciesId : idsArray){
             if (_species.containsKey(speciesId) == false) {
-                throw new UnknownSpeciesKeyException(speciesId);
+                throw new CoreUnknownSpeciesKeyException(speciesId);
             }
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesIds);

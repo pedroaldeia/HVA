@@ -5,6 +5,7 @@ import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.app.exceptions.DuplicateEmployeeKeyException;
+import hva.exceptions.CoreDuplicateEmployeeKeyException;
 //FIXME import other classes if needed
 
 class DoRegisterEmployee extends Command<Hotel> {
@@ -21,12 +22,12 @@ class DoRegisterEmployee extends Command<Hotel> {
         String type = Form.requestString(Prompt.employeeType());
 
         //FIXME add validation and error handling for inputs
-        while (_receiver.registerEmployee(id, name, type) == -2){
-            type = Form.requestString(Prompt.employeeType());
-        };
         try{
+            while (_receiver.registerEmployee(id, name, type) == -2){
+                type = Form.requestString(Prompt.employeeType());
+            };
             _receiver.registerEmployee(id, name, type);
-        }catch (DuplicateEmployeeKeyException e){throw e;}
+        }catch (CoreDuplicateEmployeeKeyException e){throw new DuplicateEmployeeKeyException(e.getEmployeeKey());}
 
     }
 

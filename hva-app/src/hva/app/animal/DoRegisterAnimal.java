@@ -3,6 +3,8 @@ package hva.app.animal;
 import hva.Hotel;
 import hva.app.exceptions.DuplicateAnimalKeyException;
 import hva.app.exceptions.UnknownHabitatKeyException;
+import hva.exceptions.CoreDuplicateAnimalKeyException;
+import hva.exceptions.CoreUnknownHabitatKeyException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -29,8 +31,8 @@ class DoRegisterAnimal extends Command<Hotel> {
                 _receiver.registerSpecies(speciesId, speciesName);
             }
             _receiver.registerAnimal(id, name, speciesId, habitatId);
-        }catch (DuplicateAnimalKeyException e) {throw e;}
-        catch (UnknownHabitatKeyException e) {throw e;}
+        }catch (CoreDuplicateAnimalKeyException e) {throw new DuplicateAnimalKeyException(e.getAnimalKey());}
+        catch (CoreUnknownHabitatKeyException e) {throw new UnknownHabitatKeyException(e.getHabitatKey());}
         //FIXME implement command
         
 

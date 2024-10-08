@@ -6,6 +6,7 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.app.exceptions.DuplicateHabitatKeyException;
 //FIXME import other classes if needed
+import hva.exceptions.CoreDuplicateHabitatKeyException;
 
 class DoRegisterHabitat extends Command<Hotel> {
 
@@ -22,7 +23,7 @@ class DoRegisterHabitat extends Command<Hotel> {
 
         try{
             _receiver.registerHabitat(id, name, area);
-        }catch(DuplicateHabitatKeyException e){throw e;}
-    }
-
+        }catch(CoreDuplicateHabitatKeyException e){throw new DuplicateHabitatKeyException(e.getHabitatKey());}
+    };
+    
 }
