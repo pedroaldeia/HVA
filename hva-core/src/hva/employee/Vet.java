@@ -1,12 +1,10 @@
 package hva.employee;
 
 import hva.animal.Species;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vet extends Employee implements Serializable{
+public class Vet extends Employee{
     private List<Species> _responsibilityList = new ArrayList<>();
 
     // implement addResponsibility and accept

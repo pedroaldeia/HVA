@@ -1,8 +1,6 @@
 package hva.tree;
 
-import java.io.Serializable;
-
-public class DeciduousTree extends Tree implements Serializable{
+public class DeciduousTree extends Tree{
     private String _type = "CADUCA";
     private String _biologicCycle = "GERARFOLHAS";
 

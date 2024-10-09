@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import hva.HotelManager;
 import hva.app.exceptions.FileOpenFailedException;
+import hva.exceptions.ImportFileException;
 import hva.exceptions.UnavailableFileException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
@@ -18,18 +19,13 @@ class DoOpenFile extends Command<HotelManager> {
     @Override
     protected final void execute() throws CommandException {
         try {
-            //FIXME implement command
             _receiver.load(Form.requestString(Prompt.openFile()));
         } 
+        catch (ImportFileException e) {
+            e.printStackTrace();
+        }
         catch (UnavailableFileException e) {
-            //System.out.println("AQUI");
             throw new FileOpenFailedException(e);
-        }
-        catch (IOException e){
-            e.printStackTrace(); //FIXME nao sei bem oq fazer aqui... ja vejo
-        }
-        catch (ClassNotFoundException e){
-            e.printStackTrace(); //FIXME ver acima
         }
     }
 }
