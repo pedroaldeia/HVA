@@ -2,6 +2,7 @@ package hva.app.main;
 
 import hva.HotelManager;
 import hva.exceptions.MissingFileAssociationException;
+import hva.app.exceptions.FileOpenFailedException;
 import java.io.FileNotFoundException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
@@ -13,14 +14,17 @@ class DoNewFile extends Command<HotelManager> {
     }
 
     @Override
-    protected final void execute() {
+    protected final void execute() throws FileOpenFailedException{
             try {
                 _receiver.saveAs(Form.requestString(hva.app.main.Prompt.newSaveAs()));
             }
             catch(MissingFileAssociationException e1){_display.popup(hva.app.main.Message.fileNotFound());
             }
-            catch (IOException e1) {
-                e1.printStackTrace();
+            catch(FileNotFoundException e){
+                throw new FileOpenFailedException(e);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
             }
     }
 }

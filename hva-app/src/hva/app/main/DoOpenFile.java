@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import hva.HotelManager;
 import hva.app.exceptions.FileOpenFailedException;
-import hva.exceptions.ImportFileException;
 import hva.exceptions.UnavailableFileException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
@@ -21,9 +20,6 @@ class DoOpenFile extends Command<HotelManager> {
         try {
             _receiver.load(Form.requestString(Prompt.openFile()));
         } 
-        catch (ImportFileException e) {
-            e.printStackTrace();
-        }
         catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e);
         }
