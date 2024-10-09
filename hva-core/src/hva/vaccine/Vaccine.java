@@ -28,6 +28,9 @@ public class Vaccine implements Serializable{
 
     @Override
     public String toString(){
+        if(_speciesIds.equals("")){
+            return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications; 
+        }
         return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + "|" + _speciesIds; 
     }
 
