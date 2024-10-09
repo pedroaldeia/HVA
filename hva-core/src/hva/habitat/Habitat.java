@@ -1,8 +1,12 @@
-package hva;
+package hva.habitat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+
+import hva.animal.Animal;
+import hva.tree.Tree;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.io.Serializable;

@@ -1,12 +1,12 @@
-package hva;
+package hva.tree;
 
 import java.io.Serializable;
 
-public class DeciduousTree extends Tree implements Serializable{
-    private String _type = "CADUCA";
+public class EvergreenTree extends Tree implements Serializable{
+    private String _type = "PERENE";
     private String _biologicCycle = "GERARFOLHAS";
 
-    public DeciduousTree(String id, String name, int age, int cleaningDifficulty){
+    public EvergreenTree(String id, String name, int age, int cleaningDifficulty){
         super(id, name, age, cleaningDifficulty);
     }
 
@@ -26,10 +26,9 @@ public class DeciduousTree extends Tree implements Serializable{
         return _type;
     }
 
-
     @Override
     public String toString() {
-        return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + "|"
+        return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + "|" 
             + this.getDifficulty() + "|" + this.getType() + "|" + this.getCycle();
     }
 }

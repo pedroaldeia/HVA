@@ -1,6 +1,16 @@
 package hva;
 
+import hva.animal.Animal;
+import hva.animal.Species;
+import hva.employee.Caretaker;
+import hva.employee.Employee;
+import hva.employee.Vet;
 import hva.exceptions.*;
+import hva.habitat.Habitat;
+import hva.tree.DeciduousTree;
+import hva.tree.EvergreenTree;
+import hva.tree.Tree;
+import hva.vaccine.Vaccine;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;

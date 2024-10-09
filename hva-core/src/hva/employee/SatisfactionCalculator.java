@@ -1,4 +1,4 @@
-package hva;
+package hva.employee;
 
 import java.io.Serializable;
 

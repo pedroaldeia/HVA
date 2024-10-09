@@ -1,25 +1,28 @@
-package hva;
+package hva.employee;
+
+import hva.animal.Species;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Caretaker extends Employee implements Serializable{
-    private List<Habitat> _responsibilityList = new ArrayList<>();
+public class Vet extends Employee implements Serializable{
+    private List<Species> _responsibilityList = new ArrayList<>();
 
     // implement addResponsibility and accept
 
-    public Caretaker(String id, String name) {
+    public Vet(String id, String name) {
         super(id, name);
     }
 
     @Override
     public String toString(){
         if (_responsibilityList.isEmpty()){
-            return "TRT|" + _id + "|" + _name; 
+            return "VET|" + _id + "|" + _name; 
         }
         else{
-            return "TRT|" + _id + "|" + _name + "|" + _responsibilityList; //FIXME implement how to print the list
+            return "VET|" + _id + "|" + _name + "|" + _responsibilityList; 
+            //FIXME implement how to print the list
         }
     }
 
