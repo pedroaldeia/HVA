@@ -22,6 +22,7 @@ class DoOpenFile extends Command<HotelManager> {
             _receiver.load(Form.requestString(Prompt.openFile()));
         } 
         catch (UnavailableFileException e) {
+            //System.out.println("AQUI");
             throw new FileOpenFailedException(e);
         }
         catch (IOException e){

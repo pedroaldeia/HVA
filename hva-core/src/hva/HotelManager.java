@@ -57,7 +57,6 @@ public class HotelManager {
      */
     public void load(String filename) throws UnavailableFileException, IOException, ClassNotFoundException {
 
-
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
             fileChanged = 0;
