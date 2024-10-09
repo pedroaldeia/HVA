@@ -81,7 +81,8 @@ public class Hotel implements Serializable {
             }
         } catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);}
-        catch (Exception e) {}
+        catch (Exception e) {} //FIXME isto tem de ir embora ps: deviamos criar uma super classe 
+        //para todas as excepções do core para ser mais fácil dar catch aqui
 
     }
 
