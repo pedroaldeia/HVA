@@ -1,8 +1,8 @@
-package hva;
+package hva.vaccine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
 
 public class Vaccine implements Serializable{
     private String _name;
@@ -28,6 +28,9 @@ public class Vaccine implements Serializable{
 
     @Override
     public String toString(){
+        if(_speciesIds.equals("")){
+            return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications; 
+        }
         return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + "|" + _speciesIds; 
     }
 

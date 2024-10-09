@@ -1,5 +1,6 @@
-package hva;
+package hva.animal;
 
+import hva.habitat.Habitat;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

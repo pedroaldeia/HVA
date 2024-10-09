@@ -1,5 +1,7 @@
-package hva;
+package hva.vaccine;
 
+import hva.animal.Animal;
+import hva.employee.Vet;
 import java.io.Serializable;
 
 public class VaccineApplication implements Serializable{

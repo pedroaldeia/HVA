@@ -14,8 +14,7 @@ public class HotelManager {
     private Hotel _hotel = new Hotel();
 
     private String _filename = "";
-    private int fileChanged = 0;
-    // FIXME maybe add more fields if needed
+    private int _fileChanged = 0;
 
     /**
      * Saves the serialized application's state into the file associated to the current network.
@@ -29,12 +28,14 @@ public class HotelManager {
         if(_filename == null || _filename.equals("")){
             throw new MissingFileAssociationException();
         }
-    
-        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
-            oos.writeObject(_hotel);
-            fileChanged = 0;
-        }catch(FileNotFoundException e) {throw new FileNotFoundException();}
-        catch(IOException e) {throw new IOException();} 
+        if(_fileChanged == 1){
+            try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
+                oos.writeObject(_hotel);
+                _fileChanged = 0;
+            }
+            catch(FileNotFoundException e) {throw new FileNotFoundException();}
+            catch(IOException e) {throw new IOException();} 
+        }
     }
 
     /**
@@ -55,16 +56,19 @@ public class HotelManager {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException, IOException, ClassNotFoundException {
+    public void load(String filename) throws UnavailableFileException{
 
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
-            fileChanged = 0;
+            _fileChanged = 0;
             _filename = filename;
         }
-        catch(FileNotFoundException e) {throw new UnavailableFileException(filename);}
-        catch(IOException e) {throw new IOException();}
-        catch(ClassNotFoundException e){throw new ClassNotFoundException();}
+        catch(FileNotFoundException e) {throw new UnavailableFileException(filename);
+        }
+        catch(IOException e) {throw new UnavailableFileException(filename);
+        }
+        catch(ClassNotFoundException e){throw new UnavailableFileException(filename);
+        }
     }
 
     /**
@@ -78,5 +82,9 @@ public class HotelManager {
     }
     public Hotel getHotel(){
         return _hotel;
+    }
+
+    public String getFilename() {
+        return _filename;
     }
 }

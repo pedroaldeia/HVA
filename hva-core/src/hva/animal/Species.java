@@ -1,8 +1,7 @@
-package hva;
+package hva.animal;
 
 import java.util.ArrayList;
 import java.util.List;
-import hva.Animal;
 import java.io.Serializable;
 
 public class Species implements Serializable{

@@ -1,4 +1,4 @@
-package hva;
+package hva.tree;
 import java.io.Serializable;
 
 public abstract class Season implements Serializable{

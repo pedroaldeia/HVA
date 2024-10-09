@@ -1,10 +1,10 @@
-package hva;
+package hva.employee;
 
-import java.io.Serializable;
+import hva.habitat.Habitat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Caretaker extends Employee implements Serializable{
+public class Caretaker extends Employee{
     private List<Habitat> _responsibilityList = new ArrayList<>();
 
     // implement addResponsibility and accept

@@ -22,7 +22,8 @@ class DoSaveFile extends Command<HotelManager> {
             try {
                 _receiver.saveAs(Form.requestString(hva.app.main.Prompt.newSaveAs()));
             }
-            catch(MissingFileAssociationException e1){}
+            catch(MissingFileAssociationException e1){_display.popup(hva.app.main.Message.fileNotFound());
+            }
             catch(FileNotFoundException e1){
                 _display.popup(hva.app.main.Message.fileNotFound());
               }
