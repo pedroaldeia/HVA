@@ -45,6 +45,7 @@ public class Hotel implements Serializable {
 
             // Split the line
             for(String line : file){
+                //System.out.println(line);
                 List<String> wordsList = Arrays.asList(line.split("\\|"));
                 switch(wordsList.get(0)){
                     case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), wordsList.get(3), wordsList.get(4));
