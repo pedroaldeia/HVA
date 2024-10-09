@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class DeciduousTree extends Tree implements Serializable{
     private String _type = "CADUCA";
-    private String _biologicCycle;
+    private String _biologicCycle = "GERARFOLHAS";
 
     public DeciduousTree(String id, String name, int age, int cleaningDifficulty){
         super(id, name, age, cleaningDifficulty);

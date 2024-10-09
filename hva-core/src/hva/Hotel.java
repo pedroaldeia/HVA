@@ -1,9 +1,7 @@
 package hva;
 
-import java.io.IOException;
-
-import hva.app.exceptions.UnknownTreeKeyException;
 import hva.exceptions.*;
+import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
 import java.nio.file.Files;
@@ -51,11 +49,21 @@ public class Hotel implements Serializable {
                 List<String> wordsList = Arrays.asList(line.split("\\|"));
                 switch(wordsList.get(0)){
                     case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), wordsList.get(3), wordsList.get(4));
+
                     case "ESPÉCIE" -> registerSpecies(wordsList.get(1), wordsList.get(2));
-                    case "HABITAT" -> registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)));
-                    case "TRATADOR" -> registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");
-                    case "VETERINÁRIO" -> registerEmployee(wordsList.get(1), wordsList.get(2), "VET");
-                    case "VACINA" -> registerVaccine(wordsList.get(1), wordsList.get(2), wordsList.get(3));
+
+                    case "HABITAT" -> {if(wordsList.size() == 4) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)));}
+                                       /*if(wordsList.size() == 5) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), wordsList.get(4));*/}
+
+                    case "TRATADOR" -> {if(wordsList.size() == 4) {registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");}
+                                        if(wordsList.size() == 5) {/*FIXME implement this function */}}
+                                        
+                    case "VETERINÁRIO" -> {if(wordsList.size() == 4) {registerEmployee(wordsList.get(1), wordsList.get(2), "VET");}
+                                           if(wordsList.size() == 5) {/*FIXME implement this function */}}
+
+                    case "VACINA" -> {if(wordsList.size() == 4) {registerVaccine(wordsList.get(1), wordsList.get(2), "");}
+                                      if(wordsList.size() == 5) {registerVaccine(wordsList.get(1), wordsList.get(2), wordsList.get(3));}}
+
                     case "ÁRVORE" -> registerTree(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), Integer.parseInt(wordsList.get(4)), wordsList.get(5));
                     default -> throw new UnrecognizedEntryException(wordsList.get(0));
 
@@ -139,6 +147,7 @@ public class Hotel implements Serializable {
             throw new CoreDuplicateEmployeeKeyException(id);
         }
         Employee newEmployee;
+        
         if (type.equals("TRT")){
             newEmployee = new Caretaker(id, name);
         }
@@ -217,10 +226,12 @@ public class Hotel implements Serializable {
         if (_vaccines.containsKey(id)) {
             throw new CoreDuplicateVaccineKeyException(id);
         }
-        String[] idsArray = speciesIds.split(",");
-        for (String speciesId : idsArray){
-            if (_species.containsKey(speciesId) == false) {
-                throw new CoreUnknownSpeciesKeyException(speciesId);
+        if(!speciesIds.equals("")){
+            String[] idsArray = speciesIds.split(",");
+            for (String speciesId : idsArray){
+                if (_species.containsKey(speciesId) == false) {
+                    throw new CoreUnknownSpeciesKeyException(speciesId);
+                }
             }
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesIds);
