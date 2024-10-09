@@ -55,14 +55,14 @@ public class Hotel implements Serializable {
                     case "HABITAT" -> {if(wordsList.size() == 4) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)));}
                                        /*if(wordsList.size() == 5) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), wordsList.get(4));*/}
 
-                    case "TRATADOR" -> {if(wordsList.size() == 4) {registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");}
-                                        if(wordsList.size() == 5) {/*FIXME implement this function */}}
+                    case "TRATADOR" -> {if(wordsList.size() == 3) {registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");}
+                                        if(wordsList.size() == 4) {/*FIXME implement this function */}}
                                         
-                    case "VETERINÁRIO" -> {if(wordsList.size() == 4) {registerEmployee(wordsList.get(1), wordsList.get(2), "VET");}
-                                           if(wordsList.size() == 5) {/*FIXME implement this function */}}
+                    case "VETERINÁRIO" -> {if(wordsList.size() == 3) {registerEmployee(wordsList.get(1), wordsList.get(2), "VET");}
+                                           if(wordsList.size() == 4) {/*FIXME implement this function */}}
 
-                    case "VACINA" -> {if(wordsList.size() == 4) {registerVaccine(wordsList.get(1), wordsList.get(2), "");}
-                                      if(wordsList.size() == 5) {registerVaccine(wordsList.get(1), wordsList.get(2), wordsList.get(3));}}
+                    case "VACINA" -> {if(wordsList.size() == 3) {registerVaccine(wordsList.get(1), wordsList.get(2), "");}
+                                      if(wordsList.size() == 4) {registerVaccine(wordsList.get(1), wordsList.get(2), wordsList.get(3));}}
 
                     case "ÁRVORE" -> registerTree(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), Integer.parseInt(wordsList.get(4)), wordsList.get(5));
                     default -> throw new UnrecognizedEntryException(wordsList.get(0));
