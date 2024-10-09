@@ -20,7 +20,8 @@ class DoOpenFile extends Command<HotelManager> {
         try {
             //FIXME implement command
             _receiver.load(Form.requestString(Prompt.openFile()));
-        } catch (UnavailableFileException e) {
+        } 
+        catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e);
         }
         catch (IOException e){
