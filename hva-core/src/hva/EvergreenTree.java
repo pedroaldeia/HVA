@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class EvergreenTree extends Tree implements Serializable{
     private String _type = "PERENE";
-    private String _biologicCycle;
+    private String _biologicCycle = "GERARFOLHAS";
 
     public EvergreenTree(String id, String name, int age, int cleaningDifficulty){
         super(id, name, age, cleaningDifficulty);
