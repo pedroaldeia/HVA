@@ -1,8 +1,6 @@
 package hva;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 public class Test implements Serializable{
     public static void main(String[] args) {
@@ -58,14 +56,14 @@ public class Test implements Serializable{
 
         System.out.println(vacc);
         */
-        
+        /*
         String line = "animal|bifinho|blonk";
         List<String> wordsList = Arrays.asList(line.split("\\|"));
         if(wordsList.size() == 3){
             System.out.println("blonck");
         } 
         else{System.out.println("não");}
-        
+        */
     }
     
 }
