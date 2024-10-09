@@ -45,6 +45,7 @@ public class Hotel implements Serializable {
 
             // Split the line
             for(String line : file){
+                //System.out.println(line);
                 List<String> wordsList = Arrays.asList(line.split("\\|"));
                 switch(wordsList.get(0)){
                     case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), wordsList.get(3), wordsList.get(4));
@@ -186,18 +187,17 @@ public class Hotel implements Serializable {
         return 0;
     }
 
-    //FIXME isto não devia existir!!!
-    /*public int registerHabitat(String id, String name, int area, String idTrees) {
+    public int registerHabitat(String id, String name, int area, String idTrees) 
+            throws CoreUnknownTreeKeyException,
+            CoreDuplicateHabitatKeyException{
         List<String> idList = splitId(idTrees);
         for(String i : idList){
             if(!_trees.containsKey(i)){
-                //FIXME throw no such tree exception
-                return -1;
+                throw new CoreUnknownTreeKeyException(i);
             }
         }
         if(_habitats.containsKey(id)){
-            //FIXME throw DuplicateHabitatIdException
-            return -1;
+            throw new CoreDuplicateHabitatKeyException(id);
         }
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
@@ -205,7 +205,7 @@ public class Hotel implements Serializable {
             newHabitat.putTree(_trees.get(i));
         }
         return 0;
-    } */
+    } 
 
     //Returns a String with all habitats in hotel and corresponding trees
     public String showAllHabitats(){

@@ -2,3 +2,5 @@
 *.class
 Test.java
 *.vscode
+.txt
+*.DS_Store
