@@ -8,8 +8,11 @@ import hva.exceptions.CoreUnknownHabitatKeyException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
 
+
+/**
+* Asks the hotel to register a new animal
+*/
 class DoRegisterAnimal extends Command<Hotel> {
 
     DoRegisterAnimal(Hotel receiver) {
@@ -17,14 +20,24 @@ class DoRegisterAnimal extends Command<Hotel> {
         //FIXME add command fields if needed
     }
 
+    /**
+     * This method registers an animal in the hotel and it's species
+     * if they don't already exist
+     * 
+     * @param id the unique identifier of the animal
+     * @param name the name of the animal 
+     * @param speciesID the unique identifier of the species
+     * @param habitatId the unique identifier of the habitat
+     * @throws DuplicateAnimalKeyException if the animal is already registered 
+     * @throws UnknownHabitatKeyException if the habitat doesn't exist
+     */
     @Override
-    protected final void execute() throws CommandException, DuplicateAnimalKeyException {
+    protected final void execute() throws CommandException{
         String id = Form.requestString(Prompt.animalKey());
         String name = Form.requestString(Prompt.animalName());
         String speciesId = Form.requestString(Prompt.speciesKey());
         String habitatId = Form.requestString(hva.app.habitat.Prompt.habitatKey());
 
-        //FIXME  levantar excepção
         try{
             if (_receiver.registerAnimal(id, name, speciesId, habitatId) == 1){
                 String speciesName = Form.requestString(Prompt.speciesName());
@@ -33,7 +46,6 @@ class DoRegisterAnimal extends Command<Hotel> {
             _receiver.registerAnimal(id, name, speciesId, habitatId);
         }catch (CoreDuplicateAnimalKeyException e) {throw new DuplicateAnimalKeyException(e.getAnimalKey());}
         catch (CoreUnknownHabitatKeyException e) {throw new UnknownHabitatKeyException(e.getHabitatKey());}
-        //FIXME implement command
         
 
     }

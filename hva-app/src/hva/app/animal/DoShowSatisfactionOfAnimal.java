@@ -3,7 +3,6 @@ package hva.app.animal;
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
 
 class DoShowSatisfactionOfAnimal extends Command<Hotel> {
 

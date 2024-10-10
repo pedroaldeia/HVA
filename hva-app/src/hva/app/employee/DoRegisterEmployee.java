@@ -6,8 +6,11 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.app.exceptions.DuplicateEmployeeKeyException;
 import hva.exceptions.CoreDuplicateEmployeeKeyException;
-//FIXME import other classes if needed
 
+
+/**
+* Asks the hotel to register a new employee
+*/
 class DoRegisterEmployee extends Command<Hotel> {
 
     DoRegisterEmployee(Hotel receiver) {
@@ -15,6 +18,11 @@ class DoRegisterEmployee extends Command<Hotel> {
         //FIXME add command fields if needed
     }
 
+    /**
+     * Registers a new employee in the hotel
+     * 
+     * @throws DuplicateEmployeeKeyException if the employee already exists
+     */
     @Override
     protected void execute() throws CommandException {
         String id = Form.requestString(Prompt.employeeKey());
