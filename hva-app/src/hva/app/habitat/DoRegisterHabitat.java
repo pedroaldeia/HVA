@@ -5,6 +5,8 @@ import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.app.exceptions.DuplicateHabitatKeyException;
+import hva.app.exceptions.UnknownTreeKeyException;
+import hva.exceptions.CoreUnknownTreeKeyException;
 //FIXME import other classes if needed
 import hva.exceptions.CoreDuplicateHabitatKeyException;
 
@@ -22,8 +24,9 @@ class DoRegisterHabitat extends Command<Hotel> {
         int area = Form.requestInteger(Prompt.habitatArea());
 
         try{
-            _receiver.registerHabitat(id, name, area);
+            _receiver.registerHabitat(id, name, area, ""); //FIXME add prompt for trees
         }catch(CoreDuplicateHabitatKeyException e){throw new DuplicateHabitatKeyException(e.getHabitatKey());}
+        catch(CoreUnknownTreeKeyException e){throw new UnknownTreeKeyException("");} //FIXME add tree id to this exception
     };
     
 }

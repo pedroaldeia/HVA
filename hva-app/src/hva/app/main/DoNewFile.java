@@ -15,16 +15,16 @@ class DoNewFile extends Command<HotelManager> {
 
     @Override
     protected final void execute() throws FileOpenFailedException{
-            try {
-                _receiver.saveAs(Form.requestString(hva.app.main.Prompt.newSaveAs()));
-            }
-            catch(MissingFileAssociationException e1){_display.popup(hva.app.main.Message.fileNotFound());
-            }
-            catch(FileNotFoundException e){
-                throw new FileOpenFailedException(e);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            _receiver.saveAs(Form.requestString(hva.app.main.Prompt.newSaveAs()));
+        }
+        catch(MissingFileAssociationException e1){_display.popup(hva.app.main.Message.fileNotFound());
+        }
+        catch(FileNotFoundException e){
+            throw new FileOpenFailedException(e);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

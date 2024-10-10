@@ -94,4 +94,15 @@ public class HotelManager {
     public String getFilename() {
         return _filename;
     }
+
+    /**
+     * This method returns the current state of the hotel's file (changed or not).
+     * 
+     * @return int the current state of the hotel's file (changed or not)
+     */
+    public int getFileChanged(){
+        return _hotel.getFileChanged();
+    }
+
+    
 }

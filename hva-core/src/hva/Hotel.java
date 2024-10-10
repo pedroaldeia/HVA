@@ -17,11 +17,11 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Comparator;
 
 
 public class Hotel implements Serializable {
@@ -79,8 +79,8 @@ public class Hotel implements Serializable {
 
                     case "ESPÉCIE" -> registerSpecies(wordsList.get(1), wordsList.get(2));
 
-                    case "HABITAT" -> {if(wordsList.size() == 4) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)));}
-                                       /*if(wordsList.size() == 5) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), wordsList.get(4));*/}
+                    case "HABITAT" -> {if(wordsList.size() == 4) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), "");}
+                                       if(wordsList.size() == 5) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), wordsList.get(4));}}
 
                     case "TRATADOR" -> {if(wordsList.size() == 3) {registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");}
                                         if(wordsList.size() == 4) {/*FIXME implement this function */}}
@@ -251,26 +251,6 @@ public class Hotel implements Serializable {
      * @param id the id of the Habitat
      * @param name the name of the Habitat
      * @param area the area of the Habitat
-     * @return the result of the operation
-     * @throws CoreDuplicateHabitatKeyException
-     */
-    public int registerHabitat(String id, String name, int area)
-            throws CoreDuplicateHabitatKeyException{
-        if (_habitats.containsKey(id)) {
-            throw new CoreDuplicateHabitatKeyException(id);
-        }
-        Habitat newHabitat = new Habitat(id, name, area);
-        _habitats.put(id, newHabitat);
-        _fileChanged = 1;
-        return 0;
-    }
-
-    /**
-     * Registers a new Habitat into the Hotel (puts it into the _habitats map)
-     * 
-     * @param id the id of the Habitat
-     * @param name the name of the Habitat
-     * @param area the area of the Habitat
      * @param idTrees the id of the Trees in the Habitat (separated by ",")
      * @return the result of the operation
      * @throws CoreDuplicateHabitatKeyException
@@ -278,14 +258,21 @@ public class Hotel implements Serializable {
     public int registerHabitat(String id, String name, int area, String idTrees) 
             throws CoreUnknownTreeKeyException,
             CoreDuplicateHabitatKeyException{
+        if(_habitats.containsKey(id)){
+            throw new CoreDuplicateHabitatKeyException(id);
+        }
+        if(idTrees.equals("")){
+            Habitat newHabitat = new Habitat(id, name, area);
+            _habitats.put(id, newHabitat);
+            _fileChanged = 1;
+            return 0;
+        }
+
         List<String> idList = splitId(idTrees);
         for(String i : idList){
             if(!_trees.containsKey(i)){
                 throw new CoreUnknownTreeKeyException(i);
             }
-        }
-        if(_habitats.containsKey(id)){
-            throw new CoreDuplicateHabitatKeyException(id);
         }
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
