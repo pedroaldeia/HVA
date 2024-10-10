@@ -36,13 +36,15 @@ public class Hotel implements Serializable {
     private Map<String, Tree> _trees = new HashMap<>();
 
     public Hotel(){};
-    //NEW
-    private static final Comparator<String> CASE_INSENSITIVE_ORDER = new Comparator<String>() {
+    
+    private static final Comparator<String> CASE_INSENSITIVE_ORDER = new CaseInsensitiveComparator();
+
+    private static class CaseInsensitiveComparator implements Comparator<String>, Serializable {
         @Override
         public int compare(String s1, String s2) {
             return s1.compareToIgnoreCase(s2);
         }
-    };
+    }
 
 
     @Serial
