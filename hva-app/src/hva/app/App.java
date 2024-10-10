@@ -16,9 +16,6 @@ public class App {
                 } catch (ImportFileException e) {
                     // no behavior described: just present the problem
                     e.printStackTrace();
-                } catch (CoreException e) {
-                    // no behavior described: just present the problem
-                    e.printStackTrace();
                 }
             }
 

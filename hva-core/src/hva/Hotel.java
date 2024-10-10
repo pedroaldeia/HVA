@@ -26,8 +26,7 @@ import java.util.Comparator;
 
 public class Hotel implements Serializable {
 
-    //indexados pelo id
-    //NEW
+    //registos do hotel
     private Map<String, Habitat> _habitats = new TreeMap<>(CASE_INSENSITIVE_ORDER);
     private Map<String, Employee> _employees = new TreeMap<>(CASE_INSENSITIVE_ORDER);
     private Map<String, Vaccine> _vaccines = new TreeMap<>(CASE_INSENSITIVE_ORDER);
@@ -39,29 +38,34 @@ public class Hotel implements Serializable {
     
     private static final Comparator<String> CASE_INSENSITIVE_ORDER = new CaseInsensitiveComparator();
 
+    
+    
+    @Serial
+    private static final long serialVersionUID = 202407081733L;
+    
+    private int _fileChanged = 0;
+    
+    
+    //FIXME define constructor(s)
+
+    /**
+     * Compare String values without diferentiating between upper and lower case
+     *
+     */
     private static class CaseInsensitiveComparator implements Comparator<String>, Serializable {
         @Override
         public int compare(String s1, String s2) {
             return s1.compareToIgnoreCase(s2);
         }
     }
-
-
-    @Serial
-    private static final long serialVersionUID = 202407081733L;
-
-    private int _fileChanged = 0;
-
-
-    //FIXME define constructor(s)
-
+    
     /**
      * Read text input file and create domain entities.
      *
      * @param filename name of the text input file
      * @throws ImportFileException
      */
-    void importFile(String filename) throws ImportFileException, CoreException { 
+    void importFile(String filename) throws ImportFileException{ 
 	try {
             // Read the first line from the file
             List<String> file = Files.readAllLines(Paths.get(filename));
@@ -93,7 +97,8 @@ public class Hotel implements Serializable {
                 }
             }
         } catch (IOException | UnrecognizedEntryException e) {
-            throw new ImportFileException(filename, e);}
+            throw new ImportFileException(filename, e);
+        } catch (CoreException e) {}
 
 
     }

@@ -73,7 +73,7 @@ public class HotelManager {
      * @param filename name of the text input file
      * @throws ImportFileException if an error occurs while importing the file
      */
-    public void importFile(String filename) throws ImportFileException, CoreException {
+    public void importFile(String filename) throws ImportFileException{
         _hotel.importFile(filename);
     }
 
