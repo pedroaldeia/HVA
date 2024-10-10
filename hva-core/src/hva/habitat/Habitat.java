@@ -70,7 +70,8 @@ public class Habitat implements Serializable{
      */
     @Override
     public String toString(){
-        return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + _treeNum; 
+        return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
+          _treeNum; 
         //FIXME implement print all trees in habitat
     }
 

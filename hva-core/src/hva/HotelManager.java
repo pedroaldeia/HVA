@@ -16,18 +16,24 @@ public class HotelManager {
     private String _filename = "";
 
     /**
-     * Saves the serialized application's state into the file associated to the current network.
+     * Saves the serialized application's state into the file associated to the current 
+     * network.
      *
-     * @throws FileNotFoundException if for some reason the file cannot be created or opened.
-     * @throws MissingFileAssociationException if the current network does not have a file.
-     * @throws IOException if there is some error while serializing the state of the network to disk.
+     * @throws FileNotFoundException if for some reason the file cannot be created or 
+     *  opened.
+     * @throws MissingFileAssociationException if the current network does not have a 
+     *  file.
+     * @throws IOException if there is some error while serializing the state of the 
+     * network to disk.
      */
-    public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
+    public void save() throws FileNotFoundException, MissingFileAssociationException, 
+        IOException {
         if(_filename == null || _filename.equals("")){
             throw new MissingFileAssociationException();
         }
         if(_hotel.getFileChanged() == 1){ 
-            try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(
+                 new BufferedOutputStream(new FileOutputStream(_filename)))) {
                 oos.writeObject(_hotel);
                 _hotel.setFileChanged(0); 
             }
@@ -37,13 +43,18 @@ public class HotelManager {
     }
 
     /**
-     * Saves the serialized application's state into the file associated to the current network.
+     * Saves the serialized application's state into the file associated to the current 
+     * network.
      *
-     * @throws FileNotFoundException if for some reason the file cannot be created or opened.
-     * @throws MissingFileAssociationException if the current network does not have a file.
-     * @throws IOException if there is some error while serializing the state of the network to disk.
+     * @throws FileNotFoundException if for some reason the file cannot be created or 
+     * opened.
+     * @throws MissingFileAssociationException if the current network does not have a 
+     * file.
+     * @throws IOException if there is some error while serializing the state of the 
+     * network to disk.
      */
-    public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
+    public void saveAs(String filename) throws FileNotFoundException, 
+       MissingFileAssociationException, IOException {
         _filename = filename;
         save();
     }
@@ -56,7 +67,8 @@ public class HotelManager {
      */
     public void load(String filename) throws UnavailableFileException {
 
-        try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
+            new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
             _hotel.setFileChanged(0);
             _filename = filename;

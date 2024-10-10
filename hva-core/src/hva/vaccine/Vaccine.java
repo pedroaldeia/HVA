@@ -16,7 +16,8 @@ public class Vaccine implements Serializable{
      * 
      * @param id the unique identifier of the vaccine
      * @param name the name of the vaccine
-     * @param speciesIds a string of comma-separated species IDs this vaccine is meant for
+     * @param speciesIds a string of comma-separated species IDs this vaccine is meant 
+     * for
      */
     public Vaccine(String id, String name, String speciesIds) {
         _name = name;
@@ -52,7 +53,8 @@ public class Vaccine implements Serializable{
         if(_speciesIds.equals("")){
             return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications; 
         }
-        return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + "|" + _speciesIds; 
+        return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + 
+          "|" + _speciesIds; 
     }
 
     

@@ -29,7 +29,8 @@ public class Caretaker extends Employee{
             return "TRT|" + _id + "|" + _name; 
         }
         else{
-            return "TRT|" + _id + "|" + _name + "|" + _responsibilityList; //FIXME implement how to print the list
+            return "TRT|" + _id + "|" + _name + "|" + _responsibilityList; 
+            //FIXME implement how to print the list
         }
     }
 

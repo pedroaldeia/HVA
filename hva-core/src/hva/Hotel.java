@@ -36,7 +36,8 @@ public class Hotel implements Serializable {
 
     public Hotel(){};
     
-    private static final Comparator<String> CASE_INSENSITIVE_ORDER = new CaseInsensitiveComparator();
+    private static final Comparator<String> CASE_INSENSITIVE_ORDER = new 
+        CaseInsensitiveComparator();
 
     
     
@@ -52,7 +53,8 @@ public class Hotel implements Serializable {
      * Compare String values without diferentiating between upper and lower case
      *
      */
-    private static class CaseInsensitiveComparator implements Comparator<String>, Serializable {
+    private static class CaseInsensitiveComparator implements Comparator<String>, 
+        Serializable {
         @Override
         public int compare(String s1, String s2) {
             return s1.compareToIgnoreCase(s2);
@@ -75,23 +77,40 @@ public class Hotel implements Serializable {
                 //System.out.println(line);
                 List<String> wordsList = Arrays.asList(line.split("\\|"));
                 switch(wordsList.get(0)){
-                    case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), wordsList.get(3), wordsList.get(4));
+                    case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), 
+                                      wordsList.get(3), wordsList.get(4));
 
-                    case "ESPÉCIE" -> registerSpecies(wordsList.get(1), wordsList.get(2));
+                    case "ESPÉCIE" -> registerSpecies(wordsList.get(1), 
+                                        wordsList.get(2));
 
-                    case "HABITAT" -> {if(wordsList.size() == 4) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), "");}
-                                       if(wordsList.size() == 5) {registerHabitat(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), wordsList.get(4));}}
+                    case "HABITAT" -> {if(wordsList.size() == 4) {registerHabitat(
+                                        wordsList.get(1), wordsList.get(2), 
+                                        Integer.parseInt(wordsList.get(3)), "");}
+                                       if(wordsList.size() == 5) {registerHabitat(
+                                        wordsList.get(1), wordsList.get(2),
+                                         Integer.parseInt(wordsList.get(3)), 
+                                         wordsList.get(4));}}
 
-                    case "TRATADOR" -> {if(wordsList.size() == 3) {registerEmployee(wordsList.get(1), wordsList.get(2), "TRT");}
-                                        if(wordsList.size() == 4) {/*FIXME implement this function */}}
+                    case "TRATADOR" -> {if(wordsList.size() == 3) {registerEmployee(
+                                        wordsList.get(1), wordsList.get(2), "TRT");}
+                                        if(wordsList.size() == 4) 
+                                    {/*FIXME implement this function */}}
                                         
-                    case "VETERINÁRIO" -> {if(wordsList.size() == 3) {registerEmployee(wordsList.get(1), wordsList.get(2), "VET");}
-                                           if(wordsList.size() == 4) {/*FIXME implement this function */}}
+                    case "VETERINÁRIO" -> {if(wordsList.size() == 3) {registerEmployee(
+                        wordsList.get(1), wordsList.get(2), "VET");}
+                                           if(wordsList.size() == 4) 
+                                        {/*FIXME implement this function */}}
 
-                    case "VACINA" -> {if(wordsList.size() == 3) {registerVaccine(wordsList.get(1), wordsList.get(2), "");}
-                                      if(wordsList.size() == 4) {registerVaccine(wordsList.get(1), wordsList.get(2), wordsList.get(3));}}
+                    case "VACINA" -> {if(wordsList.size() == 3) {registerVaccine(
+                                        wordsList.get(1), wordsList.get(2), "");}
+                                      if(wordsList.size() == 4) {registerVaccine(
+                                        wordsList.get(1), wordsList.get(2), 
+                                        wordsList.get(3));}}
 
-                    case "ÁRVORE" -> registerTree(wordsList.get(1), wordsList.get(2), Integer.parseInt(wordsList.get(3)), Integer.parseInt(wordsList.get(4)), wordsList.get(5));
+                    case "ÁRVORE" -> registerTree(wordsList.get(1), wordsList.get(2), 
+                                      Integer.parseInt(wordsList.get(3)), 
+                                      Integer.parseInt(wordsList.get(4)), 
+                                      wordsList.get(5));
                     default -> throw new UnrecognizedEntryException(wordsList.get(0));
 
                 }
@@ -352,7 +371,8 @@ public class Hotel implements Serializable {
      * @param type the type of the Tree (CADUCA or PERENE)
      * @return the result of the operation
      */
-    public int registerTree(String id, String name, int age, int difficulty, String type) {
+    public int registerTree(String id, String name, int age, int difficulty, 
+       String type) {
         if(_trees.containsKey(id)){
             //throw DuplicateTreeKeyException
             return -1;

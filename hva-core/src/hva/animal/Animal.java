@@ -37,9 +37,11 @@ public class Animal implements Serializable{
     public String toString(){
         //if (_habitat == null){System.out.println("WTF");}
         if(_injuryRecord.isEmpty()){
-            return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + "VOID" + "|" + _habitat.getId();
+            return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + "VOID" +
+             "|" + _habitat.getId();
         }
-        return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + _injuryRecord + "|" + _habitat.getId(); 
+        return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + 
+          _injuryRecord + "|" + _habitat.getId(); 
         //FIXME implement show injury Record
     }
 
