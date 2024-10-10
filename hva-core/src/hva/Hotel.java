@@ -183,23 +183,7 @@ public class Hotel implements Serializable {
         return 0;
     }
 
-    //FIXME comment this method
-    /**
-     * 
-     */
-    public int setAnimalHabitat(String animalId, String habitatId){
-        for (Habitat habitat : _habitats.values()){
-            for (Animal animal : habitat.getAnimalMap().values()){
-                if (animal.getId().equals(animalId)){
-                    habitat.getAnimalMap().remove(animalId);
-                    _habitats.get(habitatId).getAnimalMap().put(animalId, animal);
-                    return 1;
-                }
-            }
-        }
-        _fileChanged = 1;
-        return 0;
-    }
+
     
     /**
      * Returns a String with all animals in hotel

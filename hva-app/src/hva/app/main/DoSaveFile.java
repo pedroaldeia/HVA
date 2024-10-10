@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import java.io.IOException;
-//FIXME import other classes if needed
+
 
 class DoSaveFile extends Command<HotelManager> {
     DoSaveFile(HotelManager receiver) {
