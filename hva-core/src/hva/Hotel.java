@@ -87,11 +87,23 @@ public class Hotel implements Serializable {
 
     }
 
-    //Splits a String of id's separated by a "," character into a List of Strings
+    /**
+     * Splits a String of id's separated by a "," character into a List of Strings
+     * 
+     * @param allIds a String of id's separated by a "," character
+     * @return an array of Strings (those separated by a "," character)
+    */
     private List<String> splitId(String allIds){
         return(Arrays.asList(allIds.split(",")));
     }
 
+    /**
+     * Registers a new Species into the Hotel (puts it into the _species map)
+     * 
+     * @param id the id of the Species
+     * @param name the name of the Species
+     * @return an integer indicating the result of the operation
+     */
     public int registerSpecies(String id, String name){
         if (_species.containsKey(id)) {
             //DuplicateSpeciesKeyException
@@ -99,10 +111,19 @@ public class Hotel implements Serializable {
         }
         Species newSpecies = new Species(id, name);
         _species.put(id, newSpecies);
-        _fileChanged = 1; //NEW
+        _fileChanged = 1; 
         return 0;
     }
 
+    /**
+     * Registers a new Animal into the Hotel (puts it into the _animals map)
+     * 
+     * @param id the id of the Animal
+     * @param name the name of the Animal
+     * @param speciesId the id of the Species of the Animal
+     * @param habitatId the id of the Habitat of the Animal
+     * @return an integer indicating the result of the operation
+     */
     //Menu de Gestão de Animais
     public int registerAnimal(String id, String name, 
             String speciesId, String habitatId) 
@@ -124,10 +145,14 @@ public class Hotel implements Serializable {
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
         //habitat.getAnimalMap().put(id, newAnimal);
-        _fileChanged = 1; //NEW
+        _fileChanged = 1;
         return 0;
     }
 
+    //FIXME
+    /**
+     * 
+     */
     public int setAnimalHabitat(String animalId, String habitatId){
         for (Habitat habitat : _habitats.values()){
             for (Animal animal : habitat.getAnimalMap().values()){
@@ -142,7 +167,11 @@ public class Hotel implements Serializable {
         return 0;
     }
     
-    //Returns a String with all employees in hotel
+    /**
+     * Returns a String with all animals in hotel
+     * 
+     * @return a String with all animals in hotel
+     */
     public String showAllAnimals(){
         String animalString = "";
         for (Animal animal : _animals.values()){
@@ -154,7 +183,15 @@ public class Hotel implements Serializable {
         return animalString;
     }
 
-
+    /**
+     * Registers a new employee into the Hotel (puts it into the _employees map)
+     * 
+     * @param id
+     * @param name
+     * @param type
+     * @return
+     * @throws CoreDuplicateEmployeeKeyException
+     */
     //Menu de Gestão de Funcionários
     public int registerEmployee(String id, String name, String type)
             throws CoreDuplicateEmployeeKeyException{
@@ -174,12 +211,15 @@ public class Hotel implements Serializable {
             return 1;
         }
         _employees.put(id, newEmployee);
-        _fileChanged = 1; //NEW
+        _fileChanged = 1; 
         return 0;
     }
     
-
-    //Returns a String with all employees in hotel
+    /**
+     * Returns a String with all employees in hotel
+     * 
+     * @return a String with all employees in hotel
+     */
     public String showAllEmployees(){
         String employeeString = "";
         for (Employee employee : _employees.values()){
@@ -191,8 +231,15 @@ public class Hotel implements Serializable {
         return employeeString;
     }
 
-
-    //Menu de Gestão de Habitats 
+    /**
+     * Registers a new Habitat into the Hotel (puts it into the _habitats map)
+     * 
+     * @param id the id of the Habitat
+     * @param name the name of the Habitat
+     * @param area the area of the Habitat
+     * @return the result of the operation
+     * @throws CoreDuplicateHabitatKeyException
+     */
     public int registerHabitat(String id, String name, int area)
             throws CoreDuplicateHabitatKeyException{
         if (_habitats.containsKey(id)) {
@@ -200,10 +247,20 @@ public class Hotel implements Serializable {
         }
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
-        _fileChanged = 1; //NEW
+        _fileChanged = 1;
         return 0;
     }
 
+    /**
+     * Registers a new Habitat into the Hotel (puts it into the _habitats map)
+     * 
+     * @param id the id of the Habitat
+     * @param name the name of the Habitat
+     * @param area the area of the Habitat
+     * @param idTrees the id of the Trees in the Habitat (separated by ",")
+     * @return the result of the operation
+     * @throws CoreDuplicateHabitatKeyException
+     */
     public int registerHabitat(String id, String name, int area, String idTrees) 
             throws CoreUnknownTreeKeyException,
             CoreDuplicateHabitatKeyException{
@@ -221,11 +278,15 @@ public class Hotel implements Serializable {
         for(String i : idList){
             newHabitat.putTree(_trees.get(i));
         }
-        _fileChanged = 1; //NEW
+        _fileChanged = 1; 
         return 0;
     } 
 
-    //Returns a String with all habitats in hotel and corresponding trees
+    /**
+     * Returns a String with all habitats in hotel and corresponding trees
+     * 
+     * @return a String with all habitats in hotel and corresponding trees
+     */
     public String showAllHabitats(){
         String habitatString = "";
         for (Habitat habitat : _habitats.values()){
@@ -237,7 +298,13 @@ public class Hotel implements Serializable {
         return habitatString;
     }
 
-    //Menu de Gestão de Vacinas
+    /**
+     * Registers a new Vaccine into the Hotel (puts it into the _vaccines map)
+     * 
+     * @param id the id of the Vaccine
+     * @param name the name of the Vaccine
+     * @param speciesIds the ids of the Species the Vaccine is for (separated by ",")
+     */
     public int registerVaccine(String id, String name, String speciesIds)
             throws CoreDuplicateVaccineKeyException,
             CoreUnknownSpeciesKeyException{
@@ -254,11 +321,15 @@ public class Hotel implements Serializable {
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesIds);
         _vaccines.put(id, newVaccine);
-        _fileChanged = 1; //NEW
+        _fileChanged = 1; 
         return 0;
     }
 
-    //Returns a String with all vaccines
+    /**
+     * Returns a String with all vaccines in hotel
+     * 
+     * @return a String with all vaccines in hotel
+     */
     public String showAllVaccines(){
         String vaccineString = "";
         for (Vaccine vaccine : _vaccines.values()){
@@ -270,6 +341,16 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
+    /**
+     * Registers a new Tree into the Hotel (puts it into the _trees map)
+     * 
+     * @param id the id of the Tree
+     * @param name the name of the Tree
+     * @param age the age of the Tree  
+     * @param difficulty the difficulty of cleaning the Tree
+     * @param type the type of the Tree (CADUCA or PERENE)
+     * @return the result of the operation
+     */
     public int registerTree(String id, String name, int age, int difficulty, String type) {
         if(_trees.containsKey(id)){
             //throw DuplicateTreeKeyException
@@ -286,15 +367,29 @@ public class Hotel implements Serializable {
             return 0;
         }
         //FIXME throw some exception for infalid identifier
-        _fileChanged = 1; //NEW
+        _fileChanged = 1;
         return -1;
     }
 
-    public int getFileChanged(){ //NEW
+
+    /**
+     * Returns current status of the file (saved or not) (in variable _fileChanged)
+     * (0-> saved, 1-> not saved)
+     * 
+     * @return int _fileChanged
+     */
+    public int getFileChanged(){ 
         return _fileChanged;
     }
 
-    public void setFileChanged(int fileChanged){ //NEW
+    /**
+     * Sets the status of the file (saved or not) (in variable _fileChanged)
+     * (0-> saved, 1-> not saved)
+     * 
+     * @param fileChanged
+     * @return void
+     */
+    public void setFileChanged(int fileChanged){
         _fileChanged = fileChanged;
     }
 
