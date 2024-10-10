@@ -7,12 +7,22 @@ import java.util.List;
 public class Caretaker extends Employee{
     private List<Habitat> _responsibilityList = new ArrayList<>();
 
-    // implement addResponsibility and accept
-
+    //FIXME implement addResponsibility and accept
+    /**
+     * This is the constructor of the Caretaker class.
+     * 
+     * @param id the unique identifier of the caretaker
+     * @param name the name of the caretaker
+     */
     public Caretaker(String id, String name) {
         super(id, name);
     }
 
+    /**
+     * This method returns the details of the caretaker.
+     * 
+     * @return a string with the details of the animal
+     */
     @Override
     public String toString(){
         if (_responsibilityList.isEmpty()){
@@ -23,10 +33,20 @@ public class Caretaker extends Employee{
         }
     }
 
+    /**
+     * This method returns the unique identifier of the caretaker.
+     * 
+     * @return String identifier (_id)
+     */
     public String getId(){
         return _id;
     }
 
+    /**
+     * This method returns the name of the caretaker.
+     * 
+     * @return String _name
+     */
     public String getName(){
         return _name;
     }

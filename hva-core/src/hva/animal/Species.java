@@ -10,16 +10,32 @@ public class Species implements Serializable{
     private int _vetsNum = 0;
     private List<Animal> _animals = new ArrayList<Animal>();
 
+
+    /**
+     * This is the constructor of the Species class.
+     * 
+     * @param id of the species
+     * @param name of the species
+     */
     public Species(String id, String name){
         _id = id;
         _name = name;
     }
 
-
+    /**
+     * This method returns the unique identifier of the species.
+     * 
+     * @return identifier (_id)
+     */
     public String getId() {
         return _id;
     }
 
+    /**
+     * This method returns the name of the species.
+     * 
+     * @return _name
+     */
     public String getName() {
         return _name;
     }

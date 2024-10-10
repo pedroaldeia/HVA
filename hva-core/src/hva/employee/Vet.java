@@ -9,10 +9,22 @@ public class Vet extends Employee{
 
     // implement addResponsibility and accept
 
+    /**
+     * This is the constructor of the Vet class.
+     * 
+     * @param id the unique identifier of the vet
+     * @param name the name of the vet
+     * @return void
+     */
     public Vet(String id, String name) {
         super(id, name);
     }
 
+    /**
+     * This method returns the details of the vet.
+     * 
+     * @return a string with the details of the vet
+     */
     @Override
     public String toString(){
         if (_responsibilityList.isEmpty()){
@@ -24,10 +36,20 @@ public class Vet extends Employee{
         }
     }
 
+    /**
+     * This method returns the unique identifier of the animal.
+     * 
+     * @return String identifier (_id)
+     */
     public String getId(){
         return _id;
     }
 
+    /**
+     * This method returns the name of the vet.
+     * 
+     * @return String _name
+     */
     public String getName(){
         return _name;
     }
