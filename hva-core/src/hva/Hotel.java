@@ -99,7 +99,7 @@ public class Hotel implements Serializable {
         }
         Species newSpecies = new Species(id, name);
         _species.put(id, newSpecies);
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return 0;
     }
 
@@ -124,7 +124,7 @@ public class Hotel implements Serializable {
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
         //habitat.getAnimalMap().put(id, newAnimal);
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return 0;
     }
 
@@ -174,7 +174,7 @@ public class Hotel implements Serializable {
             return 1;
         }
         _employees.put(id, newEmployee);
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return 0;
     }
     
@@ -200,7 +200,7 @@ public class Hotel implements Serializable {
         }
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return 0;
     }
 
@@ -221,7 +221,7 @@ public class Hotel implements Serializable {
         for(String i : idList){
             newHabitat.putTree(_trees.get(i));
         }
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return 0;
     } 
 
@@ -254,7 +254,7 @@ public class Hotel implements Serializable {
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesIds);
         _vaccines.put(id, newVaccine);
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return 0;
     }
 
@@ -286,15 +286,15 @@ public class Hotel implements Serializable {
             return 0;
         }
         //FIXME throw some exception for infalid identifier
-        _fileChanged = 1;
+        _fileChanged = 1; //NEW
         return -1;
     }
 
-    public int getFileChanged(){
+    public int getFileChanged(){ //NEW
         return _fileChanged;
     }
 
-    public void setFileChanged(int fileChanged){
+    public void setFileChanged(int fileChanged){ //NEW
         _fileChanged = fileChanged;
     }
 

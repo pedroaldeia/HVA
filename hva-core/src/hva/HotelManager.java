@@ -14,6 +14,7 @@ public class HotelManager {
     private Hotel _hotel = new Hotel();
 
     private String _filename = "";
+    //NEW -> tirei fileChanged
 
     /**
      * Saves the serialized application's state into the file associated to the current network.
@@ -27,10 +28,10 @@ public class HotelManager {
         if(_filename == null || _filename.equals("")){
             throw new MissingFileAssociationException();
         }
-        if(_hotel.getFileChanged() == 1){
+        if(_hotel.getFileChanged() == 1){ //NEW
             try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
                 oos.writeObject(_hotel);
-                _hotel.setFileChanged(0);
+                _hotel.setFileChanged(0); //NEW
             }
             catch(FileNotFoundException e) {throw new FileNotFoundException();}
             catch(IOException e) {throw new IOException();} 
