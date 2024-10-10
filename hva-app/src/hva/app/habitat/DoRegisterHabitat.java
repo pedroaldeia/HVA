@@ -10,6 +10,9 @@ import hva.exceptions.CoreUnknownTreeKeyException;
 //FIXME import other classes if needed
 import hva.exceptions.CoreDuplicateHabitatKeyException;
 
+/**
+* Asks the hotel to register a new habitat
+*/
 class DoRegisterHabitat extends Command<Hotel> {
 
     DoRegisterHabitat(Hotel receiver) {
@@ -17,6 +20,11 @@ class DoRegisterHabitat extends Command<Hotel> {
         //FIXME add command fields if needed
     }
 
+    /**
+    * Registers a new habitat in the hotel
+    *
+    * @throws DuplicateHabitatKeyException if the habitat already exists
+    */
     @Override
     protected void execute() throws CommandException {
         String id  = Form.requestString(Prompt.habitatKey());
