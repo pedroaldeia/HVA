@@ -7,8 +7,8 @@ public class EvergreenTree extends Tree{
     /**
      * This is the constructor of the EvergreenTree class.
      * 
-     * @param id the unique identifier of the animal
-     * @param name the name of the animal 
+     * @param id the unique identifier of the tree
+     * @param name the name of the tree
      * @param age the age of the tree
      * @param cleaningDifficulty the difficulty of cleaning the tree
      * @return void

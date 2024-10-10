@@ -14,7 +14,6 @@ public class HotelManager {
     private Hotel _hotel = new Hotel();
 
     private String _filename = "";
-    //NEW -> tirei fileChanged
 
     /**
      * Saves the serialized application's state into the file associated to the current network.
@@ -24,14 +23,13 @@ public class HotelManager {
      * @throws IOException if there is some error while serializing the state of the network to disk.
      */
     public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-        // FIXME implement serialization method
         if(_filename == null || _filename.equals("")){
             throw new MissingFileAssociationException();
         }
-        if(_hotel.getFileChanged() == 1){ //NEW
+        if(_hotel.getFileChanged() == 1){ 
             try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
                 oos.writeObject(_hotel);
-                _hotel.setFileChanged(0); //NEW
+                _hotel.setFileChanged(0); 
             }
             catch(FileNotFoundException e) {throw e;}
             catch(IOException e) {throw e;} 
@@ -73,15 +71,26 @@ public class HotelManager {
      * Read text input file.
      *
      * @param filename name of the text input file
-     * @throws ImportFileException
+     * @throws ImportFileException if an error occurs while importing the file
      */
     public void importFile(String filename) throws ImportFileException, CoreException {
         _hotel.importFile(filename);
     }
+
+    /**
+     * This method returns the current hotel.
+     * 
+     * @return _hotel the current hotel
+     */
     public Hotel getHotel(){
         return _hotel;
     }
 
+    /**
+     * This method returns the current filename associated with the hotel.
+     * 
+     * @return _filename the current filename associated with the hotel
+     */
     public String getFilename() {
         return _filename;
     }

@@ -14,7 +14,6 @@ public class Vet extends Employee{
      * 
      * @param id the unique identifier of the vet
      * @param name the name of the vet
-     * @return void
      */
     public Vet(String id, String name) {
         super(id, name);
@@ -37,7 +36,7 @@ public class Vet extends Employee{
     }
 
     /**
-     * This method returns the unique identifier of the animal.
+     * This method returns the unique identifier of the vet.
      * 
      * @return String identifier (_id)
      */
