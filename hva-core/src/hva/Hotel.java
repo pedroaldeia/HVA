@@ -59,7 +59,7 @@ public class Hotel implements Serializable {
      * @param filename name of the text input file
      * @throws ImportFileException
      */
-    void importFile(String filename) throws ImportFileException, CoreException { //FIXME implement cases where habitat has no treeId's, and employee has no extras
+    void importFile(String filename) throws ImportFileException, CoreException { 
 	try {
             // Read the first line from the file
             List<String> file = Files.readAllLines(Paths.get(filename));
@@ -133,7 +133,6 @@ public class Hotel implements Serializable {
      * @param habitatId the id of the Habitat of the Animal
      * @return an integer indicating the result of the operation
      */
-    //Menu de Gestão de Animais
     public int registerAnimal(String id, String name, 
             String speciesId, String habitatId) 
             throws CoreDuplicateAnimalKeyException,
@@ -158,7 +157,7 @@ public class Hotel implements Serializable {
         return 0;
     }
 
-    //FIXME
+    //FIXME comment this method
     /**
      * 
      */
@@ -201,7 +200,6 @@ public class Hotel implements Serializable {
      * @return
      * @throws CoreDuplicateEmployeeKeyException
      */
-    //Menu de Gestão de Funcionários
     public int registerEmployee(String id, String name, String type)
             throws CoreDuplicateEmployeeKeyException{
         if (_employees.containsKey(id)) {
@@ -375,7 +373,7 @@ public class Hotel implements Serializable {
             _trees.put(id, newTree);
             return 0;
         }
-        //FIXME throw some exception for infalid identifier
+        //FIXME throw some exception for invalid identifier
         _fileChanged = 1;
         return -1;
     }

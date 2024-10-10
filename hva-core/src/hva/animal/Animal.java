@@ -20,7 +20,6 @@ public class Animal implements Serializable{
      * @param name the name of the animal 
      * @param species the species of the animal
      * @param habitat the habitat the animal is in
-     * @return void
      */
     public Animal(String id, String name, Species species, Habitat habitat){
         _id = id;

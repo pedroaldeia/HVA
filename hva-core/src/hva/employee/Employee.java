@@ -7,6 +7,12 @@ public abstract class Employee implements Serializable{
     protected String _name;
     //private SatisfactionCalculator _satisfactionCalc;
 
+    /**
+     * This is the constructor of the Employee class.
+     * 
+     * @param id the id of the employee
+     * @param name the name of the employee
+     */
     public Employee(String id, String name) {
         _id = id;
         _name = name;

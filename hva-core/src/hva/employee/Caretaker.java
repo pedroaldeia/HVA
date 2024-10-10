@@ -21,7 +21,7 @@ public class Caretaker extends Employee{
     /**
      * This method returns the details of the caretaker.
      * 
-     * @return a string with the details of the animal
+     * @return a string with the details of the caretaker
      */
     @Override
     public String toString(){

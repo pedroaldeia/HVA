@@ -7,11 +7,10 @@ public class DeciduousTree extends Tree{ //WIP
     /**
      * This is the constructor of the DeciduousTree class.
      * 
-     * @param id the unique identifier of the animal
-     * @param name the name of the animal 
+     * @param id the unique identifier of the tree
+     * @param name the name of the tree
      * @param age the age of the tree
      * @param cleaningDifficulty the difficulty of cleaning the tree
-     * @return void
      */
     public DeciduousTree(String id, String name, int age, int cleaningDifficulty){
         super(id, name, age, cleaningDifficulty);

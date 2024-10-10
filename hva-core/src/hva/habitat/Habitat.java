@@ -29,7 +29,6 @@ public class Habitat implements Serializable{
      * @param id the unique identifier of the habitat
      * @param name the name of the habitat
      * @param area the area of the habitat
-     * @return void
      */
     public Habitat(String id, String name, int area){
         _id = id;
