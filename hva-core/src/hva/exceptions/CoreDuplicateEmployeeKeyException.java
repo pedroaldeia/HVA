@@ -1,6 +1,6 @@
 package hva.exceptions;
 
-public class CoreDuplicateEmployeeKeyException extends Exception{
+public class CoreDuplicateEmployeeKeyException extends CoreException{
     private String _id = "";
 
     public CoreDuplicateEmployeeKeyException(String id) {

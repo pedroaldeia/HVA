@@ -32,8 +32,8 @@ public class HotelManager {
                 oos.writeObject(_hotel);
                 _hotel.setFileChanged(0);
             }
-            catch(FileNotFoundException e) {throw new FileNotFoundException();}
-            catch(IOException e) {throw new IOException();} 
+            catch(FileNotFoundException e) {throw e;}
+            catch(IOException e) {throw e;} 
         }
     }
 
@@ -74,7 +74,7 @@ public class HotelManager {
      * @param filename name of the text input file
      * @throws ImportFileException
      */
-    public void importFile(String filename) throws ImportFileException {
+    public void importFile(String filename) throws ImportFileException, CoreException {
         _hotel.importFile(filename);
     }
     public Hotel getHotel(){

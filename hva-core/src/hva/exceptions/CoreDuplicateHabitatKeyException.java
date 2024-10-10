@@ -1,6 +1,6 @@
 package hva.exceptions;
 
-public class CoreDuplicateHabitatKeyException extends Exception {
+public class CoreDuplicateHabitatKeyException extends CoreException {
     private String _id = "";
 
     public CoreDuplicateHabitatKeyException(String id) {

@@ -1,6 +1,6 @@
 package hva.exceptions;
 
-public class CoreUnknownSpeciesKeyException extends Exception {
+public class CoreUnknownSpeciesKeyException extends CoreException {
     private String _id = "";
 
     public CoreUnknownSpeciesKeyException(String id) {

@@ -1,6 +1,6 @@
 package hva.exceptions;
 
-public class CoreDuplicateVaccineKeyException extends Exception {
+public class CoreDuplicateVaccineKeyException extends CoreException {
     private String _id = "";
 
     public CoreDuplicateVaccineKeyException(String id){

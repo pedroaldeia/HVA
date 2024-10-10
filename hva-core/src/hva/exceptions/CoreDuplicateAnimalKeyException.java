@@ -1,6 +1,6 @@
 package hva.exceptions;
 
-public class CoreDuplicateAnimalKeyException extends Exception {
+public class CoreDuplicateAnimalKeyException extends CoreException {
     private String _id = "";
 
     public CoreDuplicateAnimalKeyException(String id){

@@ -2,6 +2,7 @@ package hva.app;
 
 import hva.exceptions.ImportFileException;
 import pt.tecnico.uilib.Dialog;
+import hva.exceptions.CoreException;
 
 public class App {
 
@@ -13,6 +14,9 @@ public class App {
                 try {
                     receiver.importFile(datafile);
                 } catch (ImportFileException e) {
+                    // no behavior described: just present the problem
+                    e.printStackTrace();
+                } catch (CoreException e) {
                     // no behavior described: just present the problem
                     e.printStackTrace();
                 }
