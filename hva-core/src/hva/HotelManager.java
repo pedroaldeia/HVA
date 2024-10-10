@@ -54,7 +54,7 @@ public class HotelManager {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException, IOException, ClassNotFoundException {
+    public void load(String filename) throws UnavailableFileException {
 
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
@@ -62,8 +62,8 @@ public class HotelManager {
             _filename = filename;
         }
         catch(FileNotFoundException e) {throw new UnavailableFileException(filename);}
-        catch(IOException e) {throw new IOException();}
-        catch(ClassNotFoundException e){throw new ClassNotFoundException();}
+        catch(IOException e) {throw new UnavailableFileException(filename);}
+        catch(ClassNotFoundException e){throw new UnavailableFileException(filename);}
     }
 
 

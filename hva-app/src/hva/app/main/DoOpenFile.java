@@ -25,12 +25,6 @@ class DoOpenFile extends Command<HotelManager> {
             //System.out.println("AQUI");
             throw new FileOpenFailedException(e);
         }
-        catch (IOException e){
-            e.printStackTrace(); //FIXME nao sei bem oq fazer aqui... ja vejo
-        }
-        catch (ClassNotFoundException e){
-            e.printStackTrace(); //FIXME ver acima
-        }
     }
 }
 
