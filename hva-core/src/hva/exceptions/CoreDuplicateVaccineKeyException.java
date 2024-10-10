@@ -1,6 +1,12 @@
 package hva.exceptions;
 
-public class CoreDuplicateVaccineKeyException extends Exception {
+import java.io.Serial;
+
+public class CoreDuplicateVaccineKeyException extends CoreException {
+
+    @Serial
+    private static final long serialVersionUID = 202410101155L;
+
     private String _id = "";
 
     public CoreDuplicateVaccineKeyException(String id){

@@ -21,19 +21,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Comparator;
 
 
 public class Hotel implements Serializable {
 
     //indexados pelo id
-    private Map<String, Habitat> _habitats = new TreeMap<>();
-    private Map<String, Employee> _employees = new TreeMap<>();
-    private Map<String, Vaccine> _vaccines = new TreeMap<>();
+    //NEW
+    private Map<String, Habitat> _habitats = new TreeMap<>(CASE_INSENSITIVE_ORDER);
+    private Map<String, Employee> _employees = new TreeMap<>(CASE_INSENSITIVE_ORDER);
+    private Map<String, Vaccine> _vaccines = new TreeMap<>(CASE_INSENSITIVE_ORDER);
     private Map<String, Species> _species = new HashMap<>();
-    private Map<String, Animal> _animals = new TreeMap<>();
+    private Map<String, Animal> _animals = new TreeMap<>(CASE_INSENSITIVE_ORDER);
     private Map<String, Tree> _trees = new HashMap<>();
 
     public Hotel(){};
+    //NEW
+    private static final Comparator<String> CASE_INSENSITIVE_ORDER = new Comparator<String>() {
+        @Override
+        public int compare(String s1, String s2) {
+            return s1.compareToIgnoreCase(s2);
+        }
+    };
+
 
     @Serial
     private static final long serialVersionUID = 202407081733L;
@@ -49,7 +59,7 @@ public class Hotel implements Serializable {
      * @param filename name of the text input file
      * @throws ImportFileException
      */
-    void importFile(String filename) throws ImportFileException { //FIXME implement cases where habitat has no treeId's, and employee has no extras
+    void importFile(String filename) throws ImportFileException, CoreException { //FIXME implement cases where habitat has no treeId's, and employee has no extras
 	try {
             // Read the first line from the file
             List<String> file = Files.readAllLines(Paths.get(filename));
@@ -82,8 +92,7 @@ public class Hotel implements Serializable {
             }
         } catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);}
-        catch (Exception e) {} //FIXME isto tem de ir embora ps: deviamos criar uma super classe 
-        //para todas as excepções do core para ser mais fácil dar catch aqui
+
 
     }
 

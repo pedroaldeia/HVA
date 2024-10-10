@@ -1,6 +1,12 @@
 package hva.exceptions;
 
-public class CoreUnknownSpeciesKeyException extends Exception {
+import java.io.Serial;
+
+public class CoreUnknownSpeciesKeyException extends CoreException {
+
+    @Serial
+    private static final long serialVersionUID = 202410101158L;
+
     private String _id = "";
 
     public CoreUnknownSpeciesKeyException(String id) {
