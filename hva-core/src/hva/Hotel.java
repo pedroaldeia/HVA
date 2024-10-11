@@ -98,7 +98,7 @@ public class Hotel implements Serializable {
             }
         } catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);
-        } catch (CoreException e) {}
+        } catch (CoreException e) {e.printStackTrace();}
 
 
     }
