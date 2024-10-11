@@ -27,39 +27,20 @@ import java.util.TreeMap;
 public class Hotel implements Serializable {
 
     //registos do hotel
-    private Map<String, Habitat> _habitats = new TreeMap<>(CASE_INSENSITIVE_ORDER);
-    private Map<String, Employee> _employees = new TreeMap<>(CASE_INSENSITIVE_ORDER);
-    private Map<String, Vaccine> _vaccines = new TreeMap<>(CASE_INSENSITIVE_ORDER);
+    private Map<String, Habitat> _habitats = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private Map<String, Employee> _employees = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private Map<String, Vaccine> _vaccines = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Species> _species = new HashMap<>();
-    private Map<String, Animal> _animals = new TreeMap<>(CASE_INSENSITIVE_ORDER);
+    private Map<String, Animal> _animals = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Tree> _trees = new HashMap<>();
 
-    public Hotel(){};
-    
-    private static final Comparator<String> CASE_INSENSITIVE_ORDER = new 
-        CaseInsensitiveComparator();
-
-    
+    public Hotel(){};    
     
     @Serial
     private static final long serialVersionUID = 202407081733L;
     
     private int _fileChanged = 0;
     
-    
-    //FIXME define constructor(s)
-
-    /**
-     * Compare String values without diferentiating between upper and lower case
-     *
-     */
-    private static class CaseInsensitiveComparator implements Comparator<String>, 
-        Serializable {
-        @Override
-        public int compare(String s1, String s2) {
-            return s1.compareToIgnoreCase(s2);
-        }
-    }
     
     /**
      * Read text input file and create domain entities.
