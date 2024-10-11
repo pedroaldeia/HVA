@@ -29,7 +29,6 @@ class DoRegisterEmployee extends Command<Hotel> {
         String name = Form.requestString(Prompt.employeeName());
         String type = Form.requestString(Prompt.employeeType());
 
-        //FIXME add validation and error handling for inputs
         try{
             while (_receiver.registerEmployee(id, name, type) == -2){
                 type = Form.requestString(Prompt.employeeType());
