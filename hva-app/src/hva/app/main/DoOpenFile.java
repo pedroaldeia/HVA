@@ -20,36 +20,11 @@ class DoOpenFile extends Command<HotelManager> {
     @Override
     protected final void execute() throws CommandException {
         
-        if(_receiver.getFileChanged() == 1){
-            if(Form.confirm(Prompt.saveBeforeExit())){
-                /*
-                DoSaveAs cmd = new DoSaveAs(_receiver);
-                cmd.execute();
-                */
-                try {
-            _receiver.save();
-          } 
-          catch(MissingFileAssociationException e){
-            try {
-                _receiver.saveAs(Form.requestString(hva.app.main.Prompt.newSaveAs()));
-            }
-            catch(MissingFileAssociationException e1){_display.popup(hva.app.main.
-                   Message.fileNotFound());
-            }
-            catch(FileNotFoundException e1){
-                _display.popup(hva.app.main.Message.fileNotFound());
-              }
-            catch (IOException e1) {
-                e.printStackTrace();
-              }
+      if(_receiver.getFileChanged() == 1){
+          if(Form.confirm(Prompt.saveBeforeExit())){
+              DoSaveFile cmd = new DoSaveFile(_receiver);
+              cmd.execute();
           }
-          catch(FileNotFoundException e){
-            _display.popup(hva.app.main.Message.fileNotFound());
-          }
-          catch (IOException e) {
-            e.printStackTrace();
-          }
-            }
         }
         try {
             _receiver.load(Form.requestString(Prompt.openFile()));
