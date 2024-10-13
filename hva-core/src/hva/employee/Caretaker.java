@@ -15,7 +15,7 @@ public class Caretaker extends Employee{
      * @param name the name of the caretaker
      */
     public Caretaker(String id, String name) {
-        super(id, name);
+        super(id, name, "TRT");
     }
 
     /**
@@ -50,5 +50,13 @@ public class Caretaker extends Employee{
      */
     public String getName(){
         return _name;
+    }
+
+    public void addResponsibility(Habitat habitat){
+        _responsibilityList.add(habitat);
+    }
+
+    public void removeResponsibility(String id){
+        _responsibilityList.removeIf(habitat -> habitat.getId().equals(id));
     }
 }

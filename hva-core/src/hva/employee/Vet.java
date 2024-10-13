@@ -16,7 +16,7 @@ public class Vet extends Employee{
      * @param name the name of the vet
      */
     public Vet(String id, String name) {
-        super(id, name);
+        super(id, name, "VET");
     }
 
     /**
@@ -52,4 +52,9 @@ public class Vet extends Employee{
     public String getName(){
         return _name;
     }
+
+    public void addResponsibility(Species species){
+        _responsibilityList.add(species);
+    }
+    
 }

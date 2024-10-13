@@ -17,7 +17,6 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -131,6 +130,13 @@ public class Hotel implements Serializable {
         return 0;
     }
 
+    private Species getSpecies(String id) throws CoreUnknownSpeciesKeyException  {
+        Species species = _species.get(id);
+        if(species == null) {
+            throw new CoreUnknownSpeciesKeyException(id);
+        }
+        return species;
+    }
     /**
      * Registers a new Animal into the Hotel (puts it into the _animals map)
      * 
@@ -230,6 +236,45 @@ public class Hotel implements Serializable {
     }
 
     /**
+     * Returns the Employee with the given id
+     * 
+     * @param id
+     * @return employee with the given id, or null if not found
+     */
+    private Employee getEmployee(String id) throws CoreUnknownEmployeeKeyException {
+        Employee employee = _employees.get(id);
+        if(employee == null){
+            throw new CoreUnknownEmployeeKeyException(id);
+        }
+        return employee;
+    }
+
+    public void addResponsibility(String employeeId, String responsibilityId) throws CoreUnknownEmployeeKeyException,
+        CoreNoResponsibilityException{
+        try {
+            Employee employee = getEmployee(employeeId);
+            if(employee.getType().equals("VET")){
+                Vet vet = (Vet) employee;
+                //if(vet.getResponsibilities().containsKey(responsibilityId)){ FIXME implementar isto
+                vet.addResponsibility(getSpecies(responsibilityId));
+            }
+            else{
+                Caretaker caretaker = (Caretaker) employee;
+                caretaker.addResponsibility(getHabitat(responsibilityId));
+            }
+        }
+        catch (CoreUnknownEmployeeKeyException e) {
+            throw e;
+        }
+        catch (CoreUnknownSpeciesKeyException e) {
+            throw new CoreNoResponsibilityException(employeeId, responsibilityId);
+        }
+        catch (CoreUnknownHabitatKeyException e) {
+            throw new CoreNoResponsibilityException(employeeId, responsibilityId);
+        }
+    }
+
+    /**
      * Registers a new Habitat into the Hotel (puts it into the _habitats map)
      * 
      * @param id the id of the Habitat
@@ -281,6 +326,14 @@ public class Hotel implements Serializable {
             habitatString = habitatString.substring(0, habitatString.length() - 1);
         }
         return habitatString;
+    }
+
+    private Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
+        Habitat habitat = _habitats.get(id);
+        if(habitat == null){
+            throw new CoreUnknownHabitatKeyException(id);
+        }
+        return habitat;
     }
 
     /**
