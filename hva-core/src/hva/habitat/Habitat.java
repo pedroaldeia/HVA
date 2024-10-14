@@ -16,7 +16,7 @@ public class Habitat implements Serializable{
     private String _id;
     private String _name;
     private int _area;
-    private int _population;
+    private int _population = 0;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
     private Map<String, Animal> _animals = new TreeMap<String, Animal>();
@@ -33,6 +33,10 @@ public class Habitat implements Serializable{
     public Habitat(String id, String name, int area){
         _id = id;
         _name = name;
+        _area = area;
+    }
+
+    public void setArea(int area) {
         _area = area;
     }
 
@@ -83,5 +87,9 @@ public class Habitat implements Serializable{
      */
     public void putTree(Tree tree){
         _trees.put(tree.getId(), tree);
+    }
+
+    public boolean treeAlreadyExists(String id){
+       return  _trees.containsKey(id);
     }
 }
