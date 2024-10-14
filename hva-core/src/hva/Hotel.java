@@ -137,6 +137,14 @@ public class Hotel implements Serializable {
         }
         return species;
     }
+
+    public boolean speciesAlreadyExists(String id){
+        return _species.containsKey(id);
+    }
+    public boolean animalAlreadyExists(String id){
+        return _animals.containsKey(id);
+    }
+
     /**
      * Registers a new Animal into the Hotel (puts it into the _animals map)
      * 
@@ -146,19 +154,15 @@ public class Hotel implements Serializable {
      * @param habitatId the id of the Habitat of the Animal
      * @return an integer indicating the result of the operation
      */
-    public int registerAnimal(String id, String name, 
+    public void registerAnimal(String id, String name, 
             String speciesId, String habitatId) 
             throws CoreDuplicateAnimalKeyException,
             CoreUnknownHabitatKeyException{
 
-        if (_animals.containsKey(id)){
+        if (animalAlreadyExists(id)){
             throw new CoreDuplicateAnimalKeyException(id);
         }
         Species species = _species.get(speciesId);
-        if (species == null) {
-                //ask for new species name in the app
-                return 1;
-        }
         Habitat habitat = _habitats.get(habitatId);
         if (habitat == null) {
             throw new CoreUnknownHabitatKeyException(habitatId);
@@ -167,7 +171,6 @@ public class Hotel implements Serializable {
         _animals.put(id, newAnimal);
         //habitat.getAnimalMap().put(id, newAnimal);
         _fileChanged = true;
-        return 0;
     }
 
 
@@ -188,36 +191,36 @@ public class Hotel implements Serializable {
         return animalString;
     }
 
+    public boolean isValidEmployeeType(String type){
+        return type.equals("TRT") || type.equals("VET");
+    }
+
     /**
      * Registers a new employee into the Hotel (puts it into the _employees map)
      * 
      * @param id
      * @param name
      * @param type
-     * @return
      * @throws CoreDuplicateEmployeeKeyException
+     *@returns true if suceeded, false otherwise
      */
-    public int registerEmployee(String id, String name, String type)
+    public boolean registerEmployee(String id, String name, String type)
             throws CoreDuplicateEmployeeKeyException{
+
         if (_employees.containsKey(id)) {
-            System.out.println("AQUI");
             throw new CoreDuplicateEmployeeKeyException(id);
         }
         Employee newEmployee;
-        
         if (type.equals("TRT")){
             newEmployee = new Caretaker(id, name);
         }
         else if(type.equals("VET")){ 
             newEmployee = new Vet(id, name);
         }
-        else {
-            //pedir novo tipo de employee
-            return 1;
-        }
+        else return false;
         _employees.put(id, newEmployee);
         _fileChanged = true; 
-        return 0;
+        return true;
     }
     
     /**
@@ -285,19 +288,12 @@ public class Hotel implements Serializable {
      * @return the result of the operation
      * @throws CoreDuplicateHabitatKeyException
      */
-    public int registerHabitat(String id, String name, int area, String idTrees) 
+    public void registerHabitat(String id, String name, int area, String idTrees) 
             throws CoreUnknownTreeKeyException,
             CoreDuplicateHabitatKeyException{
         if(_habitats.containsKey(id)){
             throw new CoreDuplicateHabitatKeyException(id);
         }
-        if(idTrees.equals("")){
-            Habitat newHabitat = new Habitat(id, name, area);
-            _habitats.put(id, newHabitat);
-            _fileChanged = true;
-            return 0;
-        }
-
         List<String> idList = splitId(idTrees);
         for(String i : idList){
             if(!_trees.containsKey(i)){
@@ -310,7 +306,6 @@ public class Hotel implements Serializable {
             newHabitat.putTree(_trees.get(i));
         }
         _fileChanged = true; 
-        return 0;
     } 
 
     /**

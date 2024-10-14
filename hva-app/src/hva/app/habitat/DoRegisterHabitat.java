@@ -32,9 +32,9 @@ class DoRegisterHabitat extends Command<Hotel> {
         int area = Form.requestInteger(Prompt.habitatArea());
 
         try{
-            _receiver.registerHabitat(id, name, area, ""); //FIXME add prompt for trees
+            _receiver.registerHabitat(id, name, area, ""); 
         }catch(CoreDuplicateHabitatKeyException e){throw new DuplicateHabitatKeyException(e.getHabitatKey());}
-        catch(CoreUnknownTreeKeyException e){throw new UnknownTreeKeyException("");} //FIXME add tree id to this exception
+        catch(CoreUnknownTreeKeyException e){throw new UnknownTreeKeyException("");}
     };
     
 }

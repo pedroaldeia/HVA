@@ -39,7 +39,7 @@ class DoRegisterAnimal extends Command<Hotel> {
         String habitatId = Form.requestString(hva.app.habitat.Prompt.habitatKey());
 
         try{
-            if (_receiver.registerAnimal(id, name, speciesId, habitatId) == 1){
+            if (!_receiver.speciesAlreadyExists(speciesId)){
                 String speciesName = Form.requestString(Prompt.speciesName());
                 _receiver.registerSpecies(speciesId, speciesName);
             }
