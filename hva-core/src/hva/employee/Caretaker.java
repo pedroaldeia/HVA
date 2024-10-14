@@ -1,5 +1,6 @@
 package hva.employee;
 
+import hva.exceptions.CoreUnknownHabitatKeyException;
 import hva.habitat.Habitat;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,10 @@ public class Caretaker extends Employee{
         _responsibilityList.add(habitat);
     }
 
-    public void removeResponsibility(String id){
-        _responsibilityList.removeIf(habitat -> habitat.getId().equals(id));
+    public void removeResponsibility(String id) throws CoreUnknownHabitatKeyException{
+        boolean removed = _responsibilityList.removeIf(habitat -> habitat.getId().equals(id));
+        if(removed == false){
+            throw new CoreUnknownHabitatKeyException(id);
+        }
     }
 }

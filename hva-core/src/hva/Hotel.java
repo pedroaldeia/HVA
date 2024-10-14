@@ -275,6 +275,30 @@ public class Hotel implements Serializable {
         }
     }
 
+    public void removeResponsibility(String employeeId, String responsibilityId) throws 
+        CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
+        try {
+            Employee employee = getEmployee(employeeId);
+            if(employee.getType().equals("VET")){
+                Vet vet = (Vet) employee;
+                //if(vet.getResponsibilities().containsKey(responsibilityId)){ FIXME implementar isto
+                vet.removeResponsibility(responsibilityId);
+            }
+            else{
+                Caretaker caretaker = (Caretaker) employee;
+                caretaker.removeResponsibility(responsibilityId);
+            }
+        }
+        catch (CoreUnknownEmployeeKeyException e) {
+            throw e;
+        }
+        catch (CoreUnknownSpeciesKeyException e) {
+            throw new CoreNoResponsibilityException(employeeId, responsibilityId);
+        }
+        catch (CoreUnknownHabitatKeyException e) {
+            throw new CoreNoResponsibilityException(employeeId, responsibilityId);
+        }
+    }
     /**
      * Registers a new Habitat into the Hotel (puts it into the _habitats map)
      * 
@@ -285,7 +309,7 @@ public class Hotel implements Serializable {
      * @return the result of the operation
      * @throws CoreDuplicateHabitatKeyException
      */
-    public int registerHabitat(String id, String name, int area, String idTrees) 
+    public int registerHabitat(String id, String name, int area, String idTrees)
             throws CoreUnknownTreeKeyException,
             CoreDuplicateHabitatKeyException{
         if(_habitats.containsKey(id)){
