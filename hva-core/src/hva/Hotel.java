@@ -38,7 +38,7 @@ public class Hotel implements Serializable {
     @Serial
     private static final long serialVersionUID = 202407081733L;
     
-    private int _fileChanged = 0;
+    private boolean _fileChanged = false;
     
     
     /**
@@ -77,7 +77,7 @@ public class Hotel implements Serializable {
                                     {/*FIXME implement this function */}}
                                         
                     case "VETERINÁRIO" -> {if(wordsList.size() == 3) {registerEmployee(
-                        wordsList.get(1), wordsList.get(2), "VET");}
+                                           wordsList.get(1), wordsList.get(2), "VET");}
                                            if(wordsList.size() == 4) 
                                         {/*FIXME implement this function */}}
 
@@ -126,7 +126,7 @@ public class Hotel implements Serializable {
         }
         Species newSpecies = new Species(id, name);
         _species.put(id, newSpecies);
-        _fileChanged = 1; 
+        _fileChanged = true; 
         return 0;
     }
 
@@ -166,7 +166,7 @@ public class Hotel implements Serializable {
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
         //habitat.getAnimalMap().put(id, newAnimal);
-        _fileChanged = 1;
+        _fileChanged = true;
         return 0;
     }
 
@@ -215,7 +215,7 @@ public class Hotel implements Serializable {
             return 1;
         }
         _employees.put(id, newEmployee);
-        _fileChanged = 1; 
+        _fileChanged = true; 
         return 0;
     }
     
@@ -249,8 +249,8 @@ public class Hotel implements Serializable {
         return employee;
     }
 
-    public void addResponsibility(String employeeId, String responsibilityId) throws CoreUnknownEmployeeKeyException,
-        CoreNoResponsibilityException{
+    public void addResponsibility(String employeeId, String responsibilityId) throws 
+        CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
         try {
             Employee employee = getEmployee(employeeId);
             if(employee.getType().equals("VET")){
@@ -293,7 +293,7 @@ public class Hotel implements Serializable {
         if(idTrees.equals("")){
             Habitat newHabitat = new Habitat(id, name, area);
             _habitats.put(id, newHabitat);
-            _fileChanged = 1;
+            _fileChanged = true;
             return 0;
         }
 
@@ -308,7 +308,7 @@ public class Hotel implements Serializable {
         for(String i : idList){
             newHabitat.putTree(_trees.get(i));
         }
-        _fileChanged = 1; 
+        _fileChanged = true; 
         return 0;
     } 
 
@@ -359,7 +359,7 @@ public class Hotel implements Serializable {
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesIds);
         _vaccines.put(id, newVaccine);
-        _fileChanged = 1; 
+        _fileChanged = true; 
         return 0;
     }
 
@@ -406,7 +406,7 @@ public class Hotel implements Serializable {
             return 0;
         }
         //FIXME throw some exception for invalid identifier
-        _fileChanged = 1;
+        _fileChanged = true;
         return -1;
     }
 
@@ -417,7 +417,7 @@ public class Hotel implements Serializable {
      * 
      * @return int _fileChanged
      */
-    public int getFileChanged(){ 
+    public boolean getFileChanged(){ 
         return _fileChanged;
     }
 
@@ -428,8 +428,7 @@ public class Hotel implements Serializable {
      * @param fileChanged
      * @return void
      */
-    public void setFileChanged(int fileChanged){
+    public void setFileChanged(boolean fileChanged){
         _fileChanged = fileChanged;
     }
-
 }

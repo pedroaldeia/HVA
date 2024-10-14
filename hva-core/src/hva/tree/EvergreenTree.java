@@ -1,8 +1,6 @@
 package hva.tree;
 
 public class EvergreenTree extends Tree{
-    private String _type = "PERENE";
-    private String _biologicCycle = "GERARFOLHAS";
 
     /**
      * This is the constructor of the EvergreenTree class.
@@ -14,7 +12,7 @@ public class EvergreenTree extends Tree{
      * @return void
      */
     public EvergreenTree(String id, String name, int age, int cleaningDifficulty){
-        super(id, name, age, cleaningDifficulty);
+        super(id, name, age, cleaningDifficulty, "PERENE", "GERARFOLHAS");
     }
 
     /**

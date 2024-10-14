@@ -20,7 +20,7 @@ class DoOpenFile extends Command<HotelManager> {
     @Override
     protected final void execute() throws CommandException {
         
-      if(_receiver.getFileChanged() == 1){
+      if(_receiver.getFileChanged()){
           if(Form.confirm(Prompt.saveBeforeExit())){
               DoSaveFile cmd = new DoSaveFile(_receiver);
               cmd.execute();

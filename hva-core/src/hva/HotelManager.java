@@ -31,11 +31,11 @@ public class HotelManager {
         if(_filename == null || _filename.equals("")){
             throw new MissingFileAssociationException();
         }
-        if(_hotel.getFileChanged() == 1){ 
+        if(_hotel.getFileChanged() == true){ 
             try (ObjectOutputStream oos = new ObjectOutputStream(
                  new BufferedOutputStream(new FileOutputStream(_filename)))) {
                 oos.writeObject(_hotel);
-                _hotel.setFileChanged(0); 
+                _hotel.setFileChanged(false); 
             }
             catch(FileNotFoundException e) {throw e;}
             catch(IOException e) {throw e;} 
@@ -70,7 +70,7 @@ public class HotelManager {
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(
             new FileInputStream(filename)))) {
             _hotel = (Hotel) ois.readObject();
-            _hotel.setFileChanged(0);
+            _hotel.setFileChanged(false);
             _filename = filename;
         }
         catch(FileNotFoundException e) {throw new UnavailableFileException(filename);}
@@ -112,7 +112,7 @@ public class HotelManager {
      * 
      * @return int the current state of the hotel's file (changed or not)
      */
-    public int getFileChanged(){
+    public boolean getFileChanged(){
         return _hotel.getFileChanged();
     }
 

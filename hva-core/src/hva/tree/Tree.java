@@ -9,6 +9,8 @@ public abstract class Tree implements Serializable{
     protected int _cleaningDifficulty;
     protected Season _season;
     protected int _seasonCounter;
+    protected String _type;
+    protected String _biologicCycle;
 
     /**
      * This is the constructor of the Tree class.
@@ -18,11 +20,12 @@ public abstract class Tree implements Serializable{
      * @param age the age of the tree
      * @param cleaningDifficulty the cleaning difficulty of the tree
      */
-    public Tree(String id, String name, int age, int cleaningDifficulty){
+    public Tree(String id, String name, int age, int cleaningDifficulty, String type, String biologicCycle){
         _id = id;
         _name = name;
         _age = age;
         _cleaningDifficulty = cleaningDifficulty;
+        _type = type;
     }
 
     /**

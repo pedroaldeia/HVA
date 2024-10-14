@@ -1,8 +1,6 @@
 package hva.tree;
 
 public class DeciduousTree extends Tree{ //WIP
-    private String _type = "CADUCA";
-    private String _biologicCycle = "GERARFOLHAS";
 
     /**
      * This is the constructor of the DeciduousTree class.
@@ -13,7 +11,7 @@ public class DeciduousTree extends Tree{ //WIP
      * @param cleaningDifficulty the difficulty of cleaning the tree
      */
     public DeciduousTree(String id, String name, int age, int cleaningDifficulty){
-        super(id, name, age, cleaningDifficulty);
+        super(id, name, age, cleaningDifficulty, "CADUCA", "GERARFOLHAS");
     }
 
     /**
