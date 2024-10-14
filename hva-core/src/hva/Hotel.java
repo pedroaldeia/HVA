@@ -200,6 +200,7 @@ public class Hotel implements Serializable {
     public int registerEmployee(String id, String name, String type)
             throws CoreDuplicateEmployeeKeyException{
         if (_employees.containsKey(id)) {
+            System.out.println("AQUI");
             throw new CoreDuplicateEmployeeKeyException(id);
         }
         Employee newEmployee;

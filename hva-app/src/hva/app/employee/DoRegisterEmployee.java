@@ -32,9 +32,11 @@ class DoRegisterEmployee extends Command<Hotel> {
         try{
             while (_receiver.registerEmployee(id, name, type) == -2){
                 type = Form.requestString(Prompt.employeeType());
-            };
-            _receiver.registerEmployee(id, name, type);
-        }catch (CoreDuplicateEmployeeKeyException e){throw new DuplicateEmployeeKeyException(e.getEmployeeKey());}
+            }
+        }
+        catch (CoreDuplicateEmployeeKeyException e){
+            throw new DuplicateEmployeeKeyException(e.getEmployeeKey());
+        }
 
     }
 
