@@ -1,6 +1,7 @@
 package hva.employee;
 
 import hva.animal.Species;
+import hva.exceptions.CoreUnknownSpeciesKeyException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,4 +58,10 @@ public class Vet extends Employee{
         _responsibilityList.add(species);
     }
     
+    public void removeResponsibility(String id) throws CoreUnknownSpeciesKeyException {
+        boolean removed = _responsibilityList.removeIf(species -> species.getId().equals(id));
+        if(removed == false){
+            throw new CoreUnknownSpeciesKeyException(id);
+        }
+    }
 }
