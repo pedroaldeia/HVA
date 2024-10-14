@@ -2,11 +2,11 @@ package hva.employee;
 
 import hva.exceptions.CoreUnknownHabitatKeyException;
 import hva.habitat.Habitat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Caretaker extends Employee{
-    private List<Habitat> _responsibilityList = new ArrayList<>();
+    private Map<String, Habitat> _responsibilityList = new TreeMap<>();
 
     //FIXME implement addResponsibility and accept
     /**
@@ -35,6 +35,14 @@ public class Caretaker extends Employee{
         }
     }
 
+    private String responsibilityToString(){
+        String responsibility = "";
+        for(String key : _responsibilityList.keySet()){
+            responsibility += _responsibilityList.get(key).getId() + ",";
+        }
+        return responsibility.substring(0, responsibility.length()-1);
+    }
+
     /**
      * This method returns the unique identifier of the caretaker.
      * 
@@ -54,12 +62,12 @@ public class Caretaker extends Employee{
     }
 
     public void addResponsibility(Habitat habitat){
-        _responsibilityList.add(habitat);
+        _responsibilityList.put(habitat.getId(), habitat);
     }
 
     public void removeResponsibility(String id) throws CoreUnknownHabitatKeyException{
-        boolean removed = _responsibilityList.removeIf(habitat -> habitat.getId().equals(id));
-        if(removed == false){
+        Habitat removed = _responsibilityList.remove(id);
+        if(removed == null){
             throw new CoreUnknownHabitatKeyException(id);
         }
     }

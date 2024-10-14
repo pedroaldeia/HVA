@@ -2,11 +2,11 @@ package hva.employee;
 
 import hva.animal.Species;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Vet extends Employee{
-    private List<Species> _responsibilityList = new ArrayList<>();
+    private Map<String,Species> _responsibilityList = new TreeMap<>();
 
     // implement addResponsibility and accept
 
@@ -31,10 +31,18 @@ public class Vet extends Employee{
             return "VET|" + _id + "|" + _name; 
         }
         else{
-            return "VET|" + _id + "|" + _name + "|" + _responsibilityList; 
-            //FIXME implement how to print the list
+            return "VET|" + _id + "|" + _name + "|" + responsibilityToString(); 
         }
     }
+
+    private String responsibilityToString(){
+        String responsibility = "";
+        for(String key : _responsibilityList.keySet()){
+            responsibility += _responsibilityList.get(key).getId() + ",";
+        }
+        return responsibility.substring(0, responsibility.length()-1);
+    }
+
 
     /**
      * This method returns the unique identifier of the vet.
@@ -55,12 +63,12 @@ public class Vet extends Employee{
     }
 
     public void addResponsibility(Species species){
-        _responsibilityList.add(species);
+        _responsibilityList.put(species.getId(), species);
     }
-    
-    public void removeResponsibility(String id) throws CoreUnknownSpeciesKeyException {
-        boolean removed = _responsibilityList.removeIf(species -> species.getId().equals(id));
-        if(removed == false){
+
+    public void removeResponsibility(String id) throws CoreUnknownSpeciesKeyException{
+        Species removed = _responsibilityList.remove(id);
+        if(removed == null){
             throw new CoreUnknownSpeciesKeyException(id);
         }
     }

@@ -351,6 +351,7 @@ public class Hotel implements Serializable {
     private Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
         Habitat habitat = _habitats.get(id);
         if(habitat == null){
+            System.out.println("AQUI");
             throw new CoreUnknownHabitatKeyException(id);
         }
         return habitat;
