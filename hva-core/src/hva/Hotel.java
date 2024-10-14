@@ -2,6 +2,7 @@ package hva;
 
 import hva.animal.Animal;
 import hva.animal.Species;
+import hva.app.exceptions.UnknownHabitatKeyException;
 import hva.employee.Caretaker;
 import hva.employee.Employee;
 import hva.employee.Vet;
@@ -254,7 +255,7 @@ public class Hotel implements Serializable {
     }
 
     public void addResponsibility(String employeeId, String responsibilityId) throws 
-        CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
+                                    CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
         try {
             Employee employee = getEmployee(employeeId);
             if(employee.getType().equals("VET")){
@@ -278,6 +279,10 @@ public class Hotel implements Serializable {
         }
     }
 
+    public boolean habitatAlreadyExists(String id){
+        return _habitats.containsKey(id);
+    }
+
     /**
      * Registers a new Habitat into the Hotel (puts it into the _habitats map)
      * 
@@ -289,9 +294,9 @@ public class Hotel implements Serializable {
      * @throws CoreDuplicateHabitatKeyException
      */
     public void registerHabitat(String id, String name, int area, String idTrees) 
-            throws CoreUnknownTreeKeyException,
-            CoreDuplicateHabitatKeyException{
-        if(_habitats.containsKey(id)){
+                                    throws CoreUnknownTreeKeyException,
+                                    CoreDuplicateHabitatKeyException{
+        if(habitatAlreadyExists(id)){
             throw new CoreDuplicateHabitatKeyException(id);
         }
         List<String> idList = splitId(idTrees);
@@ -331,6 +336,31 @@ public class Hotel implements Serializable {
         }
         return habitat;
     }
+
+    public void setHabitatArea(String id, int area) 
+            throws CoreUnknownHabitatKeyException {
+        getHabitat(id).setArea(area);
+    }
+
+    public boolean isValidTreeType(String type){
+        return type.equals("PERENE") || type.equals("CADUCA");
+    }
+    /* 
+    public plantTree(String habitatId, String id, String name, 
+                            int age, int treeDif, String type)
+                            throws CoreUnknownHabitatKeyException,
+                            CoreDuplicateTreeKeyException{
+        Habitat h = getHabitat(habitatId);
+        if (h.treeAlreadyExists(id)) {
+            throw new CoreDuplicateTreeKeyException(id);
+        }
+        if (type.equals("CADUCA")) {
+
+        }
+        else if (type.equals("PERENE")) {
+
+        }
+    }*/
 
     /**
      * Registers a new Vaccine into the Hotel (puts it into the _vaccines map)
