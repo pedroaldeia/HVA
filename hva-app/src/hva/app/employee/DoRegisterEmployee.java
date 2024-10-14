@@ -30,9 +30,10 @@ class DoRegisterEmployee extends Command<Hotel> {
         String type = Form.requestString(Prompt.employeeType());
 
         try{
-            while (_receiver.registerEmployee(id, name, type) == -2){
+            while (!_receiver.isValidEmployeeType(type)){
                 type = Form.requestString(Prompt.employeeType());
             }
+            _receiver.registerEmployee(id, name, type);
         }
         catch (CoreDuplicateEmployeeKeyException e){
             throw new DuplicateEmployeeKeyException(e.getEmployeeKey());
