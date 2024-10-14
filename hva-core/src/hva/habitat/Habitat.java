@@ -21,7 +21,7 @@ public class Habitat implements Serializable{
     private int _treeNum = 0;
     private Map<String, Animal> _animals = new TreeMap<String, Animal>();
     private Map<String, Tree> _trees = new HashMap<String, Tree>();
-    private Map<String, Integer> _compatibilities = new HashMap<String, Integer>();
+    private Map<String, Integer> _influences = new HashMap<String, Integer>();
 
     /**
      * This is the constructor of the Habitat class.
@@ -65,6 +65,14 @@ public class Habitat implements Serializable{
      */
     public Map<String, Animal> getAnimalMap(){
         return _animals;
+    }
+
+    public Map<String, Tree> getTreeMap(){
+        return _trees;
+    }
+
+    public Map<String, Integer> getInfluenceMap(){
+        return _influences;
     }
 
     /**

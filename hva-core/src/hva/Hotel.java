@@ -325,9 +325,11 @@ public class Hotel implements Serializable {
             throw new CoreDuplicateHabitatKeyException(id);
         }
         List<String> idList = splitId(idTrees);
-        for(String i : idList){
-            if(!_trees.containsKey(i)){
-                throw new CoreUnknownTreeKeyException(i);
+        if (!idTrees.equals("")){
+            for(String i : idList){
+                if(!_trees.containsKey(i)){
+                    throw new CoreUnknownTreeKeyException(i);
+                }
             }
         }
         Habitat newHabitat = new Habitat(id, name, area);
@@ -370,22 +372,72 @@ public class Hotel implements Serializable {
     public boolean isValidTreeType(String type){
         return type.equals("PERENE") || type.equals("CADUCA");
     }
-    /* 
-    public plantTree(String habitatId, String id, String name, 
-                            int age, int treeDif, String type)
+
+    public boolean treeAlreadyExists(String id){
+        return _trees.containsKey(id);
+    }
+
+    //Merge with other function
+    public void plantTree(String habitatId, String id, String name, 
+                            int age, int dif, String type)
                             throws CoreUnknownHabitatKeyException,
-                            CoreDuplicateTreeKeyException{
+                            CoreDuplicateTreeKeyException, 
+                            IllegalArgumentException{
         Habitat h = getHabitat(habitatId);
-        if (h.treeAlreadyExists(id)) {
+        if (h == null) {
+            throw new CoreUnknownHabitatKeyException(habitatId);
+        }
+        if(treeAlreadyExists(id)){
             throw new CoreDuplicateTreeKeyException(id);
         }
+        Tree tree;
         if (type.equals("CADUCA")) {
-
+            tree = new DeciduousTree(id, name, age, dif);
         }
         else if (type.equals("PERENE")) {
-
+            tree = new EvergreenTree(id, name, age, dif);
         }
-    }*/
+        else {
+            throw new IllegalArgumentException("Invalid tree type");
+        }
+        _trees.put(id, tree);
+        h.putTree(tree);
+    }
+
+    public String showAllHabitatTrees(String id)
+            throws CoreUnknownHabitatKeyException{
+        Habitat h = getHabitat(id);
+        String treeString = "";
+        for (Tree tree : h.getTreeMap().values()){
+            treeString = treeString + tree.toString() + "\n";
+        }
+        if(!treeString.equals("")){
+            treeString = treeString.substring(0, treeString.length() - 1);
+        }
+        return treeString;
+    }
+
+    public boolean isValidInfluence(String inf){
+        return inf.equals("POS") || inf.equals("NEG") || inf.equals("NEU");
+    }
+
+    public void setHabitatInfluence(String habitatId, String speciesId, String influence)
+                throws IllegalArgumentException,
+                CoreUnknownHabitatKeyException,
+                CoreUnknownSpeciesKeyException{
+        Habitat h = getHabitat(habitatId);
+        if (!speciesAlreadyExists(speciesId)){
+            throw new CoreUnknownSpeciesKeyException(speciesId);
+        }
+        int i = 0;
+        if (influence.equals("POS")){i = 1;}
+        else if (influence.equals("NEG")){i = -1;}
+        else if (influence.equals("NEU")){i = 0;}
+        else{
+            throw new IllegalArgumentException("Invalid influence");
+        }
+        h.getInfluenceMap().put(speciesId, i); 
+    }
 
     /**
      * Registers a new Vaccine into the Hotel (puts it into the _vaccines map)
@@ -439,7 +491,7 @@ public class Hotel implements Serializable {
      * @param difficulty the difficulty of cleaning the Tree
      * @param type the type of the Tree (CADUCA or PERENE)
      * @return the result of the operation
-     */
+    */
     public int registerTree(String id, String name, int age, int difficulty, 
        String type) {
         if(_trees.containsKey(id)){
