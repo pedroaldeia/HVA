@@ -1,6 +1,7 @@
 package hva.animal;
 
 import hva.habitat.Habitat;
+import hva.vaccine.VaccineApplication;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public class Animal implements Serializable{
     private String _name;
     private Species _species;
     private Habitat _habitat;
-    private List<Integer> _injuryRecord = new ArrayList<>();
+    private List<VaccineApplication> _injuryRecord = new ArrayList<>();
 
 
     /**

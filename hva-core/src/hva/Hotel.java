@@ -2,7 +2,6 @@ package hva;
 
 import hva.animal.Animal;
 import hva.animal.Species;
-import hva.app.exceptions.UnknownHabitatKeyException;
 import hva.employee.Caretaker;
 import hva.employee.Employee;
 import hva.employee.Vet;
@@ -26,7 +25,7 @@ import java.util.TreeMap;
 
 public class Hotel implements Serializable {
 
-    //registos do hotel
+    //FIXME adicionar javadoc
     private Map<String, Habitat> _habitats = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Employee> _employees = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Vaccine> _vaccines = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -74,13 +73,13 @@ public class Hotel implements Serializable {
 
                     case "TRATADOR" -> {if(wordsList.size() == 3) {registerEmployee(
                                         wordsList.get(1), wordsList.get(2), "TRT");}
-                                        if(wordsList.size() == 4) 
-                                    {/*FIXME implement this function */}}
+                                        if(wordsList.size() == 4) {registerEmployee(
+                                        wordsList.get(1), wordsList.get(2), "TRT", wordsList.get(3));}}
                                         
                     case "VETERINÁRIO" -> {if(wordsList.size() == 3) {registerEmployee(
                                            wordsList.get(1), wordsList.get(2), "VET");}
-                                           if(wordsList.size() == 4) 
-                                        {/*FIXME implement this function */}}
+                                           if(wordsList.size() == 4) {registerEmployee(
+                                            wordsList.get(1), wordsList.get(2), "VET", wordsList.get(3));}}
 
                     case "VACINA" -> {if(wordsList.size() == 3) {registerVaccine(
                                         wordsList.get(1), wordsList.get(2), "");}
@@ -205,23 +204,70 @@ public class Hotel implements Serializable {
      * @throws CoreDuplicateEmployeeKeyException
      *@returns true if suceeded, false otherwise
      */
-    public boolean registerEmployee(String id, String name, String type)
-            throws CoreDuplicateEmployeeKeyException{
+    public boolean registerEmployee(String id, String name, String type, String idResponsibility)
+            throws CoreDuplicateEmployeeKeyException, CoreUnknownHabitatKeyException, 
+            CoreUnknownSpeciesKeyException, CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
 
         if (_employees.containsKey(id)) {
             throw new CoreDuplicateEmployeeKeyException(id);
         }
         Employee newEmployee;
+        List<String> idList = splitId(idResponsibility);
+
         if (type.equals("TRT")){
             newEmployee = new Caretaker(id, name);
+            if (!idResponsibility.equals("")){
+                for(String i : idList){
+                    if(!_habitats.containsKey(i)){
+                        throw new CoreUnknownHabitatKeyException(i);
+                    }
+                }
+            }
         }
         else if(type.equals("VET")){ 
             newEmployee = new Vet(id, name);
+            if (!idResponsibility.equals("")){
+                for(String i : idList){
+                    if(!_species.containsKey(i)){
+                        throw new CoreUnknownSpeciesKeyException(i);
+                    }
+                }
+            }
         }
         else return false;
         _employees.put(id, newEmployee);
+
+        try {
+            if(!idResponsibility.equals("")){
+                for(String i : idList){
+                addResponsibility(id, i);
+            }
+        }
+        } catch (CoreUnknownEmployeeKeyException e) {
+            throw e;
+        }
+        catch (CoreNoResponsibilityException e) {
+            throw e; 
+            //nao sei como mandar o id da responsabilidade aqui
+        }
+        
         _fileChanged = true; 
         return true;
+    }
+
+    public boolean registerEmployee(String id, String name, String type) throws 
+        CoreUnknownEmployeeKeyException, CoreNoResponsibilityException, 
+        CoreUnknownHabitatKeyException,CoreUnknownSpeciesKeyException, 
+        CoreDuplicateEmployeeKeyException{
+        try {
+           return registerEmployee(id, name, type, ""); 
+        }  
+        catch (CoreUnknownEmployeeKeyException e) {throw e;}
+        catch (CoreNoResponsibilityException e) {throw e; }
+        catch (CoreUnknownHabitatKeyException e) {throw e; }
+        catch (CoreUnknownSpeciesKeyException e) {throw e; }
+        catch (CoreDuplicateEmployeeKeyException e) {throw e; }
+        
     }
     
     /**
@@ -278,11 +324,6 @@ public class Hotel implements Serializable {
             throw new CoreNoResponsibilityException(employeeId, responsibilityId);
         }
     }
-
-    public boolean habitatAlreadyExists(String id){
-        return _habitats.containsKey(id);
-    }
-
 
     public void removeResponsibility(String employeeId, String responsibilityId) throws 
         CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
@@ -377,6 +418,10 @@ public class Hotel implements Serializable {
     public boolean treeAlreadyExists(String id){
         return _trees.containsKey(id);
     }
+
+    public boolean habitatAlreadyExists(String id){
+            return _habitats.containsKey(id);
+        }
 
     //Merge with other function
     public void plantTree(String habitatId, String id, String name, 
