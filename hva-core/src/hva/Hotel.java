@@ -483,14 +483,7 @@ public class Hotel implements Serializable {
     public String showAllHabitatTrees(String id)
             throws CoreUnknownHabitatKeyException{
         Habitat h = getHabitat(id);
-        String treeString = "";
-        for (Tree tree : h.getTreeMap().values()){
-            treeString = treeString + tree.toString() + "\n";
-        }
-        if(!treeString.equals("")){
-            treeString = treeString.substring(0, treeString.length() - 1);
-        }
-        return treeString;
+        return h.showAllTrees();
     }
 
     public boolean isValidInfluence(String inf){

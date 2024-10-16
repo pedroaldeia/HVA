@@ -100,4 +100,15 @@ public class Habitat implements Serializable{
     public boolean treeAlreadyExists(String id){
        return  _trees.containsKey(id);
     }
+
+    public String showAllTrees() {
+        String treeString = "";
+        for (Tree tree : _trees.values()){
+            treeString = treeString + tree.toString() + "\n";
+        }
+        if(!treeString.equals("")){
+            treeString = treeString.substring(0, treeString.length() - 1);
+        }
+        return treeString;
+    }
 }
