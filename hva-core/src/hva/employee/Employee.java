@@ -3,12 +3,12 @@ package hva.employee;
 import java.io.Serializable;
 
 public abstract class Employee implements Serializable{
-    protected String _id; //switched to protected to be able to access through classes 
+    private String _id; //switched to protected to be able to access through classes 
                           //Vet and Caretaker
-    protected String _name;
+    private String _name;
     //private SatisfactionCalculator _satisfactionCalc;
 
-    protected String _type; //VET or TRT
+    private String _type; //VET or TRT
 
     /**
      * This is the constructor of the Employee class.
@@ -26,4 +26,12 @@ public abstract class Employee implements Serializable{
         return _type;
     }
     //implement setSatisfactionCalc, getSatisfaction, accept
+
+    public String getId(){
+        return _id;
+    }
+
+    public String getName(){
+        return _id;
+    }
 }

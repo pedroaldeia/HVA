@@ -28,10 +28,10 @@ public class Vet extends Employee{
     @Override
     public String toString(){
         if (_responsibilityList.isEmpty()){
-            return "VET|" + _id + "|" + _name; 
+            return "VET|" + getId() + "|" + getName(); 
         }
         else{
-            return "VET|" + _id + "|" + _name + "|" + responsibilityToString(); 
+            return "VET|" + getId() + "|" + getName() + "|" + responsibilityToString(); 
         }
     }
 
@@ -49,8 +49,9 @@ public class Vet extends Employee{
      * 
      * @return String identifier (_id)
      */
+    @Override
     public String getId(){
-        return _id;
+        return super.getId();
     }
 
     /**
@@ -58,8 +59,9 @@ public class Vet extends Employee{
      * 
      * @return String _name
      */
+    @Override
     public String getName(){
-        return _name;
+        return super.getName();
     }
 
     public void addResponsibility(Species species){

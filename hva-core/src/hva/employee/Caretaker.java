@@ -27,10 +27,10 @@ public class Caretaker extends Employee{
     @Override
     public String toString(){
         if (_responsibilityList.isEmpty()){
-            return "TRT|" + _id + "|" + _name; 
+            return "TRT|" + getId() + "|" + getName(); 
         }
         else{
-            return "TRT|" + _id + "|" + _name + "|" + _responsibilityList; 
+            return "TRT|" + getId() + "|" + getName() + "|" + responsibilityToString(); 
             //FIXME implement how to print the list
         }
     }
@@ -48,8 +48,9 @@ public class Caretaker extends Employee{
      * 
      * @return String identifier (_id)
      */
+    @Override
     public String getId(){
-        return _id;
+        return super.getId();
     }
 
     /**
@@ -57,8 +58,9 @@ public class Caretaker extends Employee{
      * 
      * @return String _name
      */
+    @Override
     public String getName(){
-        return _name;
+        return super.getName();
     }
 
     public void addResponsibility(Habitat habitat){
