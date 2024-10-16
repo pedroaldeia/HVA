@@ -11,11 +11,11 @@ import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
 import hva.tree.Tree;
 import hva.vaccine.Vaccine;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -49,12 +49,17 @@ public class Hotel implements Serializable {
      * @throws ImportFileException
      */
     void importFile(String filename) throws ImportFileException{ 
+    BufferedReader reader;    
 	try {
             // Read the first line from the file
-            List<String> file = Files.readAllLines(Paths.get(filename));
+            //List<String> file = Files.readAllLines(Paths.get(filename));
+
+            reader = new BufferedReader(new FileReader(filename));
+
+            String line = reader.readLine();
 
             // Split the line
-            for(String line : file){
+            while (line != null){
                 //System.out.println(line);
                 List<String> wordsList = Arrays.asList(line.split("\\|"));
                 switch(wordsList.get(0)){
@@ -93,8 +98,8 @@ public class Hotel implements Serializable {
                                       Integer.parseInt(wordsList.get(4)), 
                                       wordsList.get(5));
                     default -> throw new UnrecognizedEntryException(wordsList.get(0));
-
                 }
+                line = reader.readLine();
             }
         } catch (IOException | UnrecognizedEntryException e) {
             throw new ImportFileException(filename, e);
