@@ -402,15 +402,15 @@ public class Hotel implements Serializable {
     private Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
         Habitat habitat = _habitats.get(id);
         if(habitat == null){
-            System.out.println("AQUI");
             throw new CoreUnknownHabitatKeyException(id);
         }
         return habitat;
     }
 
-    public void setHabitatArea(String id, int area) 
+    public void changeHabitatArea(String id, String area) 
             throws CoreUnknownHabitatKeyException {
-        getHabitat(id).setArea(area);
+        int intArea = Integer.parseInt(area);
+        getHabitat(id).setArea(intArea);
     }
 
     public boolean isValidTreeType(String type){
@@ -477,7 +477,7 @@ public class Hotel implements Serializable {
         int intAge = Integer.parseInt(age);
         int intDif = Integer.parseInt(dif);
         addTree(id, name, intAge, intDif, type);
-        registerTree(habitatId, id, name, age, dif, type);
+        plantTree(habitatId, id, name, intAge, intDif, type);
     }
                                 
     public String showAllHabitatTrees(String id)
