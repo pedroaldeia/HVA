@@ -29,7 +29,7 @@ public class Vet extends Employee{
      */
     @Override
     public String toString(){
-        if (_responsibilityList.isEmpty()){
+        if (_responsibilityMap.isEmpty()){
             return "VET|" + getId() + "|" + getName(); 
         }
         else{
@@ -80,5 +80,9 @@ public class Vet extends Employee{
     @Override
     public int accept(SatisfactionCalculator sc){
         return sc.visitVet(this);
+    }
+
+    public Map<String, Species> getResponsibilityMap(){
+        return _responsibilityMap;
     }
 }
