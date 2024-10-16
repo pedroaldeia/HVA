@@ -564,6 +564,16 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
+    public void vaccinateAnimal(String vaccineId, String animalId, String vetId){
+        Vaccine vaccine = _vaccines.get(vaccineId);
+        Animal animal = _animals.get(animalId);
+        Vet vet = (Vet) _employees.get(vetId);
+        if(vaccine!= null && animal!= null){
+            vaccine.vaccinateAnimal(vet, animal);
+            _fileChanged = true;
+        }
+    }
+
 
     /**
      * Returns current status of the file (saved or not) (in variable _fileChanged)

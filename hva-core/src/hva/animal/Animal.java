@@ -84,4 +84,8 @@ public class Animal implements Serializable{
         _habitat = habitat;
     }
 
+    public void getVaccinated(VaccineApplication application){
+        _injuryRecord.add(application); //FIXME add other stuff if needed
+    }
+
 }

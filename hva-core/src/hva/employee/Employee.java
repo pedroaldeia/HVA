@@ -33,6 +33,6 @@ public abstract class Employee implements Serializable{
     }
 
     public String getName(){
-        return _id;
+        return _name;
     }
 }

@@ -1,14 +1,18 @@
 package hva.vaccine;
 
+import hva.animal.Animal;
+import hva.employee.Vet;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Vaccine implements Serializable{
     private String _name;
     private String _id;
     private int _nApplications = 0;
-    private List<String> _speciesIds = new ArrayList<>();
+    private Map<String, String> _speciesIds = new TreeMap<>(); //FIXME put something else in the TreeMap
     private List<VaccineApplication> _record = new ArrayList<>();
 
     /**
@@ -65,7 +69,7 @@ public class Vaccine implements Serializable{
 
     public String speciesToString(){
         String out = "";
-        for(String id : _speciesIds){
+        for(String id : _speciesIds.keySet()){
             out += id + ",";
         }
         return out.substring(0, out.length()-1);
@@ -73,8 +77,15 @@ public class Vaccine implements Serializable{
 
     private void addSpecies(String[] species){
         for(String id : species){
-            _speciesIds.add(id);
+            _speciesIds.put(id, id);
         }
+    }
+
+    public void vaccinateAnimal(Vet vet, Animal animal){
+        VaccineApplication application = new VaccineApplication(vet, animal);
+        animal.getVaccinated(application); //FIXME add other stuff if needed
+        _record.add(application);
+        _nApplications++;
     }
     //FIXME Implement addApplication
 }
