@@ -527,15 +527,15 @@ public class Hotel implements Serializable {
         if (_vaccines.containsKey(id)) {
             throw new CoreDuplicateVaccineKeyException(id);
         }
+        String[] idsArray = speciesIds.split(",");
         if(!speciesIds.equals("")){
-            String[] idsArray = speciesIds.split(",");
             for (String speciesId : idsArray){
                 if (_species.containsKey(speciesId) == false) {
                     throw new CoreUnknownSpeciesKeyException(speciesId);
                 }
             }
         }
-        Vaccine newVaccine = new Vaccine(id, name, speciesIds);
+        Vaccine newVaccine = new Vaccine(id, name, idsArray);
         _vaccines.put(id, newVaccine);
         _fileChanged = true; 
     }

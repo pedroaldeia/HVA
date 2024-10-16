@@ -74,7 +74,7 @@ public class HotelManager {
             _filename = filename;
         }
         catch(FileNotFoundException e) {throw new UnavailableFileException(filename);}
-        catch(IOException e) {throw new UnavailableFileException(filename);}
+        catch(IOException e) {;throw new UnavailableFileException(filename);}
         catch(ClassNotFoundException e){throw new UnavailableFileException(filename);}
     }
 

@@ -8,7 +8,7 @@ public class Vaccine implements Serializable{
     private String _name;
     private String _id;
     private int _nApplications = 0;
-    private String _speciesIds = "";
+    private List<String> _speciesIds = new ArrayList<>();
     private List<VaccineApplication> _record = new ArrayList<>();
 
     /**
@@ -19,12 +19,18 @@ public class Vaccine implements Serializable{
      * @param speciesIds a string of comma-separated species IDs this vaccine is meant 
      * for
      */
+    /*
     public Vaccine(String id, String name, String speciesIds) {
         _name = name;
         _id = id;
-        _speciesIds = speciesIds.replaceAll("\\s", "");
+        //_speciesIds = speciesIds.replaceAll("\\s", "");
+    } //FIXME idk if this function is needed or not
+    */
+    public Vaccine(String id, String name, String[] speciesIds) {
+        _name = name;
+        _id = id;
+        addSpecies(speciesIds);
     }
-
     /**
      * This method returns the unique identifier of the vaccine.
      * 
@@ -54,9 +60,21 @@ public class Vaccine implements Serializable{
             return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications; 
         }
         return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + 
-          "|" + _speciesIds; 
+          "|" + speciesToString(); 
     }
 
-    
+    public String speciesToString(){
+        String out = "";
+        for(String id : _speciesIds){
+            out += id + ",";
+        }
+        return out.substring(0, out.length()-1);
+    }
+
+    private void addSpecies(String[] species){
+        for(String id : species){
+            _speciesIds.add(id);
+        }
+    }
     //FIXME Implement addApplication
 }
