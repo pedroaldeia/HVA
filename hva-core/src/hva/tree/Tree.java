@@ -51,8 +51,8 @@ public abstract class Tree implements Serializable{
      * 
      * @return _cleaningDifficulty the difficulty of cleaning the tree
      */
-    public String getDifficulty() {
-        return "" + _cleaningDifficulty;
+    public int getDifficulty() {
+        return _cleaningDifficulty;
     }
 
     /**

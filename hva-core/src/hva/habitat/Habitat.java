@@ -16,7 +16,6 @@ public class Habitat implements Serializable{
     private String _id;
     private String _name;
     private int _area;
-    private int _population = 0;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
     private Map<String, Animal> _animals = new TreeMap<String, Animal>();
@@ -58,6 +57,22 @@ public class Habitat implements Serializable{
         return _name;
     }
 
+    public int getArea(){
+        return _area;
+    }
+
+    public int getTreesNum(){
+        return _trees.size();
+    }
+
+    public void addCaretakersNum(){
+        _caretakersNum++;
+    }
+
+    public int getCaretakersNum(){
+        return _caretakersNum;
+    }
+
     /**
      * This method returns the map containing the animals in the habitat.
      * 
@@ -67,7 +82,7 @@ public class Habitat implements Serializable{
         return _animals;
     }
 
-    public Map<String, Tree> getTreeMap(){
+    public Map<String, Tree> getTreesMap(){
         return _trees;
     }
 

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Caretaker extends Employee{
-    private Map<String, Habitat> _responsibilityList = new TreeMap<>();
+    private Map<String, Habitat> _responsibilityMap = new TreeMap<>();
 
     //FIXME implement addResponsibility and accept
     /**
@@ -26,7 +26,7 @@ public class Caretaker extends Employee{
      */
     @Override
     public String toString(){
-        if (_responsibilityList.isEmpty()){
+        if (_responsibilityMap.isEmpty()){
             return "TRT|" + getId() + "|" + getName(); 
         }
         else{
@@ -37,8 +37,8 @@ public class Caretaker extends Employee{
 
     private String responsibilityToString(){
         String responsibility = "";
-        for(String key : _responsibilityList.keySet()){
-            responsibility += _responsibilityList.get(key).getId() + ",";
+        for(String key : _responsibilityMap.keySet()){
+            responsibility += _responsibilityMap.get(key).getId() + ",";
         }
         return responsibility.substring(0, responsibility.length()-1);
     }
@@ -63,14 +63,23 @@ public class Caretaker extends Employee{
         return super.getName();
     }
 
+    public Map<String, Habitat> getResponsibilityMap(){
+        return _responsibilityMap;
+    }
+
     public void addResponsibility(Habitat habitat){
-        _responsibilityList.put(habitat.getId(), habitat);
+        _responsibilityMap.put(habitat.getId(), habitat);
     }
 
     public void removeResponsibility(String id) throws CoreUnknownHabitatKeyException{
-        Habitat removed = _responsibilityList.remove(id);
+        Habitat removed = _responsibilityMap.remove(id);
         if(removed == null){
             throw new CoreUnknownHabitatKeyException(id);
         }
+    }
+
+    @Override
+    public int accept(SatisfactionCalculator sc){
+        return sc.visitCaretaker(this);
     }
 }

@@ -307,18 +307,26 @@ public class Hotel implements Serializable {
     }
 
     public void addResponsibility(String employeeId, String responsibilityId) throws 
-                                    CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
+                                    CoreUnknownEmployeeKeyException, 
+                                    CoreNoResponsibilityException, IllegalArgumentException
+                                    {
         try {
             Employee employee = getEmployee(employeeId);
-            if(employee.getType().equals("VET")){
+            String type = employee.getType();
+            if(type.equals("VET")){
                 Vet vet = (Vet) employee;
                 //if(vet.getResponsibilities().containsKey(responsibilityId)){ FIXME implementar isto
-                vet.addResponsibility(getSpecies(responsibilityId));
+                Species species = getSpecies(responsibilityId);
+                vet.addResponsibility(species);
+                species.addVetsNum();
             }
-            else{
+            else if(type.equals("TRT")){
                 Caretaker caretaker = (Caretaker) employee;
-                caretaker.addResponsibility(getHabitat(responsibilityId));
+                Habitat habitat = getHabitat(responsibilityId);
+                caretaker.addResponsibility(habitat);
+                habitat.addCaretakersNum();
             }
+            else throw new IllegalArgumentException("Invalid employee type");
         }
         catch (CoreUnknownEmployeeKeyException e) {
             throw e;

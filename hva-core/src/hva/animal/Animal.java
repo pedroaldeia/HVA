@@ -64,6 +64,7 @@ public class Animal implements Serializable{
         return _name;
     }
 
+
     /**
      * This method sets the species of the animal
      * 

@@ -39,4 +39,16 @@ public class Species implements Serializable{
     public String getName() {
         return _name;
     }
+
+    public void addVetsNum(){
+        _vetsNum++;
+    }
+
+    public int getVetsNum(){
+        return _vetsNum;
+    }
+
+    public int getAnimalsNum(){
+        return _animals.size();
+    }
 }
