@@ -25,6 +25,7 @@ class DoAddResponsibility extends Command<Hotel> {
         } 
         catch (CoreUnknownEmployeeKeyException e) { throw new UnknownEmployeeKeyException(e.getId()); }
         catch (CoreNoResponsibilityException e) { throw new NoResponsibilityException(e.getEmployeeId(), e.getResponsibilityId()); }
+        catch (IllegalArgumentException e) {e.printStackTrace();}
     }
 
 }

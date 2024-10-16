@@ -2,11 +2,13 @@ package hva.employee;
 
 import hva.animal.Species;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
+import hva.habitat.Habitat;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Vet extends Employee{
-    private Map<String,Species> _responsibilityList = new TreeMap<>();
+    private Map<String, Species> _responsibilityMap = new TreeMap<>();
 
     // implement addResponsibility and accept
 
@@ -27,7 +29,7 @@ public class Vet extends Employee{
      */
     @Override
     public String toString(){
-        if (_responsibilityList.isEmpty()){
+        if (_responsibilityMap.isEmpty()){
             return "VET|" + _id + "|" + _name; 
         }
         else{
@@ -37,8 +39,8 @@ public class Vet extends Employee{
 
     private String responsibilityToString(){
         String responsibility = "";
-        for(String key : _responsibilityList.keySet()){
-            responsibility += _responsibilityList.get(key).getId() + ",";
+        for(String key : _responsibilityMap.keySet()){
+            responsibility += _responsibilityMap.get(key).getId() + ",";
         }
         return responsibility.substring(0, responsibility.length()-1);
     }
@@ -62,14 +64,23 @@ public class Vet extends Employee{
         return _name;
     }
 
+    public Map<String, Species> getResponsibilityMap(){
+        return _responsibilityMap;
+    }
+
     public void addResponsibility(Species species){
-        _responsibilityList.put(species.getId(), species);
+        _responsibilityMap.put(species.getId(), species);
     }
 
     public void removeResponsibility(String id) throws CoreUnknownSpeciesKeyException{
-        Species removed = _responsibilityList.remove(id);
+        Species removed = _responsibilityMap.remove(id);
         if(removed == null){
             throw new CoreUnknownSpeciesKeyException(id);
         }
+    }
+
+    @Override
+    public int accept(SatisfactionCalculator sc){
+        return sc.visitVet(this);
     }
 }

@@ -3,5 +3,6 @@ package hva.employee;
 import java.io.Serializable;
 
 public interface SatisfactionCalculator{
-    // implement visitor and its functions
+    public int visitCaretaker(Caretaker c);
+    public int visitVet(Vet v);
 }
