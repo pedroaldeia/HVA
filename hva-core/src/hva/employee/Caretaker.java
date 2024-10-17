@@ -82,4 +82,8 @@ public class Caretaker extends Employee{
     public int accept(SatisfactionCalculator sc){
         return sc.visitCaretaker(this);
     }
+
+    public Habitat getResponsibility(String id){
+        return _responsibilityMap.get(id);
+    }
 }

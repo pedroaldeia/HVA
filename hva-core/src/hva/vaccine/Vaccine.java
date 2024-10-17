@@ -60,7 +60,7 @@ public class Vaccine implements Serializable{
      */
     @Override
     public String toString(){
-        if(_speciesIds.equals("")){
+        if(_speciesIds.isEmpty()){
             return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications; 
         }
         return "VACINA|" + this.getId() + "|" + this.getName() + "|" + _nApplications + 

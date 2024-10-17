@@ -315,16 +315,19 @@ public class Hotel implements Serializable {
             String type = employee.getType();
             if(type.equals("VET")){
                 Vet vet = (Vet) employee;
-                //if(vet.getResponsibilities().containsKey(responsibilityId)){ FIXME implementar isto
-                Species species = getSpecies(responsibilityId);
-                vet.addResponsibility(species);
-                species.addVetsNum();
+                if(vet.getResponsibility(responsibilityId) == null){
+                    Species species = getSpecies(responsibilityId);
+                    vet.addResponsibility(species);
+                    species.addVetsNum();
+                }
             }
             else if(type.equals("TRT")){
                 Caretaker caretaker = (Caretaker) employee;
-                Habitat habitat = getHabitat(responsibilityId);
-                caretaker.addResponsibility(habitat);
-                habitat.addCaretakersNum();
+                if(caretaker.getResponsibility(responsibilityId) == null){
+                    Habitat habitat = getHabitat(responsibilityId);
+                    caretaker.addResponsibility(habitat);
+                    habitat.addCaretakersNum();
+                }
             }
             else throw new IllegalArgumentException("Invalid employee type");
         }
@@ -345,8 +348,12 @@ public class Hotel implements Serializable {
             Employee employee = getEmployee(employeeId);
             if(employee.getType().equals("VET")){
                 Vet vet = (Vet) employee;
-                //if(vet.getResponsibilities().containsKey(responsibilityId)){ FIXME implementar isto
+                if(vet.getResponsibility(responsibilityId) != null){
                 vet.removeResponsibility(responsibilityId);
+                }
+                else{
+                    throw new CoreNoResponsibilityException(employeeId, responsibilityId);
+                }
             }
             else{
                 Caretaker caretaker = (Caretaker) employee;

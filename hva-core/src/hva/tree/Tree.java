@@ -3,14 +3,14 @@ package hva.tree;
 import java.io.Serializable;
 
 public abstract class Tree implements Serializable{
-    protected String _id;
-    protected String _name;
-    protected  int _age;
-    protected int _cleaningDifficulty;
-    protected Season _season;
-    protected int _seasonCounter;
-    protected String _type;
-    protected String _biologicCycle;
+    private String _id;
+    private String _name;
+    private  int _age;
+    private int _cleaningDifficulty;
+    private Season _season;
+    private int _seasonCounter;
+    private String _type;
+    private String _biologicCycle;
 
     /**
      * This is the constructor of the Tree class.

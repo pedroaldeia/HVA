@@ -85,4 +85,9 @@ public class Vet extends Employee{
     public Map<String, Species> getResponsibilityMap(){
         return _responsibilityMap;
     }
+
+    public Species getResponsibility(String id){
+        return _responsibilityMap.get(id);
+    }
+
 }
