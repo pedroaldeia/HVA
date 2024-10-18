@@ -5,7 +5,7 @@ import hva.habitat.Habitat;
 import hva.animal.Species;
 import hva.tree.Tree;
 
-public class BasicCalculator implements SatisfactionCalculator {
+public class BasicSatisfactionCalculator implements SatisfactionCalculator {
     @Override
     public int visitCaretaker(Caretaker c) {
         int totalWork = 0;
@@ -18,7 +18,7 @@ public class BasicCalculator implements SatisfactionCalculator {
             }
             totalWork += habitatWork / h.getCaretakersNum(); 
         }
-        return 300 - totalWork;
+        return Math.round(300 - totalWork);
     }
     @Override
     public int visitVet(Vet v) {
@@ -27,6 +27,6 @@ public class BasicCalculator implements SatisfactionCalculator {
         for (Species s : responsiblities.values()){
             work += s.getAnimalsNum()/s.getVetsNum();  
         }
-        return 20 - work;
+        return Math.round(20 - work);
     }
 }
