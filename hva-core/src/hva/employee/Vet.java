@@ -2,13 +2,15 @@ package hva.employee;
 
 import hva.animal.Species;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
-import hva.habitat.Habitat;
-
+import hva.vaccine.VaccineApplication;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Vet extends Employee{
     private Map<String, Species> _responsibilityMap = new TreeMap<>();
+    private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
 
     // implement addResponsibility and accept
 
@@ -90,4 +92,7 @@ public class Vet extends Employee{
         return _responsibilityMap.get(id);
     }
 
+    public void newApplication(VaccineApplication application){
+        _vaccineApplications.add(application);
+    }
 }
