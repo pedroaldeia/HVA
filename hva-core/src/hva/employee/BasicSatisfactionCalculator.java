@@ -18,7 +18,7 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
             }
             totalWork += habitatWork / h.getCaretakersNum(); 
         }
-        return 300 - totalWork;
+        return Math.round(300 - totalWork);
     }
     @Override
     public int visitVet(Vet v) {
@@ -27,6 +27,6 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
         for (Species s : responsiblities.values()){
             work += s.getAnimalsNum()/s.getVetsNum();  
         }
-        return 20 - work;
+        return Math.round(20 - work);
     }
 }
