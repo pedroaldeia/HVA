@@ -5,9 +5,7 @@ import hva.vaccine.Vaccine;
 import hva.vaccine.VaccineApplication;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Animal implements Serializable{
     private String _id;
@@ -109,22 +107,21 @@ public class Animal implements Serializable{
         _damage += damage;
     }
 
-    private int damageCalculator(Vaccine vaccine){ //FIXME WIP: does no have the right formula
+    private int damageCalculator(Vaccine vaccine){ 
         int max = 0;
         int current;
         String animalName = getName().toLowerCase();
         for(String currentString : vaccine.getSpeciesNames()){
             current = 0;
             currentString = currentString.toLowerCase();
-            Set<Character> uniqueChars = new HashSet<>(); //HashSets can't have duplicate items
-            for(char c : animalName.toCharArray()){
-                boolean newItem = uniqueChars.add(c);
-                if(newItem){current -= 1;} //if a new character is found
+            for(char c1 : animalName.toCharArray()){
+                for(char c2 : currentString.toCharArray()){
+                    if(c1 == c2){
+                        current -= 1;
+                    }
+                }
             }
-            for(char c : currentString.toCharArray()){
-                uniqueChars.add(c);
-            }
-            current += uniqueChars.size();
+            current += animalName.length();
             if(max < current) max = current;
         }
         return max;

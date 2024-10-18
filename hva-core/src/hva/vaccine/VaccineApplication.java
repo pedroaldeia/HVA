@@ -51,4 +51,12 @@ public class VaccineApplication implements Serializable{
     public String getStatus(){
         return _status;
     }
+
+    public String getAnimalId(){
+        return _animal.getId();
+    }
+
+    public String getSpeciesId(){
+        return _animal.getSpeciesId();
+    }
 }

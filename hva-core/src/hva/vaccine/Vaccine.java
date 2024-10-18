@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import hva.exceptions.CoreVeterinarianNotAuthorizedException;
 
 public class Vaccine implements Serializable{
     private String _name;
@@ -84,7 +85,8 @@ public class Vaccine implements Serializable{
         }
     }
 
-    public VaccineApplication vaccinateAnimal(Vet vet, Animal animal){
+    public VaccineApplication vaccinateAnimal(Vet vet, Animal animal) throws 
+       CoreVeterinarianNotAuthorizedException{
         VaccineApplication application = new VaccineApplication(this, vet, animal);
         if(!_speciesIds.containsKey(animal.getSpeciesId())){
             application.setSuccesfulness(false);

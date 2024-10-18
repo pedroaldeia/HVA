@@ -585,14 +585,18 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
-    public void vaccinateAnimal(String vaccineId, String animalId, String vetId){
+    public void vaccinateAnimal(String vaccineId, String animalId, String vetId) throws 
+        CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
+        CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
         Animal animal = _animals.get(animalId);
         Vet vet = (Vet) _employees.get(vetId);
-        if(vaccine!= null && animal!= null){
-            vaccine.vaccinateAnimal(vet, animal);
-            _fileChanged = true;
-        }
+        if(vaccine == null){throw new CoreUnknownVaccineKeyException(vaccineId);}
+        if(vet == null || !vet.getType().equals("VET"))
+        {throw new CoreUnknownVeterinarianKeyException(vetId);}
+        if(animal == null){throw new CoreUnknownAnimalKeyException(animalId);}
+        vaccine.vaccinateAnimal(vet, animal);
+        _fileChanged = true;
     }
 
 
@@ -608,7 +612,7 @@ public class Hotel implements Serializable {
 
     /**
      * Sets the status of the file (saved or not) (in variable _fileChanged)
-     * (0-> saved, 1-> not saved)
+     * (false-> saved, true-> not saved)
      * 
      * @param fileChanged
      * @return void

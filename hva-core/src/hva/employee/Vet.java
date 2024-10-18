@@ -2,6 +2,7 @@ package hva.employee;
 
 import hva.animal.Species;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
+import hva.exceptions.CoreVeterinarianNotAuthorizedException;
 import hva.vaccine.VaccineApplication;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,11 @@ public class Vet extends Employee{
         return _responsibilityMap.get(id);
     }
 
-    public void newApplication(VaccineApplication application){
+    public void newApplication(VaccineApplication application) throws 
+        CoreVeterinarianNotAuthorizedException{
+        if(_responsibilityMap.get(application.getSpeciesId()) == null){
+            throw new CoreVeterinarianNotAuthorizedException(getId(), application.getSpeciesId());
+        }
         _vaccineApplications.add(application);
     }
 }

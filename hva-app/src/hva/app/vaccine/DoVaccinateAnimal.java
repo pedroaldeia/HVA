@@ -1,9 +1,17 @@
 package hva.app.vaccine;
 
 import hva.Hotel;
+import hva.exceptions.CoreUnknownAnimalKeyException;
+import hva.exceptions.CoreUnknownVaccineKeyException;
+import hva.exceptions.CoreUnknownVeterinarianKeyException;
+import hva.exceptions.CoreVeterinarianNotAuthorizedException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+import pt.tecnico.uilib.forms.Form;
+import hva.app.exceptions.UnknownAnimalKeyException;
+import hva.app.exceptions.UnknownVeterinarianKeyException;
+import hva.app.exceptions.VeterinarianNotAuthorizedException;
+import hva.app.exceptions.UnknownVaccineKeyException;
 
 class DoVaccinateAnimal extends Command<Hotel> {
 
@@ -14,7 +22,15 @@ class DoVaccinateAnimal extends Command<Hotel> {
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        try {
+            _receiver.vaccinateAnimal(Form.requestString(hva.app.vaccine.Prompt.vaccineKey()),
+             Form.requestString(hva.app.animal.Prompt.animalKey()),
+             Form.requestString(hva.app.vaccine.Prompt.veterinarianKey()));
+        } catch (CoreUnknownVaccineKeyException e){throw new UnknownVaccineKeyException(e.getVaccineKey());} 
+        catch(CoreUnknownAnimalKeyException e) {throw new UnknownAnimalKeyException(e.getAnimalKey());} 
+        catch(CoreUnknownVeterinarianKeyException e){throw new UnknownVeterinarianKeyException(e.getVetKey());} 
+        catch(CoreVeterinarianNotAuthorizedException e){throw new VeterinarianNotAuthorizedException(e.getVetKey(), e.getSpecieskey());}
+        
     }
 
 }
