@@ -5,7 +5,7 @@ import hva.habitat.Habitat;
 import hva.animal.Species;
 import hva.tree.Tree;
 
-public class BasicCalculator implements SatisfactionCalculator {
+public class BasicSatisfactionCalculator implements SatisfactionCalculator {
     @Override
     public int visitCaretaker(Caretaker c) {
         int totalWork = 0;

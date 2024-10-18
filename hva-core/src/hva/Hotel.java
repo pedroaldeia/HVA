@@ -2,6 +2,7 @@ package hva;
 
 import hva.animal.Animal;
 import hva.animal.Species;
+import hva.employee.BasicSatisfactionCalculator;
 import hva.employee.Caretaker;
 import hva.employee.Employee;
 import hva.employee.Vet;
@@ -370,6 +371,13 @@ public class Hotel implements Serializable {
             throw new CoreNoResponsibilityException(employeeId, responsibilityId);
         }
     }
+
+    public int calculateEmployeeSatisfaction(String id)
+            throws CoreUnknownEmployeeKeyException{
+        Employee e = getEmployee(id);
+        return e.accept(new BasicSatisfactionCalculator());
+    }
+
     /**
      * Registers a new Habitat into the Hotel (puts it into the _habitats map)
      * 
