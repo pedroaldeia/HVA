@@ -178,7 +178,7 @@ public class Hotel implements Serializable {
         }
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
-        //habitat.getAnimalMap().put(id, newAnimal);
+        habitat.putAnimalInHabitat(newAnimal);
         _fileChanged = true;
     }
 
@@ -203,6 +203,15 @@ public class Hotel implements Serializable {
     public boolean isValidEmployeeType(String type){
         return type.equals("TRT") || type.equals("VET");
     }
+
+    public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
+        Animal animal = _animals.get(animalId);
+        if(animal == null){
+            throw new CoreUnknownAnimalKeyException(animalId);
+        }
+        return animal.vaccinationsToString();
+    }
+
 
     /**
      * Registers a new employee into the Hotel (puts it into the _employees map)
@@ -413,6 +422,20 @@ public class Hotel implements Serializable {
         _fileChanged = true; 
     } 
 
+    public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
+        Vet vet = getVeterinarian(vetId);
+        return vet.medicalActsToString();
+    }
+
+    private Vet getVeterinarian(String id) throws CoreUnknownVeterinarianKeyException {
+        Employee employee = _employees.get(id);
+        if(employee == null || employee.getType().equals("VET") == false){
+            throw new CoreUnknownVeterinarianKeyException(id);
+        }
+        return (Vet) employee;
+    }
+
+
     /**
      * Returns a String with all habitats in hotel and corresponding trees
      * 
@@ -426,7 +449,7 @@ public class Hotel implements Serializable {
         if(!habitatString.equals("")){
             habitatString = habitatString.substring(0, habitatString.length() - 1);
         }
-        
+
         return habitatString;
     }
 
@@ -540,6 +563,14 @@ public class Hotel implements Serializable {
         _fileChanged = true;
     }
 
+    public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
+        Habitat habitat = getHabitat(habitatId);
+        if(habitat == null){
+            throw new CoreUnknownHabitatKeyException(habitatId);
+        }
+        return habitat.animalsInHabitatToString();
+    }
+
     /**
      * Registers a new Vaccine into the Hotel (puts it into the _vaccines map)
      * 
@@ -624,6 +655,19 @@ public class Hotel implements Serializable {
             vaccinationsString = vaccinationsString.substring(0, vaccinationsString.length() - 1);
         }
         return vaccinationsString;
+    }
+
+    public String showWrongVaccinations(){
+        String wrongVaccinationsString = "";
+        for (VaccineApplication application : _vaccineApplications){
+            if(!application.getSuccesfulness()){
+                wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
+            }
+        }
+        if(!wrongVaccinationsString.equals("")){
+            wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
+        }
+        return wrongVaccinationsString;
     }
 
     /**

@@ -53,7 +53,10 @@ public class Animal implements Serializable{
         for(VaccineApplication application : _injuryRecord){
             record += application.getStatus() + ",";
         }
-        return record.substring(0, record.length() - 1);
+        if(!record.equals("")){
+            record.substring(0, record.length() - 1);
+        }
+        return record;
     }
 
     /**
@@ -134,4 +137,14 @@ public class Animal implements Serializable{
         }
         return max;
     } 
+    public String vaccinationsToString(){
+        String record = "";
+        for(VaccineApplication application : _injuryRecord){
+            record += application.toString() + "\n";
+        }
+        if(!record.equals("")){
+            record.substring(0, record.length() - 1);
+        }
+        return record;
+    }
 }

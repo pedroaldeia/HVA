@@ -100,4 +100,15 @@ public class Vet extends Employee{
         }
         _vaccineApplications.add(application);
     }
+
+    public String medicalActsToString(){
+        String record = "";
+        for(VaccineApplication application : _vaccineApplications){
+            record += application.toString() + "\n";
+        }
+        if(!record.equals("")){
+            record.substring(0, record.length() - 1);
+        }
+        return record;
+    }
 }
