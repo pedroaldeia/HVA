@@ -97,9 +97,14 @@ public class Habitat implements Serializable{
      */
     @Override
     public String toString(){
-        return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
-          _treeNum; 
-        //FIXME implement print all trees in habitat
+        if(_treeNum == 0){
+            return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
+          _treeNum;
+        }
+        else{
+            return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
+          _treeNum + showAllTrees();
+        }
     }
 
     /**

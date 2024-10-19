@@ -24,8 +24,8 @@ class DoVaccinateAnimal extends Command<Hotel> {
     protected final void execute() throws CommandException {
         try {
             String[] rightSpecies = _receiver.vaccinateAnimal(Form.requestString(hva.app.vaccine.Prompt.vaccineKey()),
-             Form.requestString(hva.app.animal.Prompt.animalKey()),
-             Form.requestString(hva.app.vaccine.Prompt.veterinarianKey()));
+             Form.requestString(hva.app.vaccine.Prompt.veterinarianKey()),
+             Form.requestString(hva.app.animal.Prompt.animalKey()));
              if(!Boolean.parseBoolean(rightSpecies[0])) {_display.popup(hva.app.vaccine.Message.wrongVaccine(rightSpecies[1], rightSpecies[2]));}
         } catch (CoreUnknownVaccineKeyException e){throw new UnknownVaccineKeyException(e.getVaccineKey());} 
         catch(CoreUnknownAnimalKeyException e) {throw new UnknownAnimalKeyException(e.getAnimalKey());} 

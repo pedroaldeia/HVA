@@ -426,6 +426,7 @@ public class Hotel implements Serializable {
         if(!habitatString.equals("")){
             habitatString = habitatString.substring(0, habitatString.length() - 1);
         }
+        
         return habitatString;
     }
 
@@ -587,12 +588,12 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
-    public String[] vaccinateAnimal(String vaccineId, String animalId, String vetId) throws 
+    public String[] vaccinateAnimal(String vaccineId, String vetId, String animalId) throws 
         CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
         CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
-        Animal animal = _animals.get(animalId);
         Vet vet = (Vet) _employees.get(vetId);
+        Animal animal = _animals.get(animalId);
         if(vaccine == null){throw new CoreUnknownVaccineKeyException(vaccineId);}
         if(vet == null || !vet.getType().equals("VET"))
         {throw new CoreUnknownVeterinarianKeyException(vetId);}
