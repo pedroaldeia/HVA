@@ -44,8 +44,16 @@ public class Animal implements Serializable{
              "|" + _habitat.getId();
         }
         return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + 
-          _injuryRecord + "|" + _habitat.getId(); 
+          injuryRecordToString() + "|" + _habitat.getId(); 
         //FIXME implement show injury Record
+    }
+
+    private String injuryRecordToString(){
+        String record = "";
+        for(VaccineApplication application : _injuryRecord){
+            record += application.getStatus() + ",";
+        }
+        return record.substring(0, record.length() - 1);
     }
 
     /**

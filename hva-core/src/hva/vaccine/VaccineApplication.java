@@ -59,4 +59,13 @@ public class VaccineApplication implements Serializable{
     public String getSpeciesId(){
         return _animal.getSpeciesId();
     }
+
+    public String getVaccineId(){
+        return _vaccine.getId();
+    }
+
+    @Override
+    public String toString(){
+        return "REGISTO-VACINA|" + _vaccine.getId() + "|" + _vet.getId() + "|" + getSpeciesId();
+    }
 }

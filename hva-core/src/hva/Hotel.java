@@ -12,6 +12,7 @@ import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
 import hva.tree.Tree;
 import hva.vaccine.Vaccine;
+import hva.vaccine.VaccineApplication;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class Hotel implements Serializable {
     private Map<String, Species> _species = new HashMap<>();
     private Map<String, Animal> _animals = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Tree> _trees = new HashMap<>();
+    private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
 
     public Hotel(){};    
     
@@ -585,7 +587,7 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
-    public void vaccinateAnimal(String vaccineId, String animalId, String vetId) throws 
+    public String[] vaccinateAnimal(String vaccineId, String animalId, String vetId) throws 
         CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
         CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
@@ -595,10 +597,33 @@ public class Hotel implements Serializable {
         if(vet == null || !vet.getType().equals("VET"))
         {throw new CoreUnknownVeterinarianKeyException(vetId);}
         if(animal == null){throw new CoreUnknownAnimalKeyException(animalId);}
-        vaccine.vaccinateAnimal(vet, animal);
+        VaccineApplication application = vaccine.vaccinateAnimal(vet, animal);
+        _vaccineApplications.add(application);
         _fileChanged = true;
+        return applicationToList(application); //FIXME: discutir isto, é a única maneira que me estou a lembrar
     }
 
+
+    private String[] applicationToList(VaccineApplication application){
+        String[] applicationList = new String[3];
+
+        applicationList[0] = String.valueOf(application.getSuccesfulness());
+        applicationList[1] = application.getVaccineId();
+        applicationList[2] = application.getAnimalId();
+        return applicationList;
+    }
+
+
+    public String showVaccinations(){
+        String vaccinationsString = "";
+        for (VaccineApplication application : _vaccineApplications){
+            vaccinationsString = vaccinationsString + application.toString() + "\n";
+        }
+        if(!vaccinationsString.equals("")){
+            vaccinationsString = vaccinationsString.substring(0, vaccinationsString.length() - 1);
+        }
+        return vaccinationsString;
+    }
 
     /**
      * Returns current status of the file (saved or not) (in variable _fileChanged)

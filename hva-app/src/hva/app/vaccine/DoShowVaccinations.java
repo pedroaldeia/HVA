@@ -13,6 +13,7 @@ class DoShowVaccinations extends Command<Hotel> {
 
     @Override
     protected final void execute() {
-        //FIXME implement command
+        String allVaccinations = (String) _receiver.showVaccinations();
+        _display.popup(allVaccinations);
     }
 }
