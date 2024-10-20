@@ -2,13 +2,16 @@ package hva.employee;
 
 import hva.animal.Species;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
-import hva.habitat.Habitat;
-
+import hva.exceptions.CoreVeterinarianNotAuthorizedException;
+import hva.vaccine.VaccineApplication;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Vet extends Employee{
     private Map<String, Species> _responsibilityMap = new TreeMap<>();
+    private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
 
     // implement addResponsibility and accept
 
@@ -90,4 +93,22 @@ public class Vet extends Employee{
         return _responsibilityMap.get(id);
     }
 
+    public void newApplication(VaccineApplication application) throws 
+        CoreVeterinarianNotAuthorizedException{
+        if(_responsibilityMap.get(application.getSpeciesId()) == null){
+            throw new CoreVeterinarianNotAuthorizedException(getId(), application.getSpeciesId());
+        }
+        _vaccineApplications.add(application);
+    }
+
+    public String medicalActsToString(){
+        String record = "";
+        for(VaccineApplication application : _vaccineApplications){
+            record += application.toString() + "\n";
+        }
+        if(!record.equals("")){
+            record.substring(0, record.length() - 1);
+        }
+        return record;
+    }
 }

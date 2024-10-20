@@ -12,6 +12,7 @@ import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
 import hva.tree.Tree;
 import hva.vaccine.Vaccine;
+import hva.vaccine.VaccineApplication;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class Hotel implements Serializable {
     private Map<String, Species> _species = new HashMap<>();
     private Map<String, Animal> _animals = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Tree> _trees = new HashMap<>();
+    private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
 
     public Hotel(){};    
     
@@ -176,7 +178,7 @@ public class Hotel implements Serializable {
         }
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
-        //habitat.getAnimalMap().put(id, newAnimal);
+        habitat.putAnimalInHabitat(newAnimal);
         _fileChanged = true;
     }
 
@@ -201,6 +203,15 @@ public class Hotel implements Serializable {
     public boolean isValidEmployeeType(String type){
         return type.equals("TRT") || type.equals("VET");
     }
+
+    public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
+        Animal animal = _animals.get(animalId);
+        if(animal == null){
+            throw new CoreUnknownAnimalKeyException(animalId);
+        }
+        return animal.vaccinationsToString();
+    }
+
 
     /**
      * Registers a new employee into the Hotel (puts it into the _employees map)
@@ -411,6 +422,20 @@ public class Hotel implements Serializable {
         _fileChanged = true; 
     } 
 
+    public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
+        Vet vet = getVeterinarian(vetId);
+        return vet.medicalActsToString();
+    }
+
+    private Vet getVeterinarian(String id) throws CoreUnknownVeterinarianKeyException {
+        Employee employee = _employees.get(id);
+        if(employee == null || employee.getType().equals("VET") == false){
+            throw new CoreUnknownVeterinarianKeyException(id);
+        }
+        return (Vet) employee;
+    }
+
+
     /**
      * Returns a String with all habitats in hotel and corresponding trees
      * 
@@ -424,6 +449,7 @@ public class Hotel implements Serializable {
         if(!habitatString.equals("")){
             habitatString = habitatString.substring(0, habitatString.length() - 1);
         }
+
         return habitatString;
     }
 
@@ -537,6 +563,14 @@ public class Hotel implements Serializable {
         _fileChanged = true;
     }
 
+    public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
+        Habitat habitat = getHabitat(habitatId);
+        if(habitat == null){
+            throw new CoreUnknownHabitatKeyException(habitatId);
+        }
+        return habitat.animalsInHabitatToString();
+    }
+
     /**
      * Registers a new Vaccine into the Hotel (puts it into the _vaccines map)
      * 
@@ -551,14 +585,20 @@ public class Hotel implements Serializable {
             throw new CoreDuplicateVaccineKeyException(id);
         }
         String[] idsArray = speciesIds.split(",");
+        List<Species> speciesArray = new ArrayList<>();
         if(!speciesIds.equals("")){
             for (String speciesId : idsArray){
-                if (_species.containsKey(speciesId) == false) {
+                Species species = _species.get(speciesId);
+                if (species == null) {
                     throw new CoreUnknownSpeciesKeyException(speciesId);
                 }
+                speciesArray.add(species);
             }
         }
-        Vaccine newVaccine = new Vaccine(id, name, idsArray);
+        if(speciesIds.equals("")){
+            speciesArray = null;
+        }
+        Vaccine newVaccine = new Vaccine(id, name, speciesArray);
         _vaccines.put(id, newVaccine);
         _fileChanged = true; 
     }
@@ -579,16 +619,56 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
-    public void vaccinateAnimal(String vaccineId, String animalId, String vetId){
+    public String[] vaccinateAnimal(String vaccineId, String vetId, String animalId) throws 
+        CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
+        CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
-        Animal animal = _animals.get(animalId);
         Vet vet = (Vet) _employees.get(vetId);
-        if(vaccine!= null && animal!= null){
-            vaccine.vaccinateAnimal(vet, animal);
-            _fileChanged = true;
-        }
+        Animal animal = _animals.get(animalId);
+        if(vaccine == null){throw new CoreUnknownVaccineKeyException(vaccineId);}
+        if(vet == null || !vet.getType().equals("VET"))
+        {throw new CoreUnknownVeterinarianKeyException(vetId);}
+        if(animal == null){throw new CoreUnknownAnimalKeyException(animalId);}
+        VaccineApplication application = vaccine.vaccinateAnimal(vet, animal);
+        _vaccineApplications.add(application);
+        _fileChanged = true;
+        return applicationToList(application); //FIXME: discutir isto, é a única maneira que me estou a lembrar
     }
 
+
+    private String[] applicationToList(VaccineApplication application){
+        String[] applicationList = new String[3];
+
+        applicationList[0] = String.valueOf(application.getSuccesfulness());
+        applicationList[1] = application.getVaccineId();
+        applicationList[2] = application.getAnimalId();
+        return applicationList;
+    }
+
+
+    public String showVaccinations(){
+        String vaccinationsString = "";
+        for (VaccineApplication application : _vaccineApplications){
+            vaccinationsString = vaccinationsString + application.toString() + "\n";
+        }
+        if(!vaccinationsString.equals("")){
+            vaccinationsString = vaccinationsString.substring(0, vaccinationsString.length() - 1);
+        }
+        return vaccinationsString;
+    }
+
+    public String showWrongVaccinations(){
+        String wrongVaccinationsString = "";
+        for (VaccineApplication application : _vaccineApplications){
+            if(!application.getSuccesfulness()){
+                wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
+            }
+        }
+        if(!wrongVaccinationsString.equals("")){
+            wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
+        }
+        return wrongVaccinationsString;
+    }
 
     /**
      * Returns current status of the file (saved or not) (in variable _fileChanged)
@@ -602,7 +682,7 @@ public class Hotel implements Serializable {
 
     /**
      * Sets the status of the file (saved or not) (in variable _fileChanged)
-     * (0-> saved, 1-> not saved)
+     * (false-> saved, true-> not saved)
      * 
      * @param fileChanged
      * @return void

@@ -1,6 +1,7 @@
 package hva.animal;
 
 import hva.habitat.Habitat;
+import hva.vaccine.Vaccine;
 import hva.vaccine.VaccineApplication;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Animal implements Serializable{
     private String _name;
     private Species _species;
     private Habitat _habitat;
+    private int _damage = 0;
     private List<VaccineApplication> _injuryRecord = new ArrayList<>();
 
 
@@ -42,8 +44,19 @@ public class Animal implements Serializable{
              "|" + _habitat.getId();
         }
         return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + 
-          _injuryRecord + "|" + _habitat.getId(); 
+          injuryRecordToString() + "|" + _habitat.getId(); 
         //FIXME implement show injury Record
+    }
+
+    private String injuryRecordToString(){
+        String record = "";
+        for(VaccineApplication application : _injuryRecord){
+            record += application.getStatus() + ",";
+        }
+        if(!record.equals("")){
+            record.substring(0, record.length() - 1);
+        }
+        return record;
     }
 
     /**
@@ -84,8 +97,54 @@ public class Animal implements Serializable{
         _habitat = habitat;
     }
 
-    public void getVaccinated(VaccineApplication application){
-        _injuryRecord.add(application); //FIXME add other stuff if needed
+    public Species getSpecies(){
+        return _species;
     }
 
+    public String getSpeciesId(){
+        return _species.getId();
+    }
+
+    public void getVaccinated(VaccineApplication application, Vaccine vaccine){
+        _injuryRecord.add(application);
+        if(application.getSuccesfulness() == false){
+            int damage = damageCalculator(vaccine);
+            addDamage(damage);
+            application.setStatus(damage);
+        }
+    }
+
+    private void addDamage(int damage){
+        _damage += damage;
+    }
+
+    private int damageCalculator(Vaccine vaccine){ 
+        int max = 0;
+        int current;
+        String animalName = getName().toLowerCase();
+        for(String currentString : vaccine.getSpeciesNames()){
+            current = 0;
+            currentString = currentString.toLowerCase();
+            for(char c1 : animalName.toCharArray()){
+                for(char c2 : currentString.toCharArray()){
+                    if(c1 == c2){
+                        current -= 1;
+                    }
+                }
+            }
+            current += animalName.length();
+            if(max < current) max = current;
+        }
+        return max;
+    } 
+    public String vaccinationsToString(){
+        String record = "";
+        for(VaccineApplication application : _injuryRecord){
+            record += application.toString() + "\n";
+        }
+        if(!record.equals("")){
+            record.substring(0, record.length() - 1);
+        }
+        return record;
+    }
 }

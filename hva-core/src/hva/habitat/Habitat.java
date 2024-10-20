@@ -97,9 +97,14 @@ public class Habitat implements Serializable{
      */
     @Override
     public String toString(){
-        return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
-          _treeNum; 
-        //FIXME implement print all trees in habitat
+        if(_treeNum == 0){
+            return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
+          _treeNum;
+        }
+        else{
+            return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
+          _treeNum + "\n" + showAllTrees();
+        }
     }
 
     /**
@@ -110,6 +115,7 @@ public class Habitat implements Serializable{
      */
     public void putTree(Tree tree){
         _trees.put(tree.getId(), tree);
+        _treeNum++;
     }
 
     public boolean treeAlreadyExists(String id){
@@ -125,5 +131,20 @@ public class Habitat implements Serializable{
             treeString = treeString.substring(0, treeString.length() - 1);
         }
         return treeString;
+    }
+
+    public String animalsInHabitatToString(){
+        String animalString = "";
+        for (Animal animal : _animals.values()){
+            animalString = animalString + animal.toString() + "\n";
+        }
+        if(!animalString.equals("")){
+            animalString = animalString.substring(0, animalString.length() - 1);
+        }
+        return animalString;
+    }
+
+    public void putAnimalInHabitat(Animal animal){
+        _animals.put(animal.getId(), animal);
     }
 }

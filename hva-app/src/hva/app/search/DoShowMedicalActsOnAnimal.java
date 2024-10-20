@@ -3,6 +3,10 @@ package hva.app.search;
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import pt.tecnico.uilib.forms.Form;
+import hva.app.animal.Prompt;
+import hva.app.exceptions.UnknownAnimalKeyException;
+import hva.exceptions.CoreUnknownAnimalKeyException;
 //FIXME import other classes if needed
 
 class DoShowMedicalActsOnAnimal extends Command<Hotel> {
@@ -14,7 +18,13 @@ class DoShowMedicalActsOnAnimal extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        //FIXME implement command
+        try {
+            _display.popup(_receiver.showMedicalActsOnAnimal(
+                Form.requestString(hva.app.animal.Prompt.animalKey())));
+        } catch (CoreUnknownAnimalKeyException e) {
+            throw new UnknownAnimalKeyException(e.getAnimalKey());
+        }
+        
     }
 
 }

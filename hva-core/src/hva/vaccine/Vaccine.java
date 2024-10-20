@@ -1,18 +1,20 @@
 package hva.vaccine;
 
 import hva.animal.Animal;
+import hva.animal.Species;
 import hva.employee.Vet;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import hva.exceptions.CoreVeterinarianNotAuthorizedException;
 
 public class Vaccine implements Serializable{
     private String _name;
     private String _id;
     private int _nApplications = 0;
-    private Map<String, String> _speciesIds = new TreeMap<>(); //FIXME put something else in the TreeMap
+    private Map<String, String> _speciesIds = new TreeMap<>(); //key = species ID, value = species name FIXME change attribute name
     private List<VaccineApplication> _record = new ArrayList<>();
 
     /**
@@ -30,7 +32,7 @@ public class Vaccine implements Serializable{
         //_speciesIds = speciesIds.replaceAll("\\s", "");
     } //FIXME idk if this function is needed or not
     */
-    public Vaccine(String id, String name, String[] speciesIds) {
+    public Vaccine(String id, String name, List<Species> speciesIds) {
         _name = name;
         _id = id;
         addSpecies(speciesIds);
@@ -68,6 +70,7 @@ public class Vaccine implements Serializable{
     }
 
     public String speciesToString(){
+        if(_speciesIds.isEmpty()) return "";
         String out = "";
         for(String id : _speciesIds.keySet()){
             out += id + ",";
@@ -75,17 +78,35 @@ public class Vaccine implements Serializable{
         return out.substring(0, out.length()-1);
     }
 
-    private void addSpecies(String[] species){
-        for(String id : species){
-            _speciesIds.put(id, id);
+    private void addSpecies(List<Species> species){
+        if(species == null) return;
+        for(Species s : species){
+            _speciesIds.put(s.getId(), s.getName());
         }
     }
 
-    public void vaccinateAnimal(Vet vet, Animal animal){
-        VaccineApplication application = new VaccineApplication(vet, animal);
-        animal.getVaccinated(application); //FIXME add other stuff if needed
+    public VaccineApplication vaccinateAnimal(Vet vet, Animal animal) throws 
+       CoreVeterinarianNotAuthorizedException{
+        VaccineApplication application = new VaccineApplication(this, vet, animal);
+        if(!_speciesIds.containsKey(animal.getSpeciesId())){
+            application.setSuccesfulness(false);
+        }
+        animal.getVaccinated(application, this);
+        vet.newApplication(application);
         _record.add(application);
         _nApplications++;
+        return application;
     }
-    //FIXME Implement addApplication
+
+    public String getSpeciesName(String id){
+        return _speciesIds.get(id);
+    }
+
+    public List<String> getSpeciesNames(){
+        List<String> namesList = new ArrayList<>();
+        for(String id: _speciesIds.keySet()){
+            namesList.add(_speciesIds.get(id));
+        }
+        return namesList;
+    }
 }
