@@ -147,4 +147,8 @@ public class Habitat implements Serializable{
     public void putAnimalInHabitat(Animal animal){
         _animals.put(animal.getId(), animal);
     }
+
+    public void removeAnimal(String animalId) {
+        _animals.remove(animalId);
+    }
 }
