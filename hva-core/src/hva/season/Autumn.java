@@ -1,23 +1,15 @@
 package hva.season;
 
-import hva.tree.Tree;
+import hva.Hotel;
 
 public class Autumn extends Season {
 
-    private int deciduousEffort = 5;
-    private int EvergreenEffort = 1;
-
-    public Autumn(Tree tree){
-        super(tree);
-    }
-
-    @Override
-    public int calculateEffort(){
-        return _tree.getDifficulty() * 2;
+    public Autumn(Hotel hotel){
+        super(hotel, 5, "LARGARFOLHAS",1, "COMFOLHAS");
     }
 
     @Override
     public void advanceSeason(){
-        _tree.setSeason(new Winter(_tree));
+        _hotel.setSeason(new Winter(_hotel));
     }
 }

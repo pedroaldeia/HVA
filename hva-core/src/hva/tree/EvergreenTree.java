@@ -1,5 +1,7 @@
 package hva.tree;
 
+import hva.season.Season;
+
 public class EvergreenTree extends Tree{
 
     /**
@@ -11,8 +13,8 @@ public class EvergreenTree extends Tree{
      * @param cleaningDifficulty the difficulty of cleaning the tree
      * @return void
      */
-    public EvergreenTree(String id, String name, int age, int cleaningDifficulty){
-        super(id, name, age, cleaningDifficulty, "PERENE", "GERARFOLHAS");
+    public EvergreenTree(String id, String name, int age, int cleaningDifficulty, Season season){
+        super(id, name, age, cleaningDifficulty, "PERENE", season, "GERARFOLHAS");
     }
 
     /**
@@ -23,5 +25,15 @@ public class EvergreenTree extends Tree{
     @Override
     public String toString() {
         return super.toString(); // FIXME idk if this works, its auto generated
+    }
+
+    @Override
+    public int getEffort(Season season) {
+        return season.getEvergreenEffort(this);
+    }
+
+    @Override
+    public String getCycle(Season season) {
+        return season.getEvergreenBioCycle(this);
     }
 }

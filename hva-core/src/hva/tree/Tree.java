@@ -12,7 +12,6 @@ public abstract class Tree implements Serializable{
     private Season _season;
     private int _seasonCounter;
     private String _type;
-    private String _biologicCycle;
 
     /**
      * This is the constructor of the Tree class.
@@ -22,11 +21,12 @@ public abstract class Tree implements Serializable{
      * @param age the age of the tree
      * @param cleaningDifficulty the cleaning difficulty of the tree
      */
-    public Tree(String id, String name, int age, int cleaningDifficulty, String type, String biologicCycle){
+    public Tree(String id, String name, int age, int cleaningDifficulty, String type, Season season, String biologicCycle){
         _id = id;
         _name = name;
         _age = age;
         _cleaningDifficulty = cleaningDifficulty;
+        _season = season;
         _type = type;
     }
 
@@ -71,9 +71,7 @@ public abstract class Tree implements Serializable{
      * 
      * @return _biologicCycle the biologic cycle state of the tree
      */
-    public String getCycle() {
-        return _biologicCycle;
-    }
+    public abstract String getCycle(Season season);
 
     /**
      * This method returns the type of the tree.
@@ -84,10 +82,6 @@ public abstract class Tree implements Serializable{
         return _type;
     }
 
-    public void setSeason(Season season) {
-        _season = season;
-    }
-
     /**
      * This method returns the details of the DeciduousTree.
      * 
@@ -96,8 +90,22 @@ public abstract class Tree implements Serializable{
     @Override
     public String toString() {
         return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + 
-          "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getCycle();
+          "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getCycle(_season);
     }
 
+    public void age() {
+        _seasonCounter++;
+        if (_seasonCounter == 4) {
+            _seasonCounter = 0;
+            _age ++;
+        }
+    }
+
+    public abstract int getEffort(Season season);
+
+    //esforço_limpeza(a) = dificuldade_limpeza(a) * esforço_sazonal(a) * log(idade(a) + 1)
+    public double calculateCleaningDifficulty() {
+        return _cleaningDifficulty * this.getEffort(_season) * Math.log(_age + 1);
+    }
 
 }

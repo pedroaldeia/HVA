@@ -14,7 +14,7 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
             int habitatWork = 0;
             habitatWork = h.getArea() + 3*h.getTreesNum();
             for (Tree t: h.getTreesMap().values()){
-                habitatWork += t.getDifficulty();
+                habitatWork += t.calculateCleaningDifficulty();
             }
             totalWork += habitatWork / h.getCaretakersNum(); 
         }
