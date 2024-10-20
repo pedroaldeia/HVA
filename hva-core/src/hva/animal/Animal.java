@@ -97,6 +97,10 @@ public class Animal implements Serializable{
         _habitat = habitat;
     }
 
+    public Habitat getHabitat(){
+        return _habitat;
+    }
+
     public Species getSpecies(){
         return _species;
     }

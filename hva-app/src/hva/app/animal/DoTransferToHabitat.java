@@ -1,9 +1,14 @@
 package hva.app.animal;
 
 import hva.Hotel;
+import java.text.Normalizer;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
+import hva.exceptions.CoreUnknownAnimalKeyException;
+import hva.exceptions.CoreUnknownHabitatKeyException;
+import hva.app.exceptions.UnknownAnimalKeyException;
+import hva.app.exceptions.UnknownHabitatKeyException;
+import pt.tecnico.uilib.forms.Form;
 
 class DoTransferToHabitat extends Command<Hotel> {
 
@@ -14,7 +19,16 @@ class DoTransferToHabitat extends Command<Hotel> {
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        try {
+            _receiver.transferToHabitat(Form.requestString(hva.app.animal.Prompt.animalKey()),
+              Form.requestString(hva.app.habitat.Prompt.habitatKey()));
+        } 
+        catch (CoreUnknownAnimalKeyException e) {
+            throw new UnknownAnimalKeyException(e.getAnimalKey());
+        }
+        catch (CoreUnknownHabitatKeyException e) {
+            throw new UnknownHabitatKeyException(e.getHabitatKey());
+        }
     }
 
 }

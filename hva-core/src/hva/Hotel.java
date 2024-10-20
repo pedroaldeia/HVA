@@ -174,7 +174,7 @@ public class Hotel implements Serializable {
             throw new CoreDuplicateAnimalKeyException(id);
         }
         Species species = _species.get(speciesId);
-        Habitat habitat = _habitats.get(habitatId);
+        Habitat habitat = getHabitat(habitatId);
         if (habitat == null) {
             throw new CoreUnknownHabitatKeyException(habitatId);
         }
@@ -202,12 +202,29 @@ public class Hotel implements Serializable {
         return animalString;
     }
 
+    private Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
+        Animal animal = _animals.get(id);
+        if(animal == null) {
+            throw new CoreUnknownAnimalKeyException(id);
+        }
+        return animal;
+    }
+
+    public void transferToHabitat(String animalId, String habitatId) throws 
+       CoreUnknownAnimalKeyException, CoreUnknownHabitatKeyException{
+        Animal animal = getAnimal(animalId);
+        Habitat newHabitat = getHabitat(habitatId);
+        animal.getHabitat().removeAnimal(animalId);
+        animal.setHabitat(newHabitat);
+        newHabitat.putAnimalInHabitat(animal);
+    }
+
     public boolean isValidEmployeeType(String type){
         return type.equals("TRT") || type.equals("VET");
     }
 
     public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
-        Animal animal = _animals.get(animalId);
+        Animal animal = getAnimal(animalId);
         if(animal == null){
             throw new CoreUnknownAnimalKeyException(animalId);
         }
@@ -600,7 +617,7 @@ public class Hotel implements Serializable {
         List<Species> speciesArray = new ArrayList<>();
         if(!speciesIds.equals("")){
             for (String speciesId : idsArray){
-                Species species = _species.get(speciesId);
+                Species species = getSpecies(speciesId);
                 if (species == null) {
                     throw new CoreUnknownSpeciesKeyException(speciesId);
                 }
@@ -636,7 +653,7 @@ public class Hotel implements Serializable {
         CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
         Vet vet = (Vet) _employees.get(vetId);
-        Animal animal = _animals.get(animalId);
+        Animal animal = getAnimal(animalId);
         if(vaccine == null){throw new CoreUnknownVaccineKeyException(vaccineId);}
         if(vet == null || !vet.getType().equals("VET"))
         {throw new CoreUnknownVeterinarianKeyException(vetId);}
