@@ -1,8 +1,10 @@
-package hva.tree;
+package hva.season;
 import java.io.Serializable;
 
+import hva.tree.Tree;
+
 public abstract class Season implements Serializable{
-    protected Tree tree;
+    protected Tree _tree;
 
     /**
      * This is the constructor of the Season class. WIP
@@ -10,6 +12,9 @@ public abstract class Season implements Serializable{
      * @param tree
      */
     public Season(Tree tree){
-        this.tree = tree;
+        _tree = tree;
     }
+
+    public abstract int calculateEffort();
+    public abstract void advanceSeason();
 }

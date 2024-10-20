@@ -2,6 +2,8 @@ package hva.tree;
 
 import java.io.Serializable;
 
+import hva.season.Season;
+
 public abstract class Tree implements Serializable{
     private String _id;
     private String _name;
@@ -82,6 +84,10 @@ public abstract class Tree implements Serializable{
         return _type;
     }
 
+    public void setSeason(Season season) {
+        _season = season;
+    }
+
     /**
      * This method returns the details of the DeciduousTree.
      * 
@@ -92,4 +98,6 @@ public abstract class Tree implements Serializable{
         return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + 
           "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getCycle();
     }
+
+
 }
