@@ -210,6 +210,14 @@ public class Hotel implements Serializable {
         return animal;
     }
 
+    public String showSatisfactionOfAnimal(String animalId) throws CoreUnknownAnimalKeyException{
+        Animal animal = getAnimal(animalId);
+        if(animal == null){
+            throw new CoreUnknownAnimalKeyException(animalId);
+        }
+        return "" + animal.getAnimalSatisfaction();
+    }
+
     public void transferToHabitat(String animalId, String habitatId) throws 
        CoreUnknownAnimalKeyException, CoreUnknownHabitatKeyException{
         Animal animal = getAnimal(animalId);

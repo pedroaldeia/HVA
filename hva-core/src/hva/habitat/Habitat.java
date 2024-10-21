@@ -1,15 +1,11 @@
 package hva.habitat;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
-
 import hva.animal.Animal;
 import hva.tree.Tree;
-
-import java.util.Map;
-import java.util.HashMap;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class Habitat implements Serializable{
@@ -18,9 +14,9 @@ public class Habitat implements Serializable{
     private int _area;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
-    private Map<String, Animal> _animals = new TreeMap<String, Animal>();
-    private Map<String, Tree> _trees = new HashMap<String, Tree>();
-    private Map<String, Integer> _influences = new HashMap<String, Integer>();
+    private Map<String, Animal> _animals = new TreeMap<>();
+    private Map<String, Tree> _trees = new HashMap<>();
+    private Map<String, Integer> _influences = new HashMap<>();
 
     /**
      * This is the constructor of the Habitat class.
@@ -63,6 +59,10 @@ public class Habitat implements Serializable{
 
     public int getTreesNum(){
         return _trees.size();
+    }
+
+    public int getAnimalsNum(){
+        return _animals.size();
     }
 
     public void addCaretakersNum(){
@@ -150,5 +150,31 @@ public class Habitat implements Serializable{
 
     public void removeAnimal(String animalId) {
         _animals.remove(animalId);
+    }
+
+    public int sameSpeciesInHabitat(String speciesId){
+        int sameSpeciesCount = -1;
+        for(Animal animal : _animals.values()){
+            if(speciesId.equals(animal.getSpeciesId())) sameSpeciesCount++;
+        }
+        return sameSpeciesCount;
+    }
+
+    public int differentSpeciesInHabitat(String speciesId){
+        int differentSpeciesCount = 0;
+        for(Animal animal : _animals.values()){
+            if(!speciesId.equals(animal.getSpeciesId())) differentSpeciesCount++;
+        }
+        return differentSpeciesCount;
+    }
+
+    public int getHabitatInfluence(String animalId){ //FIXME it does not return the influence of animal...
+        for(String otherAnimalId : _animals.keySet()){
+            if(animalId.equals(otherAnimalId)){
+                if(_influences.get(otherAnimalId) != null) return _influences.get(otherAnimalId);
+                else return 0;
+            }
+        }
+        return 0;
     }
 }

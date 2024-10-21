@@ -151,4 +151,14 @@ public class Animal implements Serializable{
         }
         return record;
     }
+
+    public int getAnimalSatisfaction(){
+        int sameSpeciesCount = getHabitat().sameSpeciesInHabitat(getId());
+        int differentSpeciesCount = getHabitat().differentSpeciesInHabitat(getId());
+        int habitatInfluence = getHabitat().getHabitatInfluence(getId());
+        int habitatArea = getHabitat().getArea();
+        int animalCount = getHabitat().getAnimalsNum();
+        return Math.round(20 + 3*sameSpeciesCount - 2*differentSpeciesCount +
+             habitatArea/animalCount + habitatInfluence);
+    }
 }
