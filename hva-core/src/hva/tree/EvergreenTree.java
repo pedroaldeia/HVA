@@ -14,7 +14,8 @@ public class EvergreenTree extends Tree{
      * @return void
      */
     public EvergreenTree(String id, String name, int age, int cleaningDifficulty, Season season){
-        super(id, name, age, cleaningDifficulty, "PERENE", season, "GERARFOLHAS");
+        super(id, name, age, cleaningDifficulty, "PERENE");
+        _cycle = season.getEvergreenCycle(this);
     }
 
     /**
@@ -25,15 +26,5 @@ public class EvergreenTree extends Tree{
     @Override
     public String toString() {
         return super.toString(); // FIXME idk if this works, its auto generated
-    }
-
-    @Override
-    public int getEffort(Season season) {
-        return season.getEvergreenEffort(this);
-    }
-
-    @Override
-    public String getCycle(Season season) {
-        return season.getEvergreenBioCycle(this);
     }
 }

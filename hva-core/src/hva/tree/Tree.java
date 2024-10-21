@@ -2,16 +2,16 @@ package hva.tree;
 
 import java.io.Serializable;
 
-import hva.season.Season;
+import hva.bioCycle.BioCycle;
 
 public abstract class Tree implements Serializable{
     private String _id;
     private String _name;
     private  int _age;
     private int _cleaningDifficulty;
-    private Season _season;
-    private int _seasonCounter;
     private String _type;
+    protected BioCycle _cycle;
+    private int _seasonCounter;
 
     /**
      * This is the constructor of the Tree class.
@@ -21,12 +21,11 @@ public abstract class Tree implements Serializable{
      * @param age the age of the tree
      * @param cleaningDifficulty the cleaning difficulty of the tree
      */
-    public Tree(String id, String name, int age, int cleaningDifficulty, String type, Season season, String biologicCycle){
+    public Tree(String id, String name, int age, int cleaningDifficulty, String type){
         _id = id;
         _name = name;
         _age = age;
         _cleaningDifficulty = cleaningDifficulty;
-        _season = season;
         _type = type;
     }
 
@@ -66,12 +65,17 @@ public abstract class Tree implements Serializable{
         return "" + _age;
     }
 
-    /**
-     * This method returns the biologic cycle state of the tree.
-     * 
-     * @return _biologicCycle the biologic cycle state of the tree
-     */
-    public abstract String getCycle(Season season);
+    public void setCycle(BioCycle cycle) {
+        _cycle = cycle;
+    }
+
+    public String getState(){
+        return _cycle.getState();
+    }
+
+    public int getEffort() {
+        return _cycle.getEffort();
+    }
 
     /**
      * This method returns the type of the tree.
@@ -90,7 +94,7 @@ public abstract class Tree implements Serializable{
     @Override
     public String toString() {
         return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + 
-          "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getCycle(_season);
+          "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getState();
     }
 
     public void age() {
@@ -101,11 +105,10 @@ public abstract class Tree implements Serializable{
         }
     }
 
-    public abstract int getEffort(Season season);
 
     //esforço_limpeza(a) = dificuldade_limpeza(a) * esforço_sazonal(a) * log(idade(a) + 1)
     public double calculateCleaningDifficulty() {
-        return _cleaningDifficulty * this.getEffort(_season) * Math.log(_age + 1);
+        return _cleaningDifficulty * _cycle.getEffort() * Math.log(_age + 1);
     }
 
 }
