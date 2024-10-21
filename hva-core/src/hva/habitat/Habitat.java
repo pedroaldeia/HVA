@@ -15,7 +15,7 @@ public class Habitat implements Serializable{
     private int _caretakersNum = 0;
     private int _treeNum = 0;
     private Map<String, Animal> _animals = new TreeMap<>();
-    private Map<String, Tree> _trees = new HashMap<>();
+    private Map<String, Tree> _trees = new TreeMap<>();
     private Map<String, Integer> _influences = new HashMap<>();
 
     /**
@@ -84,10 +84,6 @@ public class Habitat implements Serializable{
 
     public Map<String, Tree> getTreesMap(){
         return _trees;
-    }
-
-    public Map<String, Integer> getInfluenceMap(){
-        return _influences;
     }
 
     /**
@@ -167,11 +163,14 @@ public class Habitat implements Serializable{
         }
         return differentSpeciesCount;
     }
+    public void addInfluence(String speciesId, int influence){
+        _influences.put(speciesId, influence);
+    }
 
-    public int getHabitatInfluence(String animalId){ //FIXME it does not return the influence of animal...
-        for(String otherAnimalId : _animals.keySet()){
-            if(animalId.equals(otherAnimalId)){
-                if(_influences.get(otherAnimalId) != null) return _influences.get(otherAnimalId);
+    public int getHabitatInfluence(String speciesId){ 
+        for(String otherSpeciesId : _influences.keySet()){
+            if(speciesId.equals(otherSpeciesId)){
+                if(_influences.get(otherSpeciesId) != null) return _influences.get(otherSpeciesId);
                 else return 0;
             }
         }

@@ -81,7 +81,7 @@ public class Vet extends Employee{
     }
 
     @Override
-    public int accept(SatisfactionCalculator sc){
+    public double accept(SatisfactionCalculator sc){
         return sc.visitVet(this);
     }
 

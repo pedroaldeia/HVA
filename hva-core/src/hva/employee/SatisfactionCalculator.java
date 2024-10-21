@@ -1,8 +1,6 @@
 package hva.employee;
 
-import java.io.Serializable;
-
 public interface SatisfactionCalculator{
-    public int visitCaretaker(Caretaker c);
-    public int visitVet(Vet v);
+    public double visitCaretaker(Caretaker c);
+    public double visitVet(Vet v);
 }

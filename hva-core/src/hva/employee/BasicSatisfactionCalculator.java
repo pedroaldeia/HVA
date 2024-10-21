@@ -7,7 +7,7 @@ import hva.tree.Tree;
 
 public class BasicSatisfactionCalculator implements SatisfactionCalculator {
     @Override
-    public int visitCaretaker(Caretaker c) {
+    public double visitCaretaker(Caretaker c) {
         int totalWork = 0;
         Map<String, Habitat> responsibilities = c.getResponsibilityMap();
         for (Habitat h : responsibilities.values()){
@@ -18,15 +18,15 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
             }
             totalWork += habitatWork / h.getCaretakersNum(); 
         }
-        return Math.round(300 - totalWork);
+        return 300 - totalWork;
     }
     @Override
-    public int visitVet(Vet v) {
+    public double visitVet(Vet v) {
         int work = 0;
         Map<String, Species> responsiblities = v.getResponsibilityMap();
         for (Species s : responsiblities.values()){
             work += s.getAnimalsNum()/s.getVetsNum();  
         }
-        return Math.round(20 - work);
+        return 20 - work;
     }
 }

@@ -26,7 +26,7 @@ public abstract class Employee implements Serializable{
         return _type;
     }
     //implement setSatisfactionCalc, getSatisfaction, accept
-    public abstract int accept(SatisfactionCalculator sc);
+    public abstract double accept(SatisfactionCalculator sc);
 
     public String getId(){
         return _id;

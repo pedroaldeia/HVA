@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import hva.employee.BasicSatisfactionCalculator;
 
 
 public class Hotel implements Serializable {
@@ -111,6 +112,17 @@ public class Hotel implements Serializable {
         } catch (CoreException e) {e.printStackTrace();}
 
 
+    }
+
+    public int showGlobalSatisfaction(){
+        double totalSatisfaction = 0;
+        for (Animal animal : _animals.values()) {
+            totalSatisfaction += animal.getAnimalSatisfaction();
+        }
+        for (Employee employee : _employees.values()) {
+            totalSatisfaction += employee.accept(new BasicSatisfactionCalculator());
+        }
+        return (int) Math.round(totalSatisfaction);
     }
 
     /**
@@ -413,7 +425,7 @@ public class Hotel implements Serializable {
     public int calculateEmployeeSatisfaction(String id)
             throws CoreUnknownEmployeeKeyException{
         Employee e = getEmployee(id);
-        return e.accept(new BasicSatisfactionCalculator());
+        return (int) Math.round(e.accept(new BasicSatisfactionCalculator()));
     }
 
     /**
@@ -589,7 +601,7 @@ public class Hotel implements Serializable {
         else{
             throw new IllegalArgumentException("Invalid influence");
         }
-        h.getInfluenceMap().put(speciesId, i); 
+        h.addInfluence(speciesId, i);
         _fileChanged = true;
     }
 

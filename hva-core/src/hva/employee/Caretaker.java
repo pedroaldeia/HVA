@@ -79,7 +79,7 @@ public class Caretaker extends Employee{
     }
 
     @Override
-    public int accept(SatisfactionCalculator sc){
+    public double accept(SatisfactionCalculator sc){
         return sc.visitCaretaker(this);
     }
 
