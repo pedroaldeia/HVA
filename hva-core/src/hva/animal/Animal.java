@@ -134,7 +134,12 @@ public class Animal implements Serializable{
                     }
                 }
             }
-            current += animalName.length();
+            if(animalName.length() > currentString.length()){
+                current += animalName.length();
+            }
+            else{
+                current += currentString.length();
+            }
             if(max < current) max = current;
         }
         return max;
