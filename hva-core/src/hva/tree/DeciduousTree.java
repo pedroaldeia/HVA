@@ -1,5 +1,9 @@
 package hva.tree;
 
+import hva.TreeState.DeciduousAutumn;
+import hva.TreeState.DeciduousSpring;
+import hva.TreeState.DeciduousSummer;
+import hva.TreeState.DeciduousWinter;
 import hva.season.Season;
 
 public class DeciduousTree extends Tree{ //WIP
@@ -12,9 +16,28 @@ public class DeciduousTree extends Tree{ //WIP
      * @param age the age of the tree
      * @param cleaningDifficulty the difficulty of cleaning the tree
      */
-    public DeciduousTree(String id, String name, int age, int cleaningDifficulty, Season season){
+    public DeciduousTree(String id, String name, int age, int cleaningDifficulty, Season currentSeason){
         super(id, name, age, cleaningDifficulty, "CADUCA");
-        _cycle = season.getDeciduousCycle(this);
+        setStateBasedOnSeason(currentSeason);
+    }
+
+    private void setStateBasedOnSeason(Season season) {
+        switch (season) {
+            case WINTER:
+                _state = new DeciduousWinter(this); 
+                break;
+            case SPRING:
+                _state = new DeciduousSpring(this); 
+                break;
+            case SUMMER:
+                _state = new DeciduousSummer(this); 
+                break;
+            case FALL:
+                _state = new DeciduousAutumn(this); 
+                break;
+            default:
+                throw new IllegalStateException("Unexpected season: " + season);
+        }
     }
 
     /**

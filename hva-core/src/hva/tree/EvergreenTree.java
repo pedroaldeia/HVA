@@ -1,5 +1,9 @@
 package hva.tree;
 
+import hva.TreeState.EvergreenAutumn;
+import hva.TreeState.EvergreenSpring;
+import hva.TreeState.EvergreenSummer;
+import hva.TreeState.EvergreenWinter;
 import hva.season.Season;
 
 public class EvergreenTree extends Tree{
@@ -13,9 +17,28 @@ public class EvergreenTree extends Tree{
      * @param cleaningDifficulty the difficulty of cleaning the tree
      * @return void
      */
-    public EvergreenTree(String id, String name, int age, int cleaningDifficulty, Season season){
+    public EvergreenTree(String id, String name, int age, int cleaningDifficulty, Season currentSeason){
         super(id, name, age, cleaningDifficulty, "PERENE");
-        _cycle = season.getEvergreenCycle(this);
+        this.setStateBasedOnSeason(currentSeason);
+    }
+
+    private void setStateBasedOnSeason(Season season) {
+        switch (season) {
+            case WINTER:
+                _state = new EvergreenWinter(this); 
+                break;
+            case SPRING:
+                _state = new EvergreenSpring(this); 
+                break;
+            case SUMMER:
+                _state = new EvergreenSummer(this);
+                break;
+            case FALL:
+                _state = new EvergreenAutumn(this);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected season: " + season);
+        }
     }
 
     /**

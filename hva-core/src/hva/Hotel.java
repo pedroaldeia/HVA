@@ -38,7 +38,7 @@ public class Hotel implements Serializable {
     private Map<String, Animal> _animals = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Tree> _trees = new HashMap<>();
     private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
-    private Season _season = new Spring(this);
+    private Season _currentSeason = Season.SPRING;
 
     public Hotel(){};    
     
@@ -473,10 +473,6 @@ public class Hotel implements Serializable {
         }
         return (Vet) employee;
     }
-
-    public void setSeason(Season season) {
-        _season = season;
-    }
     
     /**
      * Returns a String with all habitats in hotel and corresponding trees
@@ -538,11 +534,11 @@ public class Hotel implements Serializable {
             throw new CoreDuplicateTreeKeyException(id);
         }
         if(type.equals("CADUCA")){
-            Tree newTree = new DeciduousTree(id, name, age, difficulty, _season);
+            Tree newTree = new DeciduousTree(id, name, age, difficulty, _currentSeason);
             _trees.put(id, newTree);
         }
         else if(type.equals("PERENE")){
-            Tree newTree = new EvergreenTree(id, name, age, difficulty, _season);
+            Tree newTree = new EvergreenTree(id, name, age, difficulty, _currentSeason);
             _trees.put(id, newTree);
         }
         else {
@@ -614,8 +610,13 @@ public class Hotel implements Serializable {
     }
 
     public void advanceSeason(){
-        _season.advanceSeason();
-         for (Tree t : _trees.values()){
+        _currentSeason.next();
+        notifyTrees();
+    }
+
+    public void notifyTrees() {
+        for (Tree t : _trees.values()){
+            t.seasonChanged();
             t.age();
          }
     }

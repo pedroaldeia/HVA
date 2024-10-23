@@ -1,17 +1,18 @@
 package hva.season;
 
-import hva.bioCycle.BioCycle;
-import hva.tree.DeciduousTree;
-import hva.tree.EvergreenTree;
-import hva.Hotel;
+/**
+ * Be extra carefull if you are changing this.
+ */
+public enum Season {
+    SPRING,  // ordinal = 0
+    SUMMER,  // ordinal = 1
+    FALL,  // ordinal = 2
+    WINTER;     // ordinal = 3
 
-public abstract class Season {
-    protected Hotel _hotel;
-
-    public Season(Hotel hotel) {
-        _hotel = hotel;
+    // Method to get the next season
+    //
+    public Season next() {
+        return values()[(this.ordinal() + 1) % values().length]; // Wraps around to SPRING after WINTER 
     }
-    public abstract void advanceSeason();
-    public abstract BioCycle getDeciduousCycle(DeciduousTree tree);
-    public abstract BioCycle getEvergreenCycle(EvergreenTree tree);
 }
+

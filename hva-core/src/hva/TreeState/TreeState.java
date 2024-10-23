@@ -1,14 +1,14 @@
-package hva.bioCycle;
+package hva.TreeState;
 
 import java.io.Serializable;
 import hva.tree.Tree;
 
-public abstract class BioCycle implements Serializable{
+public abstract class TreeState implements Serializable{
     protected Tree _tree;
     private int _effort = 0;
     private String _state = "";
 
-    public BioCycle(Tree tree, int effort, String state){
+    public TreeState(Tree tree, int effort, String state){
         _tree = tree;
         _effort = effort;
         _state = state;
@@ -18,9 +18,9 @@ public abstract class BioCycle implements Serializable{
         return _effort;
     }
 
-    public String getState() {
+    public String getBioCycle() {
         return _state;
     }
 
-    public abstract void advanceSeason();
+    public abstract void advanceState();
 }
