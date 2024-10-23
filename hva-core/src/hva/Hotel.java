@@ -612,8 +612,8 @@ public class Hotel implements Serializable {
             throw new CoreUnknownSpeciesKeyException(speciesId);
         }
         int i = 0;
-        if (influence.equals("POS")){i = 1;}
-        else if (influence.equals("NEG")){i = -1;}
+        if (influence.equals("POS")){i = 20;}
+        else if (influence.equals("NEG")){i = -20;}
         else if (influence.equals("NEU")){i = 0;}
         else{
             throw new IllegalArgumentException("Invalid influence");
