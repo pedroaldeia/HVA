@@ -26,7 +26,7 @@ class DoAddTreeToHabitat extends Command<Hotel> {
         String difficulty = Form.requestString(Prompt.treeDifficulty());
         String type = Form.requestString(Prompt.treeType());
         try {
-            _receiver.registerTree(habitatId, treeId, name, age, difficulty, type);
+            _display.popup(_receiver.registerTree(habitatId, treeId, name, age, difficulty, type));
         } catch (CoreUnknownHabitatKeyException e) {throw new UnknownHabitatKeyException(habitatId);
         } catch (CoreDuplicateTreeKeyException e) {throw new DuplicateTreeKeyException(treeId);
         } catch (IllegalArgumentException e) {e.printStackTrace();

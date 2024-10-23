@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-import hva.employee.BasicSatisfactionCalculator;
+import hva.season.Season;
 
 
 public class Hotel implements Serializable {
@@ -535,29 +535,30 @@ public class Hotel implements Serializable {
      * @param type the type of the Tree (CADUCA or PERENE)
      * @return the result of the operation
     */
-    public void addTree(String id, String name, int age, 
+    public Tree addTree(String id, String name, int age, 
             int difficulty, String type) 
             throws CoreDuplicateTreeKeyException{
         if(treeAlreadyExists(id)){
             throw new CoreDuplicateTreeKeyException(id);
         }
+        Tree newTree;
         if(type.equals("CADUCA")){
-            Tree newTree = new DeciduousTree(id, name, age, difficulty, _currentSeason);
+            newTree = new DeciduousTree(id, name, age, difficulty, _currentSeason);
             _trees.put(id, newTree);
         }
         else if(type.equals("PERENE")){
-            Tree newTree = new EvergreenTree(id, name, age, difficulty, _currentSeason);
+            newTree = new EvergreenTree(id, name, age, difficulty, _currentSeason);
             _trees.put(id, newTree);
         }
         else {
             throw new IllegalArgumentException("Invalid tree type");
         }
         _fileChanged = true;
+        return newTree;
     }
 
     public Tree getTree(String id) { return _trees.get(id);}
-    public void plantTree(String habitatId, String id, String name, 
-                            int age, int dif, String type)
+    public Tree plantTree(String habitatId, String id)
                             throws CoreUnknownHabitatKeyException,
                             IllegalArgumentException{
         Habitat h = getHabitat(habitatId);
@@ -567,9 +568,10 @@ public class Hotel implements Serializable {
         Tree tree = getTree(id);
         h.putTree(tree);
         _fileChanged = true;
+        return tree;
     } 
 
-    public void registerTree(String habitatId, String id, String name, 
+    public String registerTree(String habitatId, String id, String name, 
                                 String age, String dif, String type)
                                 throws CoreUnknownHabitatKeyException,
                                 CoreDuplicateTreeKeyException,
@@ -577,7 +579,8 @@ public class Hotel implements Serializable {
         int intAge = Integer.parseInt(age);
         int intDif = Integer.parseInt(dif);
         addTree(id, name, intAge, intDif, type);
-        plantTree(habitatId, id, name, intAge, intDif, type);
+        Tree tree =  plantTree(habitatId, id);
+        return tree.toString();
     }
                                 
     public String showAllHabitatTrees(String id)
