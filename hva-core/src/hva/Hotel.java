@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-import hva.employee.BasicSatisfactionCalculator;
+import hva.season.Season;
 
 
 public class Hotel implements Serializable {
