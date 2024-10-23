@@ -202,6 +202,7 @@ public class Hotel implements Serializable {
         Animal newAnimal = new Animal(id, name, species, habitat);
         _animals.put(id, newAnimal);
         habitat.putAnimalInHabitat(newAnimal);
+        species.addAnimal(newAnimal);
         _fileChanged = true;
     }
 
