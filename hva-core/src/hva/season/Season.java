@@ -14,5 +14,9 @@ public enum Season {
     public Season next() {
         return values()[(this.ordinal() + 1) % values().length]; // Wraps around to SPRING after WINTER 
     }
+
+    public int seasonCode() {
+        return this.ordinal();
+    }
 }
 
