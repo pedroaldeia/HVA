@@ -28,6 +28,7 @@ public abstract class Tree implements Serializable{
         _cleaningDifficulty = cleaningDifficulty;
         _type = type;
     }
+    
 
     /**
      * This method returns the unique identifier of the tree.
@@ -65,11 +66,11 @@ public abstract class Tree implements Serializable{
         return "" + _age;
     }
 
-    public void setState(TreeState cycle) {
-        _state = cycle;
+    public void setState(TreeState state) {
+        _state = state;
     }
 
-    public String getBioCylce(){
+    public String getBioCycle(){
         return _state.getBioCycle();
     }
 
@@ -94,7 +95,7 @@ public abstract class Tree implements Serializable{
     @Override
     public String toString() {
         return "ÁRVORE|" + this.getId() + "|" + this.getName() + "|" + this.getAge() + 
-          "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getBioCylce();
+          "|" + this.getDifficulty() + "|" + this.getType() + "|" + this.getBioCycle();
     }
 
     public void seasonChanged(){

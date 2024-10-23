@@ -116,5 +116,8 @@ public class HotelManager {
         return _hotel.getFileChanged();
     }
 
+    public int advanceSeason(){
+        return _hotel.advanceSeason();
+    }
     
 }

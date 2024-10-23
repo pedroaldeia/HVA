@@ -618,9 +618,10 @@ public class Hotel implements Serializable {
         return habitat.animalsInHabitatToString();
     }
 
-    public void advanceSeason(){
-        _currentSeason.next();
+    public int advanceSeason(){
+        _currentSeason = _currentSeason.next();
         notifyTrees();
+        return _currentSeason.seasonCode();
     }
 
     public void notifyTrees() {
