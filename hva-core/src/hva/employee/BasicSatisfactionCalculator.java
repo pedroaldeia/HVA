@@ -8,10 +8,10 @@ import hva.tree.Tree;
 public class BasicSatisfactionCalculator implements SatisfactionCalculator {
     @Override
     public double visitCaretaker(Caretaker c) {
-        int totalWork = 0;
+        double totalWork = 0;
         Map<String, Habitat> responsibilities = c.getResponsibilityMap();
         for (Habitat h : responsibilities.values()){
-            int habitatWork = 0;
+            double habitatWork = 0;
             habitatWork = h.getArea() + 3*h.getTreesNum();
             for (Tree t: h.getTreesMap().values()){
                 habitatWork += t.calculateCleaningDifficulty();
