@@ -26,6 +26,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import hva.season.Season;
+import hva.search.SearchAnimalsInHabitat;
+import hva.search.SearchMedicalActsByVeterinarian;
+import hva.search.SearchStrategy;
+import hva.search.SearchMedicalActsOnAnimal;
+import hva.search.SearchWrongVaccinations;
 
 
 public class Hotel implements Serializable {
@@ -256,7 +261,9 @@ public class Hotel implements Serializable {
         if(animal == null){
             throw new CoreUnknownAnimalKeyException(animalId);
         }
-        return animal.vaccinationsToString();
+        //return animal.vaccinationsToString();
+        SearchStrategy searchStrategy = new SearchMedicalActsOnAnimal(animal);
+        return searchStrategy.search();
     }
 
 
@@ -471,7 +478,9 @@ public class Hotel implements Serializable {
 
     public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
         Vet vet = getVeterinarian(vetId);
-        return vet.medicalActsToString();
+        //return vet.medicalActsToString(); FIXME remove this line
+        SearchStrategy searchStrategy = new SearchMedicalActsByVeterinarian(vet);
+        return searchStrategy.search();
     }
 
     private Vet getVeterinarian(String id) throws CoreUnknownVeterinarianKeyException {
@@ -611,13 +620,15 @@ public class Hotel implements Serializable {
         h.addInfluence(speciesId, i);
         _fileChanged = true;
     }
-
+    
     public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
         Habitat habitat = getHabitat(habitatId);
         if(habitat == null){
             throw new CoreUnknownHabitatKeyException(habitatId);
         }
-        return habitat.animalsInHabitatToString();
+        //return habitat.animalsInHabitatToString(); FIXME remove this line
+        SearchStrategy searchStrategy = new SearchAnimalsInHabitat(habitat);
+        return searchStrategy.search();
     }
 
     public int advanceSeason(){
@@ -712,7 +723,8 @@ public class Hotel implements Serializable {
     }
 
     public String showWrongVaccinations(){
-        String wrongVaccinationsString = "";
+        /*
+        String wrongVaccinationsString = "";  FIXME remove this
         for (VaccineApplication application : _vaccineApplications){
             if(!application.getSuccesfulness()){
                 wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
@@ -721,7 +733,14 @@ public class Hotel implements Serializable {
         if(!wrongVaccinationsString.equals("")){
             wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
         }
-        return wrongVaccinationsString;
+        */
+        SearchStrategy searchStrategy = new SearchWrongVaccinations(this);
+        //return wrongVaccinationsString; FIXME remove this line
+        return searchStrategy.search();
+    }
+
+    public List<VaccineApplication> getVaccineApplications(){
+        return _vaccineApplications;
     }
 
     /**

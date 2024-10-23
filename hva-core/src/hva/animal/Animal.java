@@ -108,6 +108,10 @@ public class Animal implements Serializable{
         return _species.getId();
     }
 
+    public List<VaccineApplication> getInjuryRecord(){
+        return _injuryRecord;
+    }
+
     public void getVaccinated(VaccineApplication application, Vaccine vaccine){
         _injuryRecord.add(application);
         if(application.getSuccesfulness() == false){
@@ -135,6 +139,8 @@ public class Animal implements Serializable{
         }
         return max;
     } 
+
+    /* FIXME remove this
     public String vaccinationsToString(){
         String record = "";
         for(VaccineApplication application : _injuryRecord){
@@ -145,6 +151,8 @@ public class Animal implements Serializable{
         }
         return record;
     }
+    */
+    
 
     public double getAnimalSatisfaction(){
         int sameSpeciesCount = getHabitat().sameSpeciesInHabitat(getId());

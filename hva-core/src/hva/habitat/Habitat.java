@@ -129,6 +129,7 @@ public class Habitat implements Serializable{
         return treeString;
     }
 
+    /* FIXME this can be removed
     public String animalsInHabitatToString(){
         String animalString = "";
         for (Animal animal : _animals.values()){
@@ -139,6 +140,7 @@ public class Habitat implements Serializable{
         }
         return animalString;
     }
+    */
 
     public void putAnimalInHabitat(Animal animal){
         _animals.put(animal.getId(), animal);

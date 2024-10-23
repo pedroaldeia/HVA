@@ -74,6 +74,10 @@ public class Vet extends Employee{
         return super.getType();
     }
 
+    public List<VaccineApplication> getVaccineApplications(){
+        return _vaccineApplications;
+    }
+
     public void addResponsibility(Species species){
         _responsibilityMap.put(species.getId(), species);
     }
@@ -106,6 +110,7 @@ public class Vet extends Employee{
         _vaccineApplications.add(application);
     }
 
+    /* FIXME this can be removed
     public String medicalActsToString(){
         String record = "";
         for(VaccineApplication application : _vaccineApplications){
@@ -116,4 +121,5 @@ public class Vet extends Employee{
         }
         return record;
     }
+    */
 }
