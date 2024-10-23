@@ -22,7 +22,7 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
     }
     @Override
     public double visitVet(Vet v) {
-        int work = 0;
+        double work = 0;
         Map<String, Species> responsiblities = v.getResponsibilityMap();
         for (Species s : responsiblities.values()){
             work += s.getAnimalsNum()/s.getVetsNum();  
