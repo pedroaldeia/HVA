@@ -9,6 +9,7 @@ import hva.exceptions.CoreDuplicateAnimalKeyException;
 import hva.exceptions.CoreUnknownHabitatKeyException;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
 import hva.exceptions.CoreDuplicateSpeciesNameException;
+import hva.exceptions.CoreDuplicateSpeciesKeyException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -59,6 +60,9 @@ class DoRegisterAnimal extends Command<Hotel> {
         }
         catch (CoreUnknownSpeciesKeyException e) { //never gets caught
             throw new UnknownSpeciesKeyException(e.getSpeciesKey()); 
+        }
+        catch (CoreDuplicateSpeciesKeyException e) {
+            e.printStackTrace();
         }
         
 

@@ -142,10 +142,10 @@ public class Hotel implements Serializable {
      * @param name the name of the Species
      * @return an integer indicating the result of the operation
      */
-    public void registerSpecies(String id, String name) throws CoreDuplicateSpeciesNameException {
+    public void registerSpecies(String id, String name) throws CoreDuplicateSpeciesNameException, 
+       CoreDuplicateSpeciesKeyException{
         if (_species.containsKey(id)) {
-            //FIXME implement this DuplicateSpeciesKeyException
-            //return -1; -> can be deleted
+            throw new CoreDuplicateSpeciesKeyException(id); //never thrown
         }
         if (speciesNameTaken(name)) {
             throw new CoreDuplicateSpeciesNameException(name);
@@ -153,7 +153,6 @@ public class Hotel implements Serializable {
         Species newSpecies = new Species(id, name);
         _species.put(id, newSpecies);
         _fileChanged = true; 
-        //return 0; -> can be deleted
     }
 
     private Species getSpecies(String id) throws CoreUnknownSpeciesKeyException  {
@@ -679,7 +678,7 @@ public class Hotel implements Serializable {
         return vaccineString;
     }
 
-    public String[] vaccinateAnimal(String vaccineId, String vetId, String animalId) throws 
+    public boolean vaccinateAnimal(String vaccineId, String vetId, String animalId) throws 
         CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
         CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
@@ -694,17 +693,7 @@ public class Hotel implements Serializable {
         VaccineApplication application = vaccine.vaccinateAnimal(vet, animal);
         _vaccineApplications.add(application);
         _fileChanged = true;
-        return applicationToList(application); //FIXME: discutir isto, é a única maneira que me estou a lembrar
-    }
-
-
-    private String[] applicationToList(VaccineApplication application){
-        String[] applicationList = new String[3];
-
-        applicationList[0] = String.valueOf(application.getSuccesfulness());
-        applicationList[1] = application.getVaccineId();
-        applicationList[2] = application.getAnimalId();
-        return applicationList;
+        return application.getSuccesfulness(); //FIXME: discutir isto, é a única maneira que me estou a lembrar
     }
 
 
