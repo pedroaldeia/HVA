@@ -10,7 +10,6 @@ import hva.exceptions.CoreNoResponsibilityException;
 import hva.exceptions.CoreUnknownEmployeeKeyException;
 import hva.exceptions.CoreUnknownHabitatKeyException;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
-import hva.exceptions.CoreNoResponsibilityException;
 import hva.app.exceptions.UnknownEmployeeKeyException;
 import hva.app.exceptions.UnknownHabitatKeyException;
 import hva.app.exceptions.UnknownSpeciesKeyException;

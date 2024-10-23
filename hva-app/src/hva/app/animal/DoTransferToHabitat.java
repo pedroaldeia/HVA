@@ -1,7 +1,6 @@
 package hva.app.animal;
 
 import hva.Hotel;
-import java.text.Normalizer;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.exceptions.CoreUnknownAnimalKeyException;
