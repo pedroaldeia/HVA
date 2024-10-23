@@ -12,7 +12,6 @@ public class Animal implements Serializable{
     private String _name;
     private Species _species;
     private Habitat _habitat;
-    private int _damage = 0;
     private List<VaccineApplication> _injuryRecord = new ArrayList<>();
 
 
@@ -113,13 +112,8 @@ public class Animal implements Serializable{
         _injuryRecord.add(application);
         if(application.getSuccesfulness() == false){
             int damage = damageCalculator(vaccine);
-            addDamage(damage);
             application.setStatus(damage);
         }
-    }
-
-    private void addDamage(int damage){
-        _damage += damage;
     }
 
     private int damageCalculator(Vaccine vaccine){ 
@@ -152,13 +146,13 @@ public class Animal implements Serializable{
         return record;
     }
 
-    public int getAnimalSatisfaction(){
+    public double getAnimalSatisfaction(){
         int sameSpeciesCount = getHabitat().sameSpeciesInHabitat(getId());
         int differentSpeciesCount = getHabitat().differentSpeciesInHabitat(getId());
         int habitatInfluence = getHabitat().getHabitatInfluence(getSpeciesId());
         int habitatArea = getHabitat().getArea();
         int animalCount = getHabitat().getAnimalsNum();
-        return Math.round(20 + 3*sameSpeciesCount - 2*differentSpeciesCount +
-             habitatArea/animalCount + 20*habitatInfluence);
+        return 20 + 3*sameSpeciesCount - 2*differentSpeciesCount +
+             habitatArea/animalCount + 20*habitatInfluence;
     }
 }
