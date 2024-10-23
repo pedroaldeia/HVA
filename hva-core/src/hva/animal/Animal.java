@@ -53,7 +53,7 @@ public class Animal implements Serializable{
             record += application.getStatus() + ",";
         }
         if(!record.equals("")){
-            record.substring(0, record.length() - 1);
+            record = record.substring(0, record.length() - 1);
         }
         return record;
     }

@@ -683,11 +683,13 @@ public class Hotel implements Serializable {
         CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
         CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
-        Vet vet = (Vet) _employees.get(vetId);
+        Employee employee = _employees.get(vetId);
         Animal animal = getAnimal(animalId);
         if(vaccine == null){throw new CoreUnknownVaccineKeyException(vaccineId);}
-        if(vet == null || !vet.getType().equals("VET"))
-        {throw new CoreUnknownVeterinarianKeyException(vetId);}
+        if(employee == null || !employee.getType().equals("VET")){
+            throw new CoreUnknownVeterinarianKeyException(vetId);
+        }
+        Vet vet = (Vet) employee;
         if(animal == null){throw new CoreUnknownAnimalKeyException(animalId);}
         VaccineApplication application = vaccine.vaccinateAnimal(vet, animal);
         _vaccineApplications.add(application);
