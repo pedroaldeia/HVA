@@ -63,6 +63,11 @@ public class Caretaker extends Employee{
         return super.getName();
     }
 
+    @Override
+    public String getType(){
+        return super.getType();
+    }
+
     public Map<String, Habitat> getResponsibilityMap(){
         return _responsibilityMap;
     }

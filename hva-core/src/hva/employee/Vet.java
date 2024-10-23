@@ -69,6 +69,11 @@ public class Vet extends Employee{
         return super.getName();
     }
 
+    @Override
+    public String getType(){
+        return super.getType();
+    }
+
     public void addResponsibility(Species species){
         _responsibilityMap.put(species.getId(), species);
     }
@@ -107,7 +112,7 @@ public class Vet extends Employee{
             record += application.toString() + "\n";
         }
         if(!record.equals("")){
-            record.substring(0, record.length() - 1);
+            record = record.substring(0, record.length() - 1);
         }
         return record;
     }

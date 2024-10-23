@@ -142,15 +142,18 @@ public class Hotel implements Serializable {
      * @param name the name of the Species
      * @return an integer indicating the result of the operation
      */
-    public int registerSpecies(String id, String name){
+    public void registerSpecies(String id, String name) throws CoreDuplicateSpeciesNameException {
         if (_species.containsKey(id)) {
-            //DuplicateSpeciesKeyException
-            return -1;
+            //FIXME implement this DuplicateSpeciesKeyException
+            //return -1; -> can be deleted
+        }
+        if (speciesNameTaken(name)) {
+            throw new CoreDuplicateSpeciesNameException(name);
         }
         Species newSpecies = new Species(id, name);
         _species.put(id, newSpecies);
         _fileChanged = true; 
-        return 0;
+        //return 0; -> can be deleted
     }
 
     private Species getSpecies(String id) throws CoreUnknownSpeciesKeyException  {
@@ -161,9 +164,14 @@ public class Hotel implements Serializable {
         return species;
     }
 
+    public boolean speciesNameTaken(String name){ //FIXME testing phase
+        return _species.values().stream().anyMatch(s -> s.getName().equals(name));
+    }
+
     public boolean speciesAlreadyExists(String id){
         return _species.containsKey(id);
     }
+
     public boolean animalAlreadyExists(String id){
         return _animals.containsKey(id);
     }
@@ -180,12 +188,13 @@ public class Hotel implements Serializable {
     public void registerAnimal(String id, String name, 
             String speciesId, String habitatId) 
             throws CoreDuplicateAnimalKeyException,
-            CoreUnknownHabitatKeyException{
+            CoreUnknownHabitatKeyException, 
+            CoreUnknownSpeciesKeyException{
 
         if (animalAlreadyExists(id)){
             throw new CoreDuplicateAnimalKeyException(id);
         }
-        Species species = _species.get(speciesId);
+        Species species = getSpecies(speciesId); //CoreUnknownSpeciesKeyException is never thrown
         Habitat habitat = getHabitat(habitatId);
         if (habitat == null) {
             throw new CoreUnknownHabitatKeyException(habitatId);
@@ -227,7 +236,7 @@ public class Hotel implements Serializable {
         if(animal == null){
             throw new CoreUnknownAnimalKeyException(animalId);
         }
-        return "" + animal.getAnimalSatisfaction();
+        return "" + Math.round(animal.getAnimalSatisfaction());
     }
 
     public void transferToHabitat(String animalId, String habitatId) throws 
@@ -677,11 +686,13 @@ public class Hotel implements Serializable {
         CoreUnknownVaccineKeyException, CoreUnknownAnimalKeyException, 
         CoreUnknownVeterinarianKeyException, CoreVeterinarianNotAuthorizedException{
         Vaccine vaccine = _vaccines.get(vaccineId);
-        Vet vet = (Vet) _employees.get(vetId);
+        Employee employee = _employees.get(vetId);
         Animal animal = getAnimal(animalId);
         if(vaccine == null){throw new CoreUnknownVaccineKeyException(vaccineId);}
-        if(vet == null || !vet.getType().equals("VET"))
-        {throw new CoreUnknownVeterinarianKeyException(vetId);}
+        if(employee == null || !employee.getType().equals("VET")){
+            throw new CoreUnknownVeterinarianKeyException(vetId);
+        }
+        Vet vet = (Vet) employee;
         if(animal == null){throw new CoreUnknownAnimalKeyException(animalId);}
         VaccineApplication application = vaccine.vaccinateAnimal(vet, animal);
         _vaccineApplications.add(application);
