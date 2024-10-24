@@ -121,7 +121,6 @@ public class Animal implements Serializable{
         if(application.getSuccesfulness() == false){
             int damage = damageCalculator(vaccine);
             application.setStatus(damage);
-            System.out.println("Damage: " + damage);
         }
     }
 
@@ -139,14 +138,12 @@ public class Animal implements Serializable{
                     }
                 }
             }
-            System.out.println("current1: " + current);  //DEBUG
             if(speciesName.length() > currentString.length()){
                 current += speciesName.length();
             }
             else{
                 current += currentString.length();
             }
-            System.out.println("current2: " + current);  //DEBUG
             if(max < current) max = current;
         }
         return max;
