@@ -108,6 +108,10 @@ public class Animal implements Serializable{
         return _species.getId();
     }
 
+    private String getSpeciesName(){
+        return _species.getName();
+    }
+
     public List<VaccineApplication> getInjuryRecord(){
         return _injuryRecord;
     }
@@ -117,29 +121,32 @@ public class Animal implements Serializable{
         if(application.getSuccesfulness() == false){
             int damage = damageCalculator(vaccine);
             application.setStatus(damage);
+            System.out.println("Damage: " + damage);
         }
     }
 
     private int damageCalculator(Vaccine vaccine){ 
         int max = 0;
         int current;
-        String animalName = getName().toLowerCase();
+        String speciesName = getSpeciesName().toLowerCase();
         for(String currentString : vaccine.getSpeciesNames()){
             current = 0;
             currentString = currentString.toLowerCase();
-            for(char c1 : animalName.toCharArray()){
+            for(char c1 : speciesName.toCharArray()){
                 for(char c2 : currentString.toCharArray()){
                     if(c1 == c2){
                         current -= 1;
                     }
                 }
             }
-            if(animalName.length() > currentString.length()){
-                current += animalName.length();
+            System.out.println("current1: " + current);  //DEBUG
+            if(speciesName.length() > currentString.length()){
+                current += speciesName.length();
             }
             else{
                 current += currentString.length();
             }
+            System.out.println("current2: " + current);  //DEBUG
             if(max < current) max = current;
         }
         return max;
