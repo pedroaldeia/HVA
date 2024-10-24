@@ -7,9 +7,7 @@ import pt.tecnico.uilib.forms.Form;
 import hva.exceptions.CoreUnknownVeterinarianKeyException;
 import hva.search.SearchMedicalActsByVeterinarian;
 import hva.app.exceptions.UnknownVeterinarianKeyException;
-import hva.app.vaccine.Prompt;
 import hva.search.SearchVet;
-import hva.search.SearchMedicalActsByVeterinarian;
 
 
 class DoShowMedicalActsByVeterinarian extends Command<Hotel> {

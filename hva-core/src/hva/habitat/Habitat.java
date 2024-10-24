@@ -77,6 +77,14 @@ public class Habitat implements Serializable{
         return _caretakersNum;
     }
 
+    /**
+     * This method returns the map containing the animals in the habitat.
+     * 
+     * @return Map<String, Animal> _animals in the habitat
+     */
+    public Map<String, Animal> getAnimalMap(){
+        return _animals;
+    }
 
     /**
      * This method returns the details of the habitat.
