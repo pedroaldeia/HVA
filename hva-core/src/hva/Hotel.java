@@ -740,12 +740,8 @@ public class Hotel implements Serializable {
         }
         */
         //return habitat.animalsInHabitatToString(); FIXME remove this line
-        setSearchStrategy(new SearchAnimalsInHabitat());
-        try {
-            return _searchStrategy.search(this, habitatId);
-        } catch (CoreException e) {
-            throw (CoreUnknownHabitatKeyException) e;
-        }
+        SearchAnimalsInHabitat searchStrategy = new SearchAnimalsInHabitat();
+        return searchStrategy.search(this, habitatId);
     }
     public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
         /*
@@ -756,12 +752,8 @@ public class Hotel implements Serializable {
         //return animal.vaccinationsToString();
         SearchStrategy searchStrategy = new SearchMedicalActsOnAnimal(animal);
         */
-        setSearchStrategy(new SearchMedicalActsOnAnimal());
-        try {
-            return _searchStrategy.search(this, animalId);
-        } catch (CoreException e) {
-            throw (CoreUnknownAnimalKeyException) e;
-        }
+        SearchMedicalActsOnAnimal searchStrategy = new SearchMedicalActsOnAnimal();
+        return searchStrategy.search(this, animalId);
         
     }
     public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
@@ -770,14 +762,10 @@ public class Hotel implements Serializable {
         //return vet.medicalActsToString(); FIXME remove this line
         SearchStrategy searchStrategy = new SearchMedicalActsByVeterinarian(vet);
         */
-        setSearchStrategy(new SearchMedicalActsByVeterinarian());
-        try {
-            return _searchStrategy.search(this, vetId);
-        } catch (CoreException e) {
-            throw (CoreUnknownVeterinarianKeyException) e;
-        }
+        SearchMedicalActsByVeterinarian searchStrategy = new SearchMedicalActsByVeterinarian();
+        return searchStrategy.search(this, vetId);
     }
-    public String showWrongVaccinations() throws CoreException{
+    public String showWrongVaccinations(){
         /*
         String wrongVaccinationsString = "";  FIXME remove this
         for (VaccineApplication application : _vaccineApplications){
@@ -789,8 +777,8 @@ public class Hotel implements Serializable {
             wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
         }
         */
-        setSearchStrategy(new SearchWrongVaccinations());
+        SearchWrongVaccinations searchStrategy = new SearchWrongVaccinations();
         //return wrongVaccinationsString; FIXME remove this line
-        return _searchStrategy.search(this, ""); //FIXME this is very wrong
+        return searchStrategy.search(this, ""); //FIXME this is very wrong
     }
 }
