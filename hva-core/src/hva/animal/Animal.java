@@ -147,7 +147,7 @@ public class Animal implements Serializable{
         }
         return max;
     } 
-
+    
 
     public double getAnimalSatisfaction(){
         int sameSpeciesCount = getHabitat().sameSpeciesInHabitat(getSpeciesId());
