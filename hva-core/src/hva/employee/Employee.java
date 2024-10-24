@@ -22,7 +22,7 @@ public abstract class Employee implements Serializable{
     public String getType(){
         return _type;
     }
-    //implement setSatisfactionCalc, getSatisfaction, accept
+    
     public abstract double accept(SatisfactionCalculator sc);
 
     public String getId(){

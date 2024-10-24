@@ -247,6 +247,42 @@ public class Hotel implements Serializable {
         return type.equals("TRT") || type.equals("VET");
     }
 
+    //Only to be used inside this class
+    private void registerCaretaker(String id, String name, List<String> idList) 
+                                        throws CoreDuplicateEmployeeKeyException,
+                                        CoreUnknownHabitatKeyException {
+        if (_employees.containsKey(id)) {
+            throw new CoreDuplicateEmployeeKeyException(id);
+        }
+        Employee newEmployee = new Caretaker(id, name);
+        if (!idList.isEmpty()){
+            for(String i : idList){
+                if(!_habitats.containsKey(i)){
+                    throw new CoreUnknownHabitatKeyException(i);
+                }
+            }
+        }
+        _employees.put(id, newEmployee);
+    }
+
+    //Only to be used inside this class
+    private void registerVet(String id, String name, List<String> idList) 
+                                throws CoreDuplicateEmployeeKeyException,
+                                CoreUnknownSpeciesKeyException{
+        if (_employees.containsKey(id)) {
+            throw new CoreDuplicateEmployeeKeyException(id);
+        }
+        Employee newEmployee = new Vet(id, name);
+        if (!idList.isEmpty()){
+            for(String i : idList){
+                if(!_species.containsKey(i)){
+                    throw new CoreUnknownSpeciesKeyException(i);
+                }
+            }
+        }
+        _employees.put(id, newEmployee);
+    }
+
 
     /**
      * Registers a new employee into the Hotel (puts it into the _employees map)
@@ -259,36 +295,20 @@ public class Hotel implements Serializable {
      */
     public boolean registerEmployee(String id, String name, String type, String idResponsibility)
             throws CoreDuplicateEmployeeKeyException, CoreUnknownHabitatKeyException, 
-            CoreUnknownSpeciesKeyException, CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
+            CoreUnknownSpeciesKeyException, CoreUnknownEmployeeKeyException, CoreNoResponsibilityException {
 
         if (_employees.containsKey(id)) {
             throw new CoreDuplicateEmployeeKeyException(id);
         }
-        Employee newEmployee;
         List<String> idList = splitId(idResponsibility);
 
         if (type.equals("TRT")){
-            newEmployee = new Caretaker(id, name);
-            if (!idResponsibility.equals("")){
-                for(String i : idList){
-                    if(!_habitats.containsKey(i)){
-                        throw new CoreUnknownHabitatKeyException(i);
-                    }
-                }
-            }
+            registerCaretaker(id, name, idList);
         }
         else if(type.equals("VET")){ 
-            newEmployee = new Vet(id, name);
-            if (!idResponsibility.equals("")){
-                for(String i : idList){
-                    if(!_species.containsKey(i)){
-                        throw new CoreUnknownSpeciesKeyException(i);
-                    }
-                }
-            }
-        }
+            registerVet(id, name, idList);
+        } 
         else return false;
-        _employees.put(id, newEmployee);
 
         try {
             if(!idResponsibility.equals("")){
@@ -301,9 +321,7 @@ public class Hotel implements Serializable {
         }
         catch (CoreNoResponsibilityException e) {
             throw e; 
-            //nao sei como mandar o id da responsabilidade aqui
-        }
-        
+        }  
         setFileChanged(true);
         return true;
     }
