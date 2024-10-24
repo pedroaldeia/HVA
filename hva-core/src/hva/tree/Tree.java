@@ -110,8 +110,6 @@ public abstract class Tree implements Serializable{
         }
     }
 
-
-    //esforço_limpeza(a) = dificuldade_limpeza(a) * esforço_sazonal(a) * log(idade(a) + 1)
     public double calculateCleaningDifficulty() {
         return _cleaningDifficulty * _state.getEffort() * Math.log(_age + 1);
     }

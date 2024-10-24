@@ -37,7 +37,7 @@ public class Animal implements Serializable{
      */
     @Override
     public String toString(){
-        //if (_habitat == null){System.out.println("WTF");}
+
         if(_injuryRecord.isEmpty()){
             return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + "VOID" +
              "|" + _habitat.getId();
@@ -160,12 +160,12 @@ public class Animal implements Serializable{
     
 
     public double getAnimalSatisfaction(){
-        int sameSpeciesCount = getHabitat().sameSpeciesInHabitat(getId());
-        int differentSpeciesCount = getHabitat().differentSpeciesInHabitat(getId());
+        int sameSpeciesCount = getHabitat().sameSpeciesInHabitat(getSpeciesId());
+        int differentSpeciesCount = getHabitat().differentSpeciesInHabitat(getSpeciesId());
         int habitatInfluence = getHabitat().getHabitatInfluence(getSpeciesId());
         int habitatArea = getHabitat().getArea();
         int animalCount = getHabitat().getAnimalsNum();
         return 20 + 3*sameSpeciesCount - 2*differentSpeciesCount +
-             habitatArea/animalCount + 20*habitatInfluence;
+             habitatArea/animalCount + habitatInfluence;
     }
 }

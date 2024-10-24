@@ -72,7 +72,6 @@ public class Hotel implements Serializable {
 
             // Split the line
             while (line != null){
-                //System.out.println(line);
                 List<String> wordsList = Arrays.asList(line.split("\\|"));
                 switch(wordsList.get(0)){
                     case "ANIMAL" -> registerAnimal(wordsList.get(1), wordsList.get(2), 
@@ -604,8 +603,8 @@ public class Hotel implements Serializable {
             throw new CoreUnknownSpeciesKeyException(speciesId);
         }
         int i = 0;
-        if (influence.equals("POS")){i = 1;}
-        else if (influence.equals("NEG")){i = -1;}
+        if (influence.equals("POS")){i = 20;}
+        else if (influence.equals("NEG")){i = -20;}
         else if (influence.equals("NEU")){i = 0;}
         else{
             throw new IllegalArgumentException("Invalid influence");
