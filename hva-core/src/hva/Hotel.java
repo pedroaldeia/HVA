@@ -8,10 +8,6 @@ import hva.employee.Employee;
 import hva.employee.Vet;
 import hva.exceptions.*;
 import hva.habitat.Habitat;
-import hva.search.SearchAnimalsInHabitat;
-import hva.search.SearchMedicalActsByVeterinarian;
-import hva.search.SearchMedicalActsOnAnimal;
-import hva.search.SearchWrongVaccinations;
 import hva.season.Season;
 import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
@@ -37,7 +33,6 @@ import hva.search.SearchVet;
 
 public class Hotel implements Serializable {
 
-    //FIXME adicionar javadoc
     private Map<String, Habitat> _habitats = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Employee> _employees = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private Map<String, Vaccine> _vaccines = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -62,12 +57,7 @@ public class Hotel implements Serializable {
      * @throws ImportFileException
      */
     void importFile(String filename) throws ImportFileException{ 
-    BufferedReader reader;    
-	try {
-            // Read the first line from the file
-            //List<String> file = Files.readAllLines(Paths.get(filename));
-
-            reader = new BufferedReader(new FileReader(filename));
+	try (BufferedReader reader = new BufferedReader(new FileReader(filename));) {
 
             String line = reader.readLine();
 
