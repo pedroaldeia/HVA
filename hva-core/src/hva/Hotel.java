@@ -2,13 +2,18 @@ package hva;
 
 import hva.animal.Animal;
 import hva.animal.Species;
-import hva.season.*;
 import hva.employee.BasicSatisfactionCalculator;
 import hva.employee.Caretaker;
 import hva.employee.Employee;
 import hva.employee.Vet;
 import hva.exceptions.*;
 import hva.habitat.Habitat;
+import hva.search.SearchAnimalsInHabitat;
+import hva.search.SearchMedicalActsByVeterinarian;
+import hva.search.SearchMedicalActsOnAnimal;
+import hva.search.SearchStrategy;
+import hva.search.SearchWrongVaccinations;
+import hva.season.Season;
 import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
 import hva.tree.Tree;
@@ -19,18 +24,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-import hva.season.Season;
-import hva.search.SearchAnimalsInHabitat;
-import hva.search.SearchMedicalActsByVeterinarian;
-import hva.search.SearchStrategy;
-import hva.search.SearchMedicalActsOnAnimal;
-import hva.search.SearchWrongVaccinations;
 
 
 public class Hotel implements Serializable {
@@ -255,6 +254,7 @@ public class Hotel implements Serializable {
         animal.getHabitat().removeAnimal(animalId);
         animal.setHabitat(newHabitat);
         newHabitat.putAnimalInHabitat(animal);
+        setFileChanged(true);
     }
 
     public boolean isValidEmployeeType(String type){
@@ -320,7 +320,7 @@ public class Hotel implements Serializable {
             //nao sei como mandar o id da responsabilidade aqui
         }
         
-        _fileChanged = true; 
+        setFileChanged(true);
         return true;
     }
 
@@ -393,6 +393,7 @@ public class Hotel implements Serializable {
                 }
             }
             else throw new IllegalArgumentException("Invalid employee type");
+            setFileChanged(true);
         }
         catch (CoreUnknownEmployeeKeyException e) {
             throw e;
@@ -422,6 +423,7 @@ public class Hotel implements Serializable {
                 Caretaker caretaker = (Caretaker) employee;
                 caretaker.removeResponsibility(responsibilityId);
             }
+            setFileChanged(true);
         }
         catch (CoreUnknownEmployeeKeyException e) {
             throw e;
@@ -470,7 +472,7 @@ public class Hotel implements Serializable {
         for(String i : idList){
             newHabitat.putTree(_trees.get(i));
         }
-        _fileChanged = true; 
+        setFileChanged(true);
     } 
 
     
@@ -512,6 +514,7 @@ public class Hotel implements Serializable {
             throws CoreUnknownHabitatKeyException {
         int intArea = Integer.parseInt(area);
         getHabitat(id).setArea(intArea);
+        setFileChanged(true);
     }
 
     public boolean isValidTreeType(String type){
@@ -554,7 +557,7 @@ public class Hotel implements Serializable {
         else {
             throw new IllegalArgumentException("Invalid tree type");
         }
-        _fileChanged = true;
+        setFileChanged(true);
         return newTree;
     }
 
@@ -568,15 +571,13 @@ public class Hotel implements Serializable {
         }
         Tree tree = getTree(id);
         h.putTree(tree);
-        _fileChanged = true;
+        setFileChanged(true);
         return tree;
     } 
 
     public String registerTree(String habitatId, String id, String name, 
-                                String age, String dif, String type)
-                                throws CoreUnknownHabitatKeyException,
-                                CoreDuplicateTreeKeyException,
-                                IllegalArgumentException{
+       String age, String dif, String type) throws CoreUnknownHabitatKeyException,
+       CoreDuplicateTreeKeyException, IllegalArgumentException{
         int intAge = Integer.parseInt(age);
         int intDif = Integer.parseInt(dif);
         addTree(id, name, intAge, intDif, type);
@@ -610,7 +611,7 @@ public class Hotel implements Serializable {
             throw new IllegalArgumentException("Invalid influence");
         }
         h.addInfluence(speciesId, i);
-        _fileChanged = true;
+        setFileChanged(true);
     }
     
     
@@ -618,6 +619,7 @@ public class Hotel implements Serializable {
     public int advanceSeason(){
         _currentSeason = _currentSeason.next();
         notifyTrees();
+        setFileChanged(true);
         return _currentSeason.seasonCode();
     }
 
@@ -657,7 +659,7 @@ public class Hotel implements Serializable {
         }
         Vaccine newVaccine = new Vaccine(id, name, speciesArray);
         _vaccines.put(id, newVaccine);
-        _fileChanged = true; 
+        setFileChanged(true);
     }
 
     /**
@@ -690,8 +692,8 @@ public class Hotel implements Serializable {
         if(animal == null){throw new CoreUnknownAnimalKeyException(animalId);}
         VaccineApplication application = vaccine.vaccinateAnimal(vet, animal);
         _vaccineApplications.add(application);
-        _fileChanged = true;
-        return application.getSuccesfulness(); //FIXME: discutir isto, é a única maneira que me estou a lembrar
+        setFileChanged(true);
+        return application.getSuccesfulness();
     }
 
 
@@ -706,32 +708,11 @@ public class Hotel implements Serializable {
         return vaccinationsString;
     }
 
-    
-
     public List<VaccineApplication> getVaccineApplications(){
         return _vaccineApplications;
     }
 
-    /**
-     * Returns current status of the file (saved or not) (in variable _fileChanged)
-     * (0-> saved, 1-> not saved)
-     * 
-     * @return int _fileChanged
-     */
-    public boolean getFileChanged(){ 
-        return _fileChanged;
-    }
-
-    /**
-     * Sets the status of the file (saved or not) (in variable _fileChanged)
-     * (false-> saved, true-> not saved)
-     * 
-     * @param fileChanged
-     * @return void
-     */
-    public void setFileChanged(boolean fileChanged){
-        _fileChanged = fileChanged;
-    }
+    
     public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
         /*
         Habitat habitat = getHabitat(habitatId);
@@ -780,5 +761,26 @@ public class Hotel implements Serializable {
         SearchWrongVaccinations searchStrategy = new SearchWrongVaccinations();
         //return wrongVaccinationsString; FIXME remove this line
         return searchStrategy.search(this, ""); //FIXME this is very wrong
+    }
+    
+    /**
+     * Returns current status of the file (saved or not) (in variable _fileChanged)
+     * (0-> saved, 1-> not saved)
+     * 
+     * @return int _fileChanged
+     */
+    public boolean getFileChanged(){ 
+        return _fileChanged;
+    }
+
+    /**
+     * Sets the status of the file (saved or not) (in variable _fileChanged)
+     * (false-> saved, true-> not saved)
+     * 
+     * @param fileChanged
+     * @return void
+     */
+    public void setFileChanged(boolean fileChanged){
+        _fileChanged = fileChanged;
     }
 }
