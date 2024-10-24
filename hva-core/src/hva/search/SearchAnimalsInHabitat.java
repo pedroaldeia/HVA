@@ -2,18 +2,15 @@ package hva.search;
 
 import hva.animal.Animal;
 import hva.habitat.Habitat;
-import hva.Hotel;
-import hva.exceptions.CoreUnknownHabitatKeyException;
 
-public class SearchAnimalsInHabitat implements SearchStrategy {
+public class SearchAnimalsInHabitat implements SearchHabitat {
 
     public SearchAnimalsInHabitat(){}
 
     @Override
-    public String search(Hotel hotel, String id) throws CoreUnknownHabitatKeyException{
-        Habitat _habitat = hotel.getHabitat(id);
+    public String search(Habitat habitat){
         String animalString = "";
-        for (Animal animal : _habitat.getAnimalMap().values()){
+        for (Animal animal : habitat.getAnimalMap().values()){
             animalString = animalString + animal.toString() + "\n";
         }
         if(!animalString.equals("")){

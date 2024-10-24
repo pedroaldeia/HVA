@@ -11,7 +11,6 @@ import hva.habitat.Habitat;
 import hva.search.SearchAnimalsInHabitat;
 import hva.search.SearchMedicalActsByVeterinarian;
 import hva.search.SearchMedicalActsOnAnimal;
-import hva.search.SearchStrategy;
 import hva.search.SearchWrongVaccinations;
 import hva.season.Season;
 import hva.tree.DeciduousTree;
@@ -30,6 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import hva.search.SearchAnimal;
+import hva.search.SearchHotel;
+import hva.search.SearchHabitat;
+import hva.search.SearchVet;
 
 
 public class Hotel implements Serializable {
@@ -43,7 +46,6 @@ public class Hotel implements Serializable {
     private Map<String, Tree> _trees = new HashMap<>();
     private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
     private Season _currentSeason = Season.SPRING;
-    private SearchStrategy _searchStrategy;
 
     public Hotel(){};    
     
@@ -118,9 +120,6 @@ public class Hotel implements Serializable {
 
     }
 
-    public void setSearchStrategy(SearchStrategy searchStrategy) {
-        _searchStrategy = searchStrategy;
-    }
 
     public int showGlobalSatisfaction(){
         double totalSatisfaction = 0;
@@ -160,7 +159,7 @@ public class Hotel implements Serializable {
         }
         Species newSpecies = new Species(id, name);
         _species.put(id, newSpecies);
-        _fileChanged = true; 
+        setFileChanged(true);
     }
 
     private Species getSpecies(String id) throws CoreUnknownSpeciesKeyException  {
@@ -171,7 +170,7 @@ public class Hotel implements Serializable {
         return species;
     }
 
-    public boolean speciesNameTaken(String name){ //FIXME testing phase
+    public boolean speciesNameTaken(String name){
         return _species.values().stream().anyMatch(s -> s.getName().equals(name));
     }
 
@@ -210,7 +209,7 @@ public class Hotel implements Serializable {
         _animals.put(id, newAnimal);
         habitat.putAnimalInHabitat(newAnimal);
         species.addAnimal(newAnimal);
-        _fileChanged = true;
+        setFileChanged(true);
     }
 
 
@@ -241,9 +240,6 @@ public class Hotel implements Serializable {
 
     public String showSatisfactionOfAnimal(String animalId) throws CoreUnknownAnimalKeyException{
         Animal animal = getAnimal(animalId);
-        if(animal == null){
-            throw new CoreUnknownAnimalKeyException(animalId);
-        }
         return "" + Math.round(animal.getAnimalSatisfaction());
     }
 
@@ -260,8 +256,6 @@ public class Hotel implements Serializable {
     public boolean isValidEmployeeType(String type){
         return type.equals("TRT") || type.equals("VET");
     }
-
-    
 
 
     /**
@@ -412,12 +406,8 @@ public class Hotel implements Serializable {
             Employee employee = getEmployee(employeeId);
             if(employee.getType().equals("VET")){
                 Vet vet = (Vet) employee;
-                if(vet.getResponsibility(responsibilityId) != null){
                 vet.removeResponsibility(responsibilityId);
-                }
-                else{
-                    throw new CoreNoResponsibilityException(employeeId, responsibilityId);
-                }
+                
             }
             else{
                 Caretaker caretaker = (Caretaker) employee;
@@ -462,7 +452,7 @@ public class Hotel implements Serializable {
         if (!idTrees.equals("")){
             idList = splitId(idTrees);
             for(String i : idList){
-                if(!_trees.containsKey(i)){
+                if(!treeAlreadyExists(id)){
                     throw new CoreUnknownTreeKeyException(i);
                 }
             }
@@ -470,7 +460,7 @@ public class Hotel implements Serializable {
         Habitat newHabitat = new Habitat(id, name, area);
         _habitats.put(id, newHabitat);
         for(String i : idList){
-            newHabitat.putTree(_trees.get(i));
+            newHabitat.putTree(getTree(i));
         }
         setFileChanged(true);
     } 
@@ -712,55 +702,27 @@ public class Hotel implements Serializable {
         return _vaccineApplications;
     }
 
-    
-    public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
-        /*
+
+    public String searchInHabitat(String habitatId, SearchHabitat searchStrategy) throws CoreUnknownHabitatKeyException{
         Habitat habitat = getHabitat(habitatId);
-        if(habitat == null){
-            throw new CoreUnknownHabitatKeyException(habitatId);
-        }
-        */
-        //return habitat.animalsInHabitatToString(); FIXME remove this line
-        SearchAnimalsInHabitat searchStrategy = new SearchAnimalsInHabitat();
-        return searchStrategy.search(this, habitatId);
-    }
-    public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
-        /*
-        Animal animal = getAnimal(animalId);
-        if(animal == null){
-            throw new CoreUnknownAnimalKeyException(animalId);
-        }
-        //return animal.vaccinationsToString();
-        SearchStrategy searchStrategy = new SearchMedicalActsOnAnimal(animal);
-        */
-        SearchMedicalActsOnAnimal searchStrategy = new SearchMedicalActsOnAnimal();
-        return searchStrategy.search(this, animalId);
+
+        return searchStrategy.search(habitat);
         
     }
-    public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
-        /*
-        Vet vet = getVeterinarian(vetId);
-        //return vet.medicalActsToString(); FIXME remove this line
-        SearchStrategy searchStrategy = new SearchMedicalActsByVeterinarian(vet);
-        */
-        SearchMedicalActsByVeterinarian searchStrategy = new SearchMedicalActsByVeterinarian();
-        return searchStrategy.search(this, vetId);
+    public String searchInAnimal(String animalId, SearchAnimal searchStrategy) throws CoreUnknownAnimalKeyException{
+        Animal animal = getAnimal(animalId);
+
+        return searchStrategy.search(animal);
+        
     }
-    public String showWrongVaccinations(){
-        /*
-        String wrongVaccinationsString = "";  FIXME remove this
-        for (VaccineApplication application : _vaccineApplications){
-            if(!application.getSuccesfulness()){
-                wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
-            }
-        }
-        if(!wrongVaccinationsString.equals("")){
-            wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
-        }
-        */
-        SearchWrongVaccinations searchStrategy = new SearchWrongVaccinations();
-        //return wrongVaccinationsString; FIXME remove this line
-        return searchStrategy.search(this, ""); //FIXME this is very wrong
+    public String searchInVet(String vetId, SearchVet searchStrategy) throws CoreUnknownVeterinarianKeyException{
+        Vet vet = getVeterinarian(vetId);
+       
+        return searchStrategy.search(vet);
+    }
+
+    public String searchInHotel(SearchHotel searchStrategy){
+        return searchStrategy.search(this); 
     }
     
     /**
