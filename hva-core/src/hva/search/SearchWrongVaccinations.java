@@ -3,12 +3,12 @@ package hva.search;
 import hva.Hotel;
 import hva.vaccine.VaccineApplication;
 
-public class SearchWrongVaccinations implements SearchStrategy {
+public class SearchWrongVaccinations implements SearchHotel {
 
     public SearchWrongVaccinations() {}
 
     @Override
-    public String search(Hotel hotel, String nothing){
+    public String search(Hotel hotel){
         String wrongVaccinationsString = "";
         for (VaccineApplication application : hotel.getVaccineApplications()){
             if(!application.getSuccesfulness()){

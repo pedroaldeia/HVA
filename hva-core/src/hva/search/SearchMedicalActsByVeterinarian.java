@@ -1,18 +1,14 @@
 package hva.search;
 
-import hva.Hotel;
 import hva.employee.Vet;
-import hva.exceptions.CoreUnknownVeterinarianKeyException;
 import hva.vaccine.VaccineApplication;
 
-public class SearchMedicalActsByVeterinarian implements SearchStrategy{
+public class SearchMedicalActsByVeterinarian implements SearchVet{
 
     public SearchMedicalActsByVeterinarian(){}
 
     @Override
-    public String search(Hotel hotel, String id) throws CoreUnknownVeterinarianKeyException{
-        
-        Vet vet = hotel.getVeterinarian(id);
+    public String search(Vet vet){
         String record = "";
         for(VaccineApplication application : vet.getVaccineApplications()){
             record += application.toString() + "\n";

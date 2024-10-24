@@ -4,6 +4,8 @@ import hva.Hotel;
 import hva.exceptions.CoreException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
+import hva.search.SearchHotel;
+import hva.search.SearchWrongVaccinations;
 
 class DoShowWrongVaccinations extends Command<Hotel> {
 
@@ -13,7 +15,8 @@ class DoShowWrongVaccinations extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        _display.popup(_receiver.showWrongVaccinations());
+        SearchHotel searchStrategy = new SearchWrongVaccinations();
+        _display.popup(_receiver.searchInHotel(searchStrategy));
     }
 
 }
