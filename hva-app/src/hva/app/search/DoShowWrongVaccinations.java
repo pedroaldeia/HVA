@@ -13,10 +13,7 @@ class DoShowWrongVaccinations extends Command<Hotel> {
 
     @Override
     protected void execute() throws CommandException {
-        try {
-            _display.popup(_receiver.showWrongVaccinations());
-        } catch (CoreException e) {e.printStackTrace();}
-        
+        _display.popup(_receiver.showWrongVaccinations());
     }
 
 }

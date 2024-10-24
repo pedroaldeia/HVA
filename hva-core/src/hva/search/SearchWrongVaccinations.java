@@ -1,8 +1,6 @@
 package hva.search;
 
 import hva.Hotel;
-import hva.exceptions.CoreException;
-import hva.exceptions.CoreUnknownVaccineKeyException;
 import hva.vaccine.VaccineApplication;
 
 public class SearchWrongVaccinations implements SearchStrategy {
@@ -10,7 +8,7 @@ public class SearchWrongVaccinations implements SearchStrategy {
     public SearchWrongVaccinations() {}
 
     @Override
-    public String search(Hotel hotel, String nothing) throws CoreException{
+    public String search(Hotel hotel, String nothing){
         String wrongVaccinationsString = "";
         for (VaccineApplication application : hotel.getVaccineApplications()){
             if(!application.getSuccesfulness()){
@@ -20,7 +18,6 @@ public class SearchWrongVaccinations implements SearchStrategy {
         if(!wrongVaccinationsString.equals("")){
             wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
         }
-        if(false) {throw new CoreUnknownVaccineKeyException("");}
         return wrongVaccinationsString;
     }
 }
