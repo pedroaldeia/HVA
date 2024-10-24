@@ -12,7 +12,7 @@ public class CoreDuplicateTreeKeyException extends CoreException{
         _id = id;
     }
     
-    public String getVaccineKey(){
+    public String getTreeKey(){
         return _id;
     }
 }

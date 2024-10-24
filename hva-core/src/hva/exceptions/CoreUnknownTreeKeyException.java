@@ -7,9 +7,13 @@ public class CoreUnknownTreeKeyException extends CoreException{
     @Serial
     private static final long serialVersionUID = 202410101159L;
 
-    String _id = "";
+    private String _id = "";
 
     public CoreUnknownTreeKeyException(String id) {
         _id = id;
+    }
+
+    public String getTreeKey(){
+        return _id;
     }
 }
