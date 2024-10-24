@@ -26,8 +26,6 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
         Map<String, Species> responsiblities = v.getResponsibilityMap();
         for (Species s : responsiblities.values()){
             work += s.getAnimalsNum()/s.getVetsNum();  
-            System.out.println(s.getAnimalsNum());
-            System.out.println(s.getVetsNum());
         }
         return 20 - work;
     }

@@ -37,7 +37,7 @@ public class Animal implements Serializable{
      */
     @Override
     public String toString(){
-        //if (_habitat == null){System.out.println("WTF");}
+
         if(_injuryRecord.isEmpty()){
             return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + "VOID" +
              "|" + _habitat.getId();
