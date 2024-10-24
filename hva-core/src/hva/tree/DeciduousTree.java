@@ -47,6 +47,6 @@ public class DeciduousTree extends Tree{ //WIP
      */
     @Override
     public String toString() {
-        return super.toString(); // FIXME idk if this works, its auto generated
+        return super.toString(); 
     }
 }

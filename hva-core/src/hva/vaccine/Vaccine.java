@@ -3,18 +3,18 @@ package hva.vaccine;
 import hva.animal.Animal;
 import hva.animal.Species;
 import hva.employee.Vet;
+import hva.exceptions.CoreVeterinarianNotAuthorizedException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import hva.exceptions.CoreVeterinarianNotAuthorizedException;
 
 public class Vaccine implements Serializable{
     private String _name;
     private String _id;
     private int _nApplications = 0;
-    private Map<String, String> _speciesIds = new TreeMap<>(); //key = species ID, value = species name FIXME change attribute name
+    private Map<String, String> _speciesIds = new TreeMap<>(); //key = species ID, value = species name
     private List<VaccineApplication> _record = new ArrayList<>();
 
     /**
@@ -25,18 +25,12 @@ public class Vaccine implements Serializable{
      * @param speciesIds a string of comma-separated species IDs this vaccine is meant 
      * for
      */
-    /*
-    public Vaccine(String id, String name, String speciesIds) {
-        _name = name;
-        _id = id;
-        //_speciesIds = speciesIds.replaceAll("\\s", "");
-    } //FIXME idk if this function is needed or not
-    */
     public Vaccine(String id, String name, List<Species> speciesIds) {
         _name = name;
         _id = id;
         addSpecies(speciesIds);
     }
+    
     /**
      * This method returns the unique identifier of the vaccine.
      * 
