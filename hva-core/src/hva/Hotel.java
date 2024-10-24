@@ -8,10 +8,6 @@ import hva.employee.Employee;
 import hva.employee.Vet;
 import hva.exceptions.*;
 import hva.habitat.Habitat;
-import hva.search.SearchAnimalsInHabitat;
-import hva.search.SearchMedicalActsByVeterinarian;
-import hva.search.SearchMedicalActsOnAnimal;
-import hva.search.SearchWrongVaccinations;
 import hva.season.Season;
 import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
@@ -65,7 +61,6 @@ public class Hotel implements Serializable {
     BufferedReader reader;    
 	try {
             // Read the first line from the file
-            //List<String> file = Files.readAllLines(Paths.get(filename));
 
             reader = new BufferedReader(new FileReader(filename));
 
@@ -230,7 +225,7 @@ public class Hotel implements Serializable {
         return animalString;
     }
 
-    public Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
+    private Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
         Animal animal = _animals.get(id);
         if(animal == null) {
             throw new CoreUnknownAnimalKeyException(id);
@@ -492,7 +487,7 @@ public class Hotel implements Serializable {
         return habitatString;
     }
 
-    public Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
+    private Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
         Habitat habitat = _habitats.get(id);
         if(habitat == null){
             throw new CoreUnknownHabitatKeyException(id);
@@ -551,7 +546,7 @@ public class Hotel implements Serializable {
         return newTree;
     }
 
-    public Tree getTree(String id) { return _trees.get(id);}
+    private Tree getTree(String id) { return _trees.get(id);}
     public Tree plantTree(String habitatId, String id)
                             throws CoreUnknownHabitatKeyException,
                             IllegalArgumentException{
@@ -709,6 +704,7 @@ public class Hotel implements Serializable {
         return searchStrategy.search(habitat);
         
     }
+
     public String searchInAnimal(String animalId, SearchAnimal searchStrategy) throws CoreUnknownAnimalKeyException{
         Animal animal = getAnimal(animalId);
 
