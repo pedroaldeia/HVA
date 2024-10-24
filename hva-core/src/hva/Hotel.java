@@ -8,6 +8,10 @@ import hva.employee.Employee;
 import hva.employee.Vet;
 import hva.exceptions.*;
 import hva.habitat.Habitat;
+import hva.search.SearchAnimal;
+import hva.search.SearchHabitat;
+import hva.search.SearchHotel;
+import hva.search.SearchVet;
 import hva.season.Season;
 import hva.tree.DeciduousTree;
 import hva.tree.EvergreenTree;
@@ -25,10 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import hva.search.SearchAnimal;
-import hva.search.SearchHotel;
-import hva.search.SearchHabitat;
-import hva.search.SearchVet;
 
 
 public class Hotel implements Serializable {
@@ -442,7 +442,7 @@ public class Hotel implements Serializable {
         if (!idTrees.equals("")){
             idList = splitId(idTrees);
             for(String i : idList){
-                if(!treeAlreadyExists(id)){
+                if(!treeAlreadyExists(i)){
                     throw new CoreUnknownTreeKeyException(i);
                 }
             }
