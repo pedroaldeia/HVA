@@ -2,8 +2,6 @@ package hva.app.vaccine;
 
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
-//FIXME import other classes if needed
 
 class DoShowVaccinations extends Command<Hotel> {
 

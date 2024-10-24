@@ -1,7 +1,6 @@
 package hva.app.search;
 
 import hva.Hotel;
-import hva.exceptions.CoreException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.search.SearchHotel;

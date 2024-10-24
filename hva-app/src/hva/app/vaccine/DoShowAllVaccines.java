@@ -2,7 +2,6 @@ package hva.app.vaccine;
 
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
 
 /**
 * Displays all the vaccines in the hotel

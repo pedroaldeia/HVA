@@ -4,7 +4,6 @@ import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import pt.tecnico.uilib.forms.Form;
-import hva.app.animal.Prompt;
 import hva.app.exceptions.UnknownAnimalKeyException;
 import hva.exceptions.CoreUnknownAnimalKeyException;
 import hva.search.SearchAnimal;

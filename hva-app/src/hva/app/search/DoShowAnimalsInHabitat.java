@@ -13,7 +13,6 @@ class DoShowAnimalsInHabitat extends Command<Hotel> {
 
     DoShowAnimalsInHabitat(Hotel receiver) {
         super(Label.ANIMALS_IN_HABITAT, receiver);
-        //FIXME add command fields if needed
     }
 
     @Override

@@ -2,7 +2,6 @@ package hva.app.habitat;
 
 import hva.Hotel;
 import pt.tecnico.uilib.menus.Command;
-import pt.tecnico.uilib.menus.CommandException;
 
 /**
 * Displays all the habitats in the hotel
