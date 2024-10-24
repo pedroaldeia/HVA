@@ -7,7 +7,6 @@ import pt.tecnico.uilib.menus.CommandException;
 import hva.app.exceptions.DuplicateHabitatKeyException;
 import hva.app.exceptions.UnknownTreeKeyException;
 import hva.exceptions.CoreUnknownTreeKeyException;
-//FIXME import other classes if needed
 import hva.exceptions.CoreDuplicateHabitatKeyException;
 
 /**
@@ -17,8 +16,7 @@ class DoRegisterHabitat extends Command<Hotel> {
 
     DoRegisterHabitat(Hotel receiver) {
         super(Label.REGISTER_HABITAT, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     /**
     * Registers a new habitat in the hotel

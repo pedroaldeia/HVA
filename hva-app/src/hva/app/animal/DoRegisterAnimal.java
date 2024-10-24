@@ -22,8 +22,7 @@ class DoRegisterAnimal extends Command<Hotel> {
 
     DoRegisterAnimal(Hotel receiver) {
         super(Label.REGISTER_ANIMAL, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     /**
      * This method registers an animal in the hotel and it's species

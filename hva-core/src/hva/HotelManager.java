@@ -2,8 +2,7 @@ package hva;
 
 import hva.exceptions.*;
 import java.io.*;
-//FIXME import other Java classes
-//FIXME import other project classes
+
 
 /**
  * Class that represents the hotel application.

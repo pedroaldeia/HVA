@@ -8,14 +8,12 @@ import hva.app.exceptions.NoResponsibilityException;
 import hva.app.exceptions.UnknownEmployeeKeyException;
 import hva.exceptions.CoreUnknownEmployeeKeyException;
 import hva.exceptions.CoreNoResponsibilityException;
-//FIXME import other classes if needed
 
 class DoRemoveResponsibility extends Command<Hotel> {
 
     DoRemoveResponsibility(Hotel receiver) {
         super(Label.REMOVE_RESPONSABILITY, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     @Override
     protected void execute() throws CommandException {

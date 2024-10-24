@@ -11,8 +11,7 @@ class DoShowSatisfactionOfAnimal extends Command<Hotel> {
 
     DoShowSatisfactionOfAnimal(Hotel receiver) {
         super(Label.SHOW_SATISFACTION_OF_ANIMAL, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     @Override
     protected final void execute() throws CommandException {

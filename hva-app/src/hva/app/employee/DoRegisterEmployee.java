@@ -22,8 +22,7 @@ class DoRegisterEmployee extends Command<Hotel> {
 
     DoRegisterEmployee(Hotel receiver) {
         super(Label.REGISTER_EMPLOYEE, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     /**
      * Registers a new employee in the hotel

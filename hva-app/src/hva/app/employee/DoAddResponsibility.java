@@ -8,14 +8,12 @@ import hva.exceptions.CoreUnknownEmployeeKeyException;
 import hva.exceptions.CoreNoResponsibilityException;
 import hva.app.exceptions.UnknownEmployeeKeyException;
 import hva.app.exceptions.NoResponsibilityException;
-//FIXME import other classes if needed
 
 class DoAddResponsibility extends Command<Hotel> {
 
     DoAddResponsibility(Hotel receiver) {
         super(Label.ADD_RESPONSABILITY, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     @Override
     protected void execute() throws CommandException {

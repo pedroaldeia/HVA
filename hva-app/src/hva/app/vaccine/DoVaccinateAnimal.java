@@ -17,8 +17,7 @@ class DoVaccinateAnimal extends Command<Hotel> {
 
     DoVaccinateAnimal(Hotel receiver) {
         super(Label.VACCINATE_ANIMAL, receiver);
-        //FIXME add command fields if needed
-    }
+            }
 
     @Override
     protected final void execute() throws CommandException {

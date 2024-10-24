@@ -6,7 +6,6 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import hva.app.exceptions.DuplicateVaccineKeyException;
 import hva.app.exceptions.UnknownSpeciesKeyException;
-//FIXME import other classes if needed
 import hva.exceptions.CoreDuplicateVaccineKeyException;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
 
@@ -14,8 +13,7 @@ class DoRegisterVaccine extends Command<Hotel> {
 
     DoRegisterVaccine(Hotel receiver) {
         super(Label.REGISTER_VACCINE, receiver);
-	//FIXME add command fields if needed
-    }
+	    }
 
     @Override
     protected final void execute() throws CommandException {
