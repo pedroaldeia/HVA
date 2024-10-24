@@ -13,7 +13,6 @@ public class Habitat implements Serializable{
     private String _name = "";
     private int _area = 0;
     private int _caretakersNum = 0;
-    private int _treeNum = 0;
     private Map<String, Animal> _animals = new TreeMap<>();
     private Map<String, Tree> _trees = new TreeMap<>();
     private Map<String, Integer> _influences = new HashMap<>();
@@ -93,13 +92,13 @@ public class Habitat implements Serializable{
      */
     @Override
     public String toString(){
-        if(_treeNum == 0){
+        if(getTreesNum() == 0){
             return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
-          _treeNum;
+          getTreesNum();
         }
         else{
             return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
-          _treeNum + "\n" + showAllTrees();
+           getTreesNum() + "\n" + showAllTrees();
         }
     }
 
@@ -119,7 +118,6 @@ public class Habitat implements Serializable{
      */
     public void putTree(Tree tree){
         _trees.put(tree.getId(), tree);
-        _treeNum++;
     }
 
     public boolean treeAlreadyExists(String id){
@@ -136,19 +134,6 @@ public class Habitat implements Serializable{
         }
         return treeString;
     }
-
-    /* FIXME this can be removed
-    public String animalsInHabitatToString(){
-        String animalString = "";
-        for (Animal animal : _animals.values()){
-            animalString = animalString + animal.toString() + "\n";
-        }
-        if(!animalString.equals("")){
-            animalString = animalString.substring(0, animalString.length() - 1);
-        }
-        return animalString;
-    }
-    */
 
     public void putAnimalInHabitat(Animal animal){
         _animals.put(animal.getId(), animal);

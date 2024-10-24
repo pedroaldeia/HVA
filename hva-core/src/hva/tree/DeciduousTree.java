@@ -6,7 +6,7 @@ import hva.TreeState.DeciduousSummer;
 import hva.TreeState.DeciduousWinter;
 import hva.season.Season;
 
-public class DeciduousTree extends Tree{ //WIP
+public class DeciduousTree extends Tree{ 
 
     /**
      * This is the constructor of the DeciduousTree class.
