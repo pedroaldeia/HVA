@@ -25,16 +25,16 @@ public class EvergreenTree extends Tree{
     private void setStateBasedOnSeason(Season season) {
         switch (season) {
             case WINTER:
-                _state = new EvergreenWinter(this); 
+                setState(new EvergreenWinter(this)); 
                 break;
             case SPRING:
-                _state = new EvergreenSpring(this); 
+                setState(new EvergreenSpring(this)); 
                 break;
             case SUMMER:
-                _state = new EvergreenSummer(this);
+                setState(new EvergreenSummer(this));
                 break;
             case FALL:
-                _state = new EvergreenAutumn(this);
+                setState(new EvergreenAutumn(this));
                 break;
             default:
                 throw new IllegalStateException("Unexpected season: " + season);

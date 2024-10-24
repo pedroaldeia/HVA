@@ -24,16 +24,16 @@ public class DeciduousTree extends Tree{
     private void setStateBasedOnSeason(Season season) {
         switch (season) {
             case WINTER:
-                _state = new DeciduousWinter(this); 
+                setState(new DeciduousWinter(this)); 
                 break;
             case SPRING:
-                _state = new DeciduousSpring(this); 
+                setState(new DeciduousSpring(this)); 
                 break;
             case SUMMER:
-                _state = new DeciduousSummer(this); 
+                setState(new DeciduousSummer(this)); 
                 break;
             case FALL:
-                _state = new DeciduousAutumn(this); 
+                setState(new DeciduousAutumn(this)); 
                 break;
             default:
                 throw new IllegalStateException("Unexpected season: " + season);

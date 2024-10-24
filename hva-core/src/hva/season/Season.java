@@ -10,7 +10,6 @@ public enum Season {
     WINTER;     // ordinal = 3
 
     // Method to get the next season
-    //
     public Season next() {
         return values()[(this.ordinal() + 1) % values().length]; // Wraps around to SPRING after WINTER 
     }

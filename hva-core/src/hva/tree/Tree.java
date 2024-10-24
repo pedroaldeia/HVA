@@ -10,7 +10,7 @@ public abstract class Tree implements Serializable{
     private  int _age;
     private int _cleaningDifficulty;
     private String _type;
-    protected TreeState _state;
+    private TreeState _state;
     private int _seasonCounter;
 
     /**
