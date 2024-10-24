@@ -220,7 +220,7 @@ public class Hotel implements Serializable {
         return animalString;
     }
 
-    public Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
+    private Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
         Animal animal = _animals.get(id);
         if(animal == null) {
             throw new CoreUnknownAnimalKeyException(id);
@@ -482,7 +482,7 @@ public class Hotel implements Serializable {
         return habitatString;
     }
 
-    public Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
+    private Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
         Habitat habitat = _habitats.get(id);
         if(habitat == null){
             throw new CoreUnknownHabitatKeyException(id);
@@ -541,7 +541,7 @@ public class Hotel implements Serializable {
         return newTree;
     }
 
-    public Tree getTree(String id) { return _trees.get(id);}
+    private Tree getTree(String id) { return _trees.get(id);}
     public Tree plantTree(String habitatId, String id)
                             throws CoreUnknownHabitatKeyException,
                             IllegalArgumentException{
@@ -699,6 +699,7 @@ public class Hotel implements Serializable {
         return searchStrategy.search(habitat);
         
     }
+
     public String searchInAnimal(String animalId, SearchAnimal searchStrategy) throws CoreUnknownAnimalKeyException{
         Animal animal = getAnimal(animalId);
 
