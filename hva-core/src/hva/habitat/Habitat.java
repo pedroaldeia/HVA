@@ -65,6 +65,10 @@ public class Habitat implements Serializable{
         return _animals.size();
     }
 
+    public int getPopulation(){
+        return getAnimalsNum() + getTreesNum();
+    }
+
     public void addCaretakersNum(){
         _caretakersNum++;
     }

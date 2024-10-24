@@ -12,7 +12,7 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
         Map<String, Habitat> responsibilities = c.getResponsibilityMap();
         for (Habitat h : responsibilities.values()){
             double habitatWork = 0;
-            habitatWork = h.getArea() + 3*h.getTreesNum();
+            habitatWork = h.getArea() + 3*h.getPopulation();
             for (Tree t: h.getTreesMap().values()){
                 habitatWork += t.calculateCleaningDifficulty();
             }
