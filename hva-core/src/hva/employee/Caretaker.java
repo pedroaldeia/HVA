@@ -8,7 +8,6 @@ import java.util.TreeMap;
 public class Caretaker extends Employee{
     private Map<String, Habitat> _responsibilityMap = new TreeMap<>();
 
-    //FIXME implement addResponsibility and accept
     /**
      * This is the constructor of the Caretaker class.
      * 
@@ -31,7 +30,6 @@ public class Caretaker extends Employee{
         }
         else{
             return "TRT|" + getId() + "|" + getName() + "|" + responsibilityToString(); 
-            //FIXME implement how to print the list
         }
     }
 
@@ -43,31 +41,7 @@ public class Caretaker extends Employee{
         return responsibility.substring(0, responsibility.length()-1);
     }
 
-    /**
-     * This method returns the unique identifier of the caretaker.
-     * 
-     * @return String identifier (_id)
-     */
-    @Override
-    public String getId(){
-        return super.getId();
-    }
-
-    /**
-     * This method returns the name of the caretaker.
-     * 
-     * @return String _name
-     */
-    @Override
-    public String getName(){
-        return super.getName();
-    }
-
-    @Override
-    public String getType(){
-        return super.getType();
-    }
-
+  
     public Map<String, Habitat> getResponsibilityMap(){
         return _responsibilityMap;
     }

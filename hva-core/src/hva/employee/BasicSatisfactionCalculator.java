@@ -3,7 +3,6 @@ package hva.employee;
 import java.util.Map;
 import hva.habitat.Habitat;
 import hva.animal.Species;
-import hva.tree.Tree;
 
 public class BasicSatisfactionCalculator implements SatisfactionCalculator {
     @Override
@@ -12,10 +11,7 @@ public class BasicSatisfactionCalculator implements SatisfactionCalculator {
         Map<String, Habitat> responsibilities = c.getResponsibilityMap();
         for (Habitat h : responsibilities.values()){
             double habitatWork = 0;
-            habitatWork = h.getArea() + 3*h.getPopulation();
-            for (Tree t: h.getTreesMap().values()){
-                habitatWork += t.calculateCleaningDifficulty();
-            }
+            habitatWork = h.getArea() + 3*h.getPopulation() + h.getTotalCleaningDifficulty();
             totalWork += habitatWork / h.getCaretakersNum(); 
         }
         return 300 - totalWork;

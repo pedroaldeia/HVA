@@ -13,8 +13,6 @@ public class Vet extends Employee{
     private Map<String, Species> _responsibilityMap = new TreeMap<>();
     private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
 
-    // implement addResponsibility and accept
-
     /**
      * This is the constructor of the Vet class.
      * 
@@ -47,33 +45,7 @@ public class Vet extends Employee{
         }
         return responsibility.substring(0, responsibility.length()-1);
     }
-
-
-    /**
-     * This method returns the unique identifier of the vet.
-     * 
-     * @return String identifier (_id)
-     */
-    @Override
-    public String getId(){
-        return super.getId();
-    }
-
-    /**
-     * This method returns the name of the vet.
-     * 
-     * @return String _name
-     */
-    @Override
-    public String getName(){
-        return super.getName();
-    }
-
-    @Override
-    public String getType(){
-        return super.getType();
-    }
-
+    
     public List<VaccineApplication> getVaccineApplications(){
         return _vaccineApplications;
     }

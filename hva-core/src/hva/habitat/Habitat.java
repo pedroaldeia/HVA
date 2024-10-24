@@ -9,9 +9,9 @@ import java.util.TreeMap;
 
 
 public class Habitat implements Serializable{
-    private String _id;
-    private String _name;
-    private int _area;
+    private String _id = "";
+    private String _name = "";
+    private int _area = 0;
     private int _caretakersNum = 0;
     private int _treeNum = 0;
     private Map<String, Animal> _animals = new TreeMap<>();
@@ -77,18 +77,6 @@ public class Habitat implements Serializable{
         return _caretakersNum;
     }
 
-    /**
-     * This method returns the map containing the animals in the habitat.
-     * 
-     * @return Map<String, Animal> _animals in the habitat
-     */
-    public Map<String, Animal> getAnimalMap(){
-        return _animals;
-    }
-
-    public Map<String, Tree> getTreesMap(){
-        return _trees;
-    }
 
     /**
      * This method returns the details of the habitat.
@@ -105,6 +93,14 @@ public class Habitat implements Serializable{
             return "HABITAT|" + this.getId() + "|" + this.getName() + "|" + _area + "|" + 
           _treeNum + "\n" + showAllTrees();
         }
+    }
+
+    public int getTotalCleaningDifficulty() {
+        int totalCleaningDifficulty = 0;
+        for (Tree tree : _trees.values()){
+            totalCleaningDifficulty += tree.calculateCleaningDifficulty();
+        }
+        return totalCleaningDifficulty;
     }
 
     /**

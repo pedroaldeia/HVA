@@ -3,11 +3,8 @@ package hva.employee;
 import java.io.Serializable;
 
 public abstract class Employee implements Serializable{
-    private String _id; //switched to protected to be able to access through classes 
-                          //Vet and Caretaker
+    private String _id; 
     private String _name;
-    //private SatisfactionCalculator _satisfactionCalc;
-
     private String _type; //VET or TRT
 
     /**

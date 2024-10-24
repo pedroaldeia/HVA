@@ -44,7 +44,6 @@ public class Animal implements Serializable{
         }
         return "ANIMAL|" + _id + "|" + _name + "|" +_species.getId() + "|" + 
           injuryRecordToString() + "|" + _habitat.getId(); 
-        //FIXME implement show injury Record
     }
 
     private String injuryRecordToString(){
@@ -148,19 +147,6 @@ public class Animal implements Serializable{
         }
         return max;
     } 
-
-    /* FIXME remove this
-    public String vaccinationsToString(){
-        String record = "";
-        for(VaccineApplication application : _injuryRecord){
-            record += application.toString() + "\n";
-        }
-        if(!record.equals("")){
-            record.substring(0, record.length() - 1);
-        }
-        return record;
-    }
-    */
     
 
     public double getAnimalSatisfaction(){
