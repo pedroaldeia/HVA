@@ -44,6 +44,7 @@ public class Hotel implements Serializable {
     private Map<String, Tree> _trees = new HashMap<>();
     private List<VaccineApplication> _vaccineApplications = new ArrayList<>();
     private Season _currentSeason = Season.SPRING;
+    private SearchStrategy _searchStrategy;
 
     public Hotel(){};    
     
@@ -117,6 +118,10 @@ public class Hotel implements Serializable {
         } catch (CoreException e) {e.printStackTrace();}
 
 
+    }
+
+    public void setSearchStrategy(SearchStrategy searchStrategy) {
+        _searchStrategy = searchStrategy;
     }
 
     public int showGlobalSatisfaction(){
@@ -228,7 +233,7 @@ public class Hotel implements Serializable {
         return animalString;
     }
 
-    private Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
+    public Animal getAnimal(String id) throws CoreUnknownAnimalKeyException  {
         Animal animal = _animals.get(id);
         if(animal == null) {
             throw new CoreUnknownAnimalKeyException(id);
@@ -257,15 +262,7 @@ public class Hotel implements Serializable {
         return type.equals("TRT") || type.equals("VET");
     }
 
-    public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
-        Animal animal = getAnimal(animalId);
-        if(animal == null){
-            throw new CoreUnknownAnimalKeyException(animalId);
-        }
-        //return animal.vaccinationsToString();
-        SearchStrategy searchStrategy = new SearchMedicalActsOnAnimal(animal);
-        return searchStrategy.search();
-    }
+    
 
 
     /**
@@ -477,14 +474,9 @@ public class Hotel implements Serializable {
         _fileChanged = true; 
     } 
 
-    public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
-        Vet vet = getVeterinarian(vetId);
-        //return vet.medicalActsToString(); FIXME remove this line
-        SearchStrategy searchStrategy = new SearchMedicalActsByVeterinarian(vet);
-        return searchStrategy.search();
-    }
+    
 
-    private Vet getVeterinarian(String id) throws CoreUnknownVeterinarianKeyException {
+    public Vet getVeterinarian(String id) throws CoreUnknownVeterinarianKeyException {
         Employee employee = _employees.get(id);
         if(employee == null || employee.getType().equals("VET") == false){
             throw new CoreUnknownVeterinarianKeyException(id);
@@ -509,7 +501,7 @@ public class Hotel implements Serializable {
         return habitatString;
     }
 
-    private Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
+    public Habitat getHabitat(String id) throws CoreUnknownHabitatKeyException {
         Habitat habitat = _habitats.get(id);
         if(habitat == null){
             throw new CoreUnknownHabitatKeyException(id);
@@ -622,15 +614,7 @@ public class Hotel implements Serializable {
         _fileChanged = true;
     }
     
-    public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
-        Habitat habitat = getHabitat(habitatId);
-        if(habitat == null){
-            throw new CoreUnknownHabitatKeyException(habitatId);
-        }
-        //return habitat.animalsInHabitatToString(); FIXME remove this line
-        SearchStrategy searchStrategy = new SearchAnimalsInHabitat(habitat);
-        return searchStrategy.search();
-    }
+    
 
     public int advanceSeason(){
         _currentSeason = _currentSeason.next();
@@ -723,22 +707,7 @@ public class Hotel implements Serializable {
         return vaccinationsString;
     }
 
-    public String showWrongVaccinations(){
-        /*
-        String wrongVaccinationsString = "";  FIXME remove this
-        for (VaccineApplication application : _vaccineApplications){
-            if(!application.getSuccesfulness()){
-                wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
-            }
-        }
-        if(!wrongVaccinationsString.equals("")){
-            wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
-        }
-        */
-        SearchStrategy searchStrategy = new SearchWrongVaccinations(this);
-        //return wrongVaccinationsString; FIXME remove this line
-        return searchStrategy.search();
-    }
+    
 
     public List<VaccineApplication> getVaccineApplications(){
         return _vaccineApplications;
@@ -763,5 +732,66 @@ public class Hotel implements Serializable {
      */
     public void setFileChanged(boolean fileChanged){
         _fileChanged = fileChanged;
+    }
+    public String showAnimalsInHabitat(String habitatId) throws CoreUnknownHabitatKeyException{
+        /*
+        Habitat habitat = getHabitat(habitatId);
+        if(habitat == null){
+            throw new CoreUnknownHabitatKeyException(habitatId);
+        }
+        */
+        //return habitat.animalsInHabitatToString(); FIXME remove this line
+        setSearchStrategy(new SearchAnimalsInHabitat());
+        try {
+            return _searchStrategy.search(this, habitatId);
+        } catch (CoreException e) {
+            throw (CoreUnknownHabitatKeyException) e;
+        }
+    }
+    public String showMedicalActsOnAnimal(String animalId) throws CoreUnknownAnimalKeyException{
+        /*
+        Animal animal = getAnimal(animalId);
+        if(animal == null){
+            throw new CoreUnknownAnimalKeyException(animalId);
+        }
+        //return animal.vaccinationsToString();
+        SearchStrategy searchStrategy = new SearchMedicalActsOnAnimal(animal);
+        */
+        setSearchStrategy(new SearchMedicalActsOnAnimal());
+        try {
+            return _searchStrategy.search(this, animalId);
+        } catch (CoreException e) {
+            throw (CoreUnknownAnimalKeyException) e;
+        }
+        
+    }
+    public String showMedicalActsByVeterinarian(String vetId) throws CoreUnknownVeterinarianKeyException{
+        /*
+        Vet vet = getVeterinarian(vetId);
+        //return vet.medicalActsToString(); FIXME remove this line
+        SearchStrategy searchStrategy = new SearchMedicalActsByVeterinarian(vet);
+        */
+        setSearchStrategy(new SearchMedicalActsByVeterinarian());
+        try {
+            return _searchStrategy.search(this, vetId);
+        } catch (CoreException e) {
+            throw (CoreUnknownVeterinarianKeyException) e;
+        }
+    }
+    public String showWrongVaccinations() throws CoreException{
+        /*
+        String wrongVaccinationsString = "";  FIXME remove this
+        for (VaccineApplication application : _vaccineApplications){
+            if(!application.getSuccesfulness()){
+                wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
+            }
+        }
+        if(!wrongVaccinationsString.equals("")){
+            wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
+        }
+        */
+        setSearchStrategy(new SearchWrongVaccinations());
+        //return wrongVaccinationsString; FIXME remove this line
+        return _searchStrategy.search(this, ""); //FIXME this is very wrong
     }
 }

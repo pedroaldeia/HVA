@@ -1,21 +1,18 @@
 package hva.search;
 
 import hva.Hotel;
+import hva.exceptions.CoreException;
+import hva.exceptions.CoreUnknownVaccineKeyException;
 import hva.vaccine.VaccineApplication;
-import org.w3c.dom.html.HTMLOListElement;
-import org.w3c.dom.html.HTMLOListElement;
 
 public class SearchWrongVaccinations implements SearchStrategy {
-    private Hotel _hotel;
 
-    public SearchWrongVaccinations(Hotel hotel) {
-        _hotel = hotel;
-    }
+    public SearchWrongVaccinations() {}
 
     @Override
-    public String search() {
+    public String search(Hotel hotel, String nothing) throws CoreException{
         String wrongVaccinationsString = "";
-        for (VaccineApplication application : _hotel.getVaccineApplications()){
+        for (VaccineApplication application : hotel.getVaccineApplications()){
             if(!application.getSuccesfulness()){
                 wrongVaccinationsString = wrongVaccinationsString + application.toString() + "\n";
             }
@@ -23,6 +20,7 @@ public class SearchWrongVaccinations implements SearchStrategy {
         if(!wrongVaccinationsString.equals("")){
             wrongVaccinationsString = wrongVaccinationsString.substring(0, wrongVaccinationsString.length() - 1);
         }
+        if(false) {throw new CoreUnknownVaccineKeyException("");}
         return wrongVaccinationsString;
     }
 }
