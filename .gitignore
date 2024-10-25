@@ -2,7 +2,7 @@
 *.class
 Test.java
 *.vscode
-.txt
+*.txt
 *.DS_Store
 test.txt
 *.dat
