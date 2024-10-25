@@ -247,53 +247,6 @@ public class Hotel implements Serializable {
         return type.equals("TRT") || type.equals("VET");
     }
 
-    //Only to be used inside this class
-    private void registerCaretaker(String id, String name, String idString) 
-                                        throws CoreDuplicateEmployeeKeyException,
-                                        CoreUnknownHabitatKeyException,
-                                        CoreUnknownEmployeeKeyException,
-                                        CoreNoResponsibilityException,
-                                        IllegalArgumentException {
-        if (_employees.containsKey(id)) {
-            throw new CoreDuplicateEmployeeKeyException(id);
-        }
-        Employee newEmployee = new Caretaker(id, name);
-        List<String> idList = splitId(idString);
-        if (!idString.equals("")){
-            for(String i : idList){
-                if(!_habitats.containsKey(i)){
-                    throw new CoreUnknownHabitatKeyException(i);
-                }
-                addResponsibility(id, i);
-            }
-        }
-        _employees.put(id, newEmployee);
-    }
-
-    //Only to be used inside this class
-    private void registerVet(String id, String name, String idString) 
-                                throws CoreDuplicateEmployeeKeyException,
-                                CoreUnknownEmployeeKeyException,
-                                CoreNoResponsibilityException,
-                                CoreUnknownSpeciesKeyException,
-                                IllegalArgumentException {
-        if (_employees.containsKey(id)) {
-            throw new CoreDuplicateEmployeeKeyException(id);
-        }
-        Employee newEmployee = new Vet(id, name);
-        List<String> idList = splitId(idString);
-        if (!idString.equals("")){
-            for(String i : idList){
-                if(!_species.containsKey(i)){
-                    throw new CoreUnknownSpeciesKeyException(i);
-                }
-                addResponsibility(id, i);
-            }
-        }
-        _employees.put(id, newEmployee);
-    }
-
-
     /**
      * Registers a new employee into the Hotel (puts it into the _employees map)
      * 
@@ -305,23 +258,54 @@ public class Hotel implements Serializable {
      */
     public boolean registerEmployee(String id, String name, String type, String idResponsibility)
             throws CoreDuplicateEmployeeKeyException, CoreUnknownHabitatKeyException, 
-            CoreUnknownSpeciesKeyException, CoreUnknownEmployeeKeyException, CoreNoResponsibilityException {
+            CoreUnknownSpeciesKeyException, CoreUnknownEmployeeKeyException, CoreNoResponsibilityException{
 
         if (_employees.containsKey(id)) {
             throw new CoreDuplicateEmployeeKeyException(id);
         }
+        Employee newEmployee;
+        List<String> idList = splitId(idResponsibility);
 
         if (type.equals("TRT")){
-            registerCaretaker(id, name, idResponsibility);
+            newEmployee = new Caretaker(id, name);
+            if (!idResponsibility.equals("")){
+                for(String i : idList){
+                    if(!_habitats.containsKey(i)){
+                        throw new CoreUnknownHabitatKeyException(i);
+                    }
+                }
+            }
         }
         else if(type.equals("VET")){ 
-            registerVet(id, name, idResponsibility);
-        } 
+            newEmployee = new Vet(id, name);
+            if (!idResponsibility.equals("")){
+                for(String i : idList){
+                    if(!_species.containsKey(i)){
+                        throw new CoreUnknownSpeciesKeyException(i);
+                    }
+                }
+            }
+        }
         else return false;
+        _employees.put(id, newEmployee);
 
-        setFileChanged(true);
+        try {
+            if(!idResponsibility.equals("")){
+                for(String i : idList){
+                addResponsibility(id, i);
+            }
+        }
+        } catch (CoreUnknownEmployeeKeyException e) {
+            throw e;
+        }
+        catch (CoreNoResponsibilityException e) {
+            throw e; 
+        }
+        
+        _fileChanged = true; 
         return true;
     }
+
 
     public boolean registerEmployee(String id, String name, String type) throws 
         CoreUnknownEmployeeKeyException, CoreNoResponsibilityException, 
