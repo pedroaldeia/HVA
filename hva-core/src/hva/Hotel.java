@@ -2,7 +2,6 @@ package hva;
 
 import hva.animal.Animal;
 import hva.animal.Species;
-import hva.app.exceptions.UnknownHabitatKeyException;
 import hva.employee.BasicSatisfactionCalculator;
 import hva.employee.Caretaker;
 import hva.employee.Employee;
@@ -555,26 +554,13 @@ public class Hotel implements Serializable {
         return tree;
     } 
 
-    public void removeTree(String id) throws CoreUnknownTreeKeyException{
-        Tree tree = getTree(id);
-        if (tree.equals(null)) throw new CoreUnknownTreeKeyException(id);
-        _trees.remove(id);
-    }
-
     public String registerTree(String habitatId, String id, String name, 
        String age, String dif, String type) throws CoreUnknownHabitatKeyException,
-       CoreDuplicateTreeKeyException, IllegalArgumentException,
-       CoreUnknownTreeKeyException{
+       CoreDuplicateTreeKeyException, IllegalArgumentException{
         int intAge = Integer.parseInt(age);
         int intDif = Integer.parseInt(dif);
         addTree(id, name, intAge, intDif, type);
-        Tree tree;
-        try{
-            tree =  plantTree(habitatId, id);
-        } catch (CoreUnknownHabitatKeyException e) {
-            removeTree(id);
-            throw e;
-        }
+        Tree tree =  plantTree(habitatId, id);
         return tree.toString();
     }
                                 
