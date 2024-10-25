@@ -711,26 +711,29 @@ public class Hotel implements Serializable {
     }
 
 
-    public String searchInHabitat(String habitatId, SearchHabitat searchStrategy) throws CoreUnknownHabitatKeyException{
+    public String queryHabitat(String habitatId, SearchHabitat searchStrategy) 
+                                throws CoreUnknownHabitatKeyException{
         Habitat habitat = getHabitat(habitatId);
 
-        return searchStrategy.search(habitat);
+        return habitat.search(searchStrategy);
         
     }
 
-    public String searchInAnimal(String animalId, SearchAnimal searchStrategy) throws CoreUnknownAnimalKeyException{
+    public String queryAnimal(String animalId, SearchAnimal searchStrategy) 
+                                throws CoreUnknownAnimalKeyException{
         Animal animal = getAnimal(animalId);
 
-        return searchStrategy.search(animal);
+        return animal.search(searchStrategy);
         
     }
-    public String searchInVet(String vetId, SearchVet searchStrategy) throws CoreUnknownVeterinarianKeyException{
+    public String queryVet(String vetId, SearchVet searchStrategy) 
+                                throws CoreUnknownVeterinarianKeyException{
         Vet vet = getVeterinarian(vetId);
        
-        return searchStrategy.search(vet);
+        return vet.search(searchStrategy);
     }
 
-    public String searchInHotel(SearchHotel searchStrategy){
+    public String searchHotel(SearchHotel searchStrategy){
         return searchStrategy.search(this); 
     }
     

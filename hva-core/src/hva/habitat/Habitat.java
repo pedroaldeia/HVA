@@ -2,6 +2,7 @@ package hva.habitat;
 
 import hva.animal.Animal;
 import hva.tree.Tree;
+import hva.search.SearchHabitat;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -170,5 +171,9 @@ public class Habitat implements Serializable{
             }
         }
         return 0;
+    }
+
+    public String search(SearchHabitat searchStrategy) {
+        return searchStrategy.search(this);
     }
 }

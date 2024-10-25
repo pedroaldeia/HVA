@@ -3,6 +3,7 @@ package hva.employee;
 import hva.animal.Species;
 import hva.exceptions.CoreUnknownSpeciesKeyException;
 import hva.exceptions.CoreVeterinarianNotAuthorizedException;
+import hva.search.SearchVet;
 import hva.vaccine.VaccineApplication;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,5 +81,9 @@ public class Vet extends Employee{
             throw new CoreVeterinarianNotAuthorizedException(getId(), application.getSpeciesId());
         }
         _vaccineApplications.add(application);
+    }
+
+    public String search(SearchVet serachStrategy) {
+        return serachStrategy.search(this);
     }
 }

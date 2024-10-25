@@ -19,7 +19,7 @@ class DoShowAnimalsInHabitat extends Command<Hotel> {
     protected void execute() throws CommandException {
         SearchHabitat searchStrategy = new SearchAnimalsInHabitat();
         try {
-            _display.popup(_receiver.searchInHabitat(
+            _display.popup(_receiver.queryHabitat(
                 Form.requestString(hva.app.habitat.Prompt.habitatKey()), searchStrategy));
         } catch(CoreUnknownHabitatKeyException e) {
             throw new UnknownHabitatKeyException(e.getHabitatKey());

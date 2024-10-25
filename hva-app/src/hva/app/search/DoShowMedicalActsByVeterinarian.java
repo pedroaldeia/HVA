@@ -20,7 +20,7 @@ class DoShowMedicalActsByVeterinarian extends Command<Hotel> {
     protected void execute() throws CommandException {
         try {
             SearchVet searchStrategy = new SearchMedicalActsByVeterinarian();
-            _display.popup(_receiver.searchInVet(
+            _display.popup(_receiver.queryVet(
                 Form.requestString(hva.app.employee.Prompt.employeeKey()), searchStrategy)); 
         } 
         catch (CoreUnknownVeterinarianKeyException e) {

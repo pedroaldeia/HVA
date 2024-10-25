@@ -1,6 +1,7 @@
 package hva.animal;
 
 import hva.habitat.Habitat;
+import hva.search.SearchAnimal;
 import hva.vaccine.Vaccine;
 import hva.vaccine.VaccineApplication;
 import java.io.Serializable;
@@ -157,5 +158,9 @@ public class Animal implements Serializable{
         int animalCount = getHabitat().getAnimalsNum();
         return 20 + 3*sameSpeciesCount - 2*differentSpeciesCount +
              habitatArea/animalCount + habitatInfluence;
+    }
+
+    public String search(SearchAnimal searchStrategy) {
+        return searchStrategy.search(this);
     }
 }

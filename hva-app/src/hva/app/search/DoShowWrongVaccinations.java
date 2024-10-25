@@ -15,7 +15,7 @@ class DoShowWrongVaccinations extends Command<Hotel> {
     @Override
     protected void execute() throws CommandException {
         SearchHotel searchStrategy = new SearchWrongVaccinations();
-        _display.popup(_receiver.searchInHotel(searchStrategy));
+        _display.popup(_receiver.searchHotel(searchStrategy));
     }
 
 }

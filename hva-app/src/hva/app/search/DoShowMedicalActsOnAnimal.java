@@ -19,7 +19,7 @@ class DoShowMedicalActsOnAnimal extends Command<Hotel> {
     protected void execute() throws CommandException {
         SearchAnimal searchStrategy = new SearchMedicalActsOnAnimal();
         try {
-            _display.popup(_receiver.searchInAnimal(
+            _display.popup(_receiver.queryAnimal(
                 Form.requestString(hva.app.animal.Prompt.animalKey()), searchStrategy));
         } catch (CoreUnknownAnimalKeyException e) {
             throw new UnknownAnimalKeyException(e.getAnimalKey());
