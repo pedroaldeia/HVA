@@ -1,15 +1,7 @@
-# HVA application
 
-At the beginning of development, the repository contains skeleton code for the application. 
+[Application Specification](https://github.com/pedroaldeia/HVA/blob/master/Programa%C3%A7%C3%A3o%20com%20Objectos_Enunciado%20do%20Projecto%20de%202024-2025%20-%20Wiki__3.pdf) | [Application Design Diagram](https://github.com/pedroaldeia/HVA/tree/master/uml) | [Core](https://github.com/pedroaldeia/HVA/tree/master/hva-core) | [App](https://github.com/pedroaldeia/HVA/tree/master/hva-app)
 
-* Core: `hva-core` contains the domain classes
-* Interaction: `hva-app` contains the user interaction classes
-* UML diagrams: `uml` will contain the diagrams from the first delivery
+This is an Object Oriented implementation of a veterinary application.
 
-The names of the classes already present must be changed.
-Some classes must not be changed in any way, no matter the reason.
-See details on the course pages.
-
-Note that not all the code has to be working for all deliveries (penalties may apply).
-Check the evaluation conditions on the course pages.
-
+---
+This project was developed in the scope of the Object Oriented Programming class at Instituto Superior Técnico in 2024/2025.
